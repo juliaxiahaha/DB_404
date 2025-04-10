@@ -1,25 +1,9 @@
 import "./HomePage.css";
+import Navbar from "../Navbar/Navbar.jsx";
 
 export const HomePage = ({ className, ...props }) => {
     return (
         <div className={"home-page " + className}>
-            <div className="top-bar">
-                <div className="rectangle-4137"></div>
-                <div className="title">Store Management System </div>
-                <div className="navigation">
-                    <div className="tab">Discount </div>
-                    <div className="tab">Customer </div>
-                    <div className="tab">Products </div>
-                    <div className="tab">Orders </div>
-                    <div className="tab">Employees </div>
-                    <div className="tab">Supplier </div>
-                    <div className="tab">Loog in </div>
-                    <div className="textfield">
-                        <div className="text">Search in site </div>
-                        <img className="ic-search" src="ic-search0.svg" />
-                    </div>
-                </div>
-            </div>
             <div className="section">
                 <div className="avatar"></div>
                 <div className="container">

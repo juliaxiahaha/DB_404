@@ -45,23 +45,6 @@ export const LoginPage = ({ className, ...props }) => {
                 </div>
                 <img className="vector-200" src="vector-2000.svg" />
             </div>
-            <div className="top-bar">
-                <div className="rectangle-4137"></div>
-                <div className="title7">Store Management System </div>
-                <div className="navigation">
-                    <div className="tab">Discount </div>
-                    <div className="tab">Customer </div>
-                    <div className="tab">Products </div>
-                    <div className="tab">Orders </div>
-                    <div className="tab">Employees </div>
-                    <div className="tab">Supplier </div>
-                    <div className="tab">Loog in </div>
-                    <div className="textfield2">
-                        <div className="text2">Search in site </div>
-                        <img className="ic-search" src="ic-search0.svg" />
-                    </div>
-                </div>
-            </div>
         </div>
     );
 };
