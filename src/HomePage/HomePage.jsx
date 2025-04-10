@@ -1,0 +1,209 @@
+import "./HomePage.css";
+
+export const HomePage = ({ className, ...props }) => {
+    return (
+        <div className={"home-page " + className}>
+            <div className="top-bar">
+                <div className="rectangle-4137"></div>
+                <div className="title">Store Management System </div>
+                <div className="navigation">
+                    <div className="tab">Discount </div>
+                    <div className="tab">Customer </div>
+                    <div className="tab">Products </div>
+                    <div className="tab">Orders </div>
+                    <div className="tab">Employees </div>
+                    <div className="tab">Supplier </div>
+                    <div className="tab">Loog in </div>
+                    <div className="textfield">
+                        <div className="text">Search in site </div>
+                        <img className="ic-search" src="ic-search0.svg" />
+                    </div>
+                </div>
+            </div>
+            <div className="section">
+                <div className="avatar"></div>
+                <div className="container">
+                    <div className="title2">Store Owner </div>
+                    <div className="selection">
+                        <div className="label-normal">
+                            <div className="label-text">Owner </div>
+                        </div>
+                    </div>
+                    <div className="description">
+                        View store services status and profitability{" "}
+                    </div>
+                </div>
+                <div className="button"></div>
+                <img className="vector-200" src="vector-2000.svg" />
+            </div>
+            <div className="list">
+                <div className="container2">
+                    <div className="title3">Employee Information </div>
+                    <div className="description2">Manage and monitor employees </div>
+                    <div className="seconday">
+                        <div className="title4">Manage More Employees </div>
+                    </div>
+                </div>
+                <div className="list2">
+                    <div className="row">
+                        <div className="item">
+                            <div className="frame">
+                                <div className="icon">👩‍💼 </div>
+                            </div>
+                            <div className="frame-427318906">
+                                <div className="title5">Manager </div>
+                                <div className="subtitle">Alice Smith </div>
+                            </div>
+                        </div>
+                        <div className="item">
+                            <div className="frame">
+                                <div className="icon">🧑‍💼 </div>
+                            </div>
+                            <div className="frame-427318906">
+                                <div className="title5">Sales Rep </div>
+                                <div className="subtitle">John Doe </div>
+                            </div>
+                        </div>
+                        <div className="item">
+                            <div className="frame">
+                                <div className="icon">👨‍💼 </div>
+                            </div>
+                            <div className="frame-427318906">
+                                <div className="title5">Supervisor </div>
+                                <div className="subtitle">Emily Johnson </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <img className="vector-2002" src="vector-2001.svg" />
+            </div>
+            <div className="form">
+                <div className="container3">
+                    <div className="title6">Add New Product </div>
+                    <div className="description3">
+                        Fill in the details for new product{" "}
+                    </div>
+                </div>
+                <div className="list3">
+                    <div className="row2">
+                        <div className="input">
+                            <div className="title7">Product Name </div>
+                            <div className="textfield2">
+                                <div className="text2">Enter product name </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row2">
+                        <div className="input">
+                            <div className="title7">Retail Price </div>
+                            <div className="textfield2">
+                                <div className="text2">Enter retail price </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row2">
+                        <div className="input">
+                            <div className="title7">Purchase Price </div>
+                            <div className="textfield2">
+                                <div className="text2">Enter purchase price </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row2">
+                        <div className="input">
+                            <div className="title8">Supplier </div>
+                            <div className="textfield2">
+                                <div className="text2">Enter supplier </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row2">
+                        <div className="selection2">
+                            <div className="title7">Category </div>
+                            <div className="chip-group">
+                                <div className="chip">
+                                    <div className="text3">Electronics </div>
+                                </div>
+                                <div className="chip">
+                                    <div className="text3">Clothing </div>
+                                </div>
+                                <div className="chip">
+                                    <div className="text3">Home Goods </div>
+                                </div>
+                                <div className="chip">
+                                    <div className="text3">+ </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="button2">
+                        <div className="primary">
+                            <div className="title9">Submit </div>
+                        </div>
+                    </div>
+                </div>
+                <img className="vector-2003" src="vector-2002.svg" />
+            </div>
+            <div className="reviews">
+                <div className="container3">
+                    <div className="title6">Customer Reviews </div>
+                    <div className="description3">Feedback from customers </div>
+                    <div className="button2">
+                        <div className="primary">
+                            <div className="title9">View More </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="list4">
+                    <div className="row">
+                        <div className="card">
+                            <div className="user">
+                                <div className="avatar2">
+                                    <div className="avatar3"></div>
+                                    <div className="frame-4273189062">
+                                        <div className="title10">Customer A </div>
+                                    </div>
+                                </div>
+                                <img className="frame-427318817" src="frame-4273188170.svg" />
+                            </div>
+                            <div className="title11">Great service and products. </div>
+                        </div>
+                        <div className="card">
+                            <div className="user">
+                                <div className="avatar2">
+                                    <div className="avatar3"></div>
+                                    <div className="frame-4273189062">
+                                        <div className="title10">Customer B </div>
+                                    </div>
+                                </div>
+                                <img className="frame-4273188172" src="frame-4273188171.svg" />
+                            </div>
+                            <div className="title11">Fast shipping, good quality. </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="card">
+                            <div className="user">
+                                <div className="avatar2">
+                                    <div className="avatar3"></div>
+                                    <div className="frame-4273189062">
+                                        <div className="title10">Customer C </div>
+                                    </div>
+                                </div>
+                                <img className="frame-4273188173" src="frame-4273188172.svg" />
+                            </div>
+                            <div className="title11">Excellent experience overall. </div>
+                        </div>
+                    </div>
+                </div>
+                <img className="vector-2004" src="vector-2003.svg" />
+            </div>
+            <div className="section2">
+                <div className="container4">
+                    <div className="title12">Contact Us: buyaozhaowomen@store.com </div>
+                    <div className="title13">Copyright © 2025 Store Management </div>
+                </div>
+            </div>
+        </div>
+    );
+};
