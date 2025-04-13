@@ -15,7 +15,7 @@ const Navbar = () => {
             </button>
             <div className="navigation">
                 <div className="tab">Discount</div>
-                <div className="tab">Customer</div>
+                <button className="tab" onClick={() => navigate("/customer")}>Customer</button>
                 <div className="tab">Products</div>
                 <div className="tab">Orders</div>
                 <div className="tab">Employees</div>

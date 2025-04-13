@@ -15,8 +15,8 @@ app.use(express.json());
 
 // eslint-disable-next-line no-undef
 if (!process.env.DB_PW) {
-    console.error('❌ Error: DB_PW environment variable is not set.');
-    console.error('👉 Please run: export DB_PW=your_database_password');
+    console.error('Error: DB_PW environment variable is not set.');
+    console.error('Please run: export DB_PW=your_database_password');
     // eslint-disable-next-line no-undef
     process.exit(1); // Exit the app to avoid accidental connection attempts
 }
@@ -35,17 +35,46 @@ const db = mysql.createConnection({
 });
 
 // Test route
+//SELECT
+//select customer
 app.get('/api', (req, res) => {
-    // res.send('Customers route is working!');
-    db.query('SELECT * FROM store.Customer', (err, results) => {
-        if (err) {
-            console.error('Error querying database:', err);
-            return res.status(500).json({ error: 'Database query failed' });
-        }
-        res.json(results);
+    // Execute both queries in parallel using Promise.all
+    const customerQuery = new Promise((resolve, reject) => {
+        db.query('SELECT * FROM store.Customer', (err, c_results) => {
+            if (err) {
+                console.error('Error querying database for customers:', err);
+                return reject({ error: 'Database query failed for customers' });
+            }
+            resolve(c_results);
+        });
     });
+
+    const productQuery = new Promise((resolve, reject) => {
+        db.query('SELECT * FROM store.Product', (err, p_results) => {
+            if (err) {
+                console.error('Error querying database for products:', err);
+                return reject({ error: 'Database query failed for products' });
+            }
+            resolve(p_results);
+        });
+    });
+
+    // Use Promise.all to wait for both queries to complete
+    Promise.all([customerQuery, productQuery])
+        .then(([c_results, p_results]) => {
+            // Send the combined results after both queries are done
+            res.json({
+                customers: c_results,
+                products: p_results
+            });
+        })
+        .catch((error) => {
+            // If any of the queries failed, return an error response
+            res.status(500).json(error);
+        });
 });
 
+
 app.listen(PORT, () => {
-    console.log(`🚀 Server is running at http://localhost:${PORT}/api`);
+    console.log(`Server is running at http://localhost:${PORT}/api`);
 });

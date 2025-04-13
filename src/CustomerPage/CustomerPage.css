@@ -1,0 +1,35 @@
+.customer-page {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.customer-page h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.customer-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.customer-item {
+    font-size: 18px;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.customer-item:hover {
+    background-color: #e0e0e0;
+    cursor: pointer;
+}
+
+.customer-item:active {
+    background-color: #cccccc;
+}
