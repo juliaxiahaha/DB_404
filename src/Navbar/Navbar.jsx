@@ -14,12 +14,28 @@ const Navbar = () => {
                 Store Management System
             </button>
             <div className="navigation">
-                <div className="tab">Discount</div>
+                <button className="tab" onClick={() => navigate("/discount")}>
+                    Discount
+                </button>
                 <button className="tab" onClick={() => navigate("/customer")}>Customer</button>
-                <div className="tab">Products</div>
-                <div className="tab">Orders</div>
-                <div className="tab">Employees</div>
-                <div className="tab">Supplier</div>
+                <button className="tab" onClick={() => navigate("/products")}>
+                    Products
+                </button>
+
+                {/* Orders -> Button */}
+                <button className="tab" onClick={() => navigate("/orders")}>
+                    Orders
+                </button>
+
+                {/* Employees -> Button */}
+                <button className="tab" onClick={() => navigate("/employees")}>
+                    Employees
+                </button>
+
+                {/* Supplier -> Button */}
+                <button className="tab" onClick={() => navigate("/supplier")}>
+                    Supplier
+                </button>
                 <button className="tab" onClick={() => navigate("/login")}>Login</button>
                 <div className="textfield">
                     <div className="text">Search in site</div>
