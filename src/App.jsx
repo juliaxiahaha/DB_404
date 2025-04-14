@@ -5,8 +5,17 @@ import { LoginPage } from "./LoginPage/LoginPage";
 import { CustomerPage } from "./CustomerPage/CustomerPage";
 import Navbar from "./Navbar/Navbar";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {useEffect, useState} from "react";
+import axios from "axios";
 
 export default function App() {
+    const [setUsers] = useState([]);
+
+    useEffect(() => {
+        axios.get('http://localhost:3001/')
+            .then(res => setUsers(res.data))
+            .catch(err => console.error('API error:', err));
+    }, []);
     return (
         <BrowserRouter>
             <Navbar />
