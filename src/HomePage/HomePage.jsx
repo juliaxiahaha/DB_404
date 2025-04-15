@@ -7,8 +7,51 @@ import vector2003 from './assets/vector-2003.svg';
 import frame0 from './assets/frame-4273188170.svg';
 import frame1 from './assets/frame-4273188171.svg';
 import frame2 from './assets/frame-4273188172.svg';
+import { useState } from 'react';
 
 export const HomePage = ({ className, ...props }) => {
+    const [product, setFormData] = useState({
+        new_Product_ID: '',
+        new_name: '',
+        new_category: '',
+        new_retail_price: '',
+        new_purchasing_price: '',
+        new_ratings: '',
+        new_Supplier_ID: '',
+        new_Discount_ID: ''
+    });
+
+    const handleChange = (field) => (e) => {
+        setFormData({ ...product, [field]: e.target.value });
+    };
+
+    const handleCategorySelect = (category) => {
+        setFormData({ ...product, new_category: category });
+    };
+
+    const handleSubmit = async () => {
+        try {
+            const res = await fetch('http://localhost:3001/home/insert', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(product),
+            });
+
+            if (!res.ok) {
+                const error = await res.json();
+                console.error("Backend error:", error);
+                alert('Failed to submit: ' + error.error);
+                return;
+            }
+
+            const data = await res.json();
+            alert('Product added!');
+            console.log(data);
+        } catch (error) {
+            console.error('Submit error:', error);
+            alert('Failed to submit product: ' + error.message);
+        }
+    };
     return (
         <div className={"home-page " + className}>
             <div className="section">
@@ -79,56 +122,64 @@ export const HomePage = ({ className, ...props }) => {
                     <div className="row2">
                         <div className="input">
                             <div className="title7">Product Name </div>
-                            <div className="textfield2">
-                                <div className="text2">Enter product name </div>
-                            </div>
+                            <input
+                                className="textfield2"
+                                placeholder="Enter product name"
+                                value={product.new_name}
+                                onChange={handleChange("new_name")}
+                            />
                         </div>
                     </div>
                     <div className="row2">
                         <div className="input">
                             <div className="title7">Retail Price </div>
-                            <div className="textfield2">
-                                <div className="text2">Enter retail price </div>
-                            </div>
+                            <input
+                                className="textfield2"
+                                type="number"
+                                placeholder="Enter retail price"
+                                value={product.new_retail_price}
+                                onChange={handleChange("new_retail_price")}
+                            />
                         </div>
                     </div>
                     <div className="row2">
                         <div className="input">
                             <div className="title7">Purchase Price </div>
-                            <div className="textfield2">
-                                <div className="text2">Enter purchase price </div>
-                            </div>
+                            <input
+                                className="textfield2"
+                                type="number"
+                                placeholder="Enter purchase price"
+                                value={product.new_purchasing_price}
+                                onChange={handleChange("new_purchasing_price")}
+                            />
                         </div>
                     </div>
                     <div className="row2">
                         <div className="input">
                             <div className="title8">Supplier </div>
-                            <div className="textfield2">
-                                <div className="text2">Enter supplier </div>
-                            </div>
+                            <input
+                                className="textfield2"
+                                type="number"
+                                placeholder="Enter supplier ID"
+                                value={product.new_Supplier_ID}
+                                onChange={handleChange("new_Supplier_ID")}
+                            />
                         </div>
                     </div>
                     <div className="row2">
                         <div className="selection2">
                             <div className="title7">Category </div>
                             <div className="chip-group">
-                                <div className="chip">
-                                    <div className="text3">Electronics </div>
-                                </div>
-                                <div className="chip">
-                                    <div className="text3">Clothing </div>
-                                </div>
-                                <div className="chip">
-                                    <div className="text3">Home Goods </div>
-                                </div>
-                                <div className="chip">
-                                    <div className="text3">+ </div>
-                                </div>
+                                {["Electronics", "Clothing", "Home Goods"].map((cat) => (
+                                    <div className="chip" key={cat} onClick={() => handleCategorySelect(cat)}>
+                                        <div className="text3">{cat}</div>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
                     <div className="button2">
-                        <div className="primary">
+                        <div className="primary" onClick={handleSubmit}>
                             <div className="title9">Submit </div>
                         </div>
                     </div>
