@@ -1,5 +1,12 @@
 import "./HomePage.css";
 import Navbar from "../Navbar/Navbar.jsx";
+import vector200 from './assets/vector-2000.svg';
+import vector2001 from './assets/vector-2001.svg';
+import vector2002 from './assets/vector-2002.svg';
+import vector2003 from './assets/vector-2003.svg';
+import frame0 from './assets/frame-4273188170.svg';
+import frame1 from './assets/frame-4273188171.svg';
+import frame2 from './assets/frame-4273188172.svg';
 
 export const HomePage = ({ className, ...props }) => {
     return (
@@ -18,7 +25,7 @@ export const HomePage = ({ className, ...props }) => {
                     </div>
                 </div>
                 <div className="button"></div>
-                <img className="vector-200" src="vector-2000.svg" />
+                <img className="vector-200" src={vector200} />
             </div>
             <div className="list">
                 <div className="container2">
@@ -59,7 +66,7 @@ export const HomePage = ({ className, ...props }) => {
                         </div>
                     </div>
                 </div>
-                <img className="vector-2002" src="vector-2001.svg" />
+                <img className="vector-2002" src={vector2002} />
             </div>
             <div className="form">
                 <div className="container3">
@@ -126,7 +133,7 @@ export const HomePage = ({ className, ...props }) => {
                         </div>
                     </div>
                 </div>
-                <img className="vector-2003" src="vector-2002.svg" />
+                <img className="vector-2003" src={vector2003} />
             </div>
             <div className="reviews">
                 <div className="container3">
@@ -148,7 +155,7 @@ export const HomePage = ({ className, ...props }) => {
                                         <div className="title10">Customer A </div>
                                     </div>
                                 </div>
-                                <img className="frame-427318817" src="frame-4273188170.svg" />
+                                <img className="frame-427318817" src={frame0} />
                             </div>
                             <div className="title11">Great service and products. </div>
                         </div>
@@ -160,7 +167,7 @@ export const HomePage = ({ className, ...props }) => {
                                         <div className="title10">Customer B </div>
                                     </div>
                                 </div>
-                                <img className="frame-4273188172" src="frame-4273188171.svg" />
+                                <img className="frame-4273188172" src={frame1} />
                             </div>
                             <div className="title11">Fast shipping, good quality. </div>
                         </div>
@@ -174,13 +181,13 @@ export const HomePage = ({ className, ...props }) => {
                                         <div className="title10">Customer C </div>
                                     </div>
                                 </div>
-                                <img className="frame-4273188173" src="frame-4273188172.svg" />
+                                <img className="frame-4273188173" src={frame2} />
                             </div>
                             <div className="title11">Excellent experience overall. </div>
                         </div>
                     </div>
                 </div>
-                <img className="vector-2004" src="vector-2003.svg" />
+                <img className="vector-2004" src={vector2003} />
             </div>
             <div className="section2">
                 <div className="container4">
