@@ -1,0 +1,931 @@
+.discount-page,
+.discount-page * {
+    box-sizing: border-box;
+}
+.discount-page {
+    background: #ffffff;
+    height: 1761px;
+    position: relative;
+    overflow: hidden;
+}
+.discount-page .top-bar {
+    background: #ffffff;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 1440px;
+    height: 80px;
+    position: absolute;
+    left: 0px;
+    top: 2px;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+}
+.discount-page .rectangle-4137 {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 100px;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    aspect-ratio: 1;
+}
+.discount-page .title {
+    color: #000000;
+    text-align: left;
+    font-family: "Roboto-Medium", sans-serif;
+    font-size: 28px;
+    line-height: 36px;
+    font-weight: 500;
+    position: relative;
+    flex: 1;
+}
+.discount-page .navigation {
+    background: #ffffff;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+}
+.discount-page .tab {
+    color: #000000;
+    text-align: left;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    position: relative;
+}
+.discount-page .textfield {
+    border-radius: 6px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.1);
+    border-width: 1px;
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    width: 200px;
+    position: relative;
+}
+.discount-page .text {
+    color: rgba(0, 0, 0, 0.5);
+    text-align: left;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    position: relative;
+    flex: 1;
+}
+.discount-page .ic-search {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    overflow: visible;
+    aspect-ratio: 1;
+}
+.discount-page .container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 316.25px;
+    position: absolute;
+    left: 222px;
+    top: 320px;
+}
+.discount-page .title2 {
+    color: #000000;
+    text-align: left;
+    font-family: "Roboto-Bold", sans-serif;
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 700;
+    position: relative;
+    align-self: stretch;
+}
+.discount-page .description {
+    color: #000000;
+    text-align: left;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+}
+.discount-page .list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 316.25px;
+    position: absolute;
+    left: 598.25px;
+    top: 144px;
+}
+.discount-page .row {
+    display: flex;
+    flex-direction: row;
+    gap: 80px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.discount-page .input {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 520px;
+    position: relative;
+    overflow: hidden;
+}
+.discount-page .title3 {
+    color: #000000;
+    text-align: left;
+    font-family: "Roboto-Medium", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    position: relative;
+    align-self: stretch;
+}
+.discount-page .textfield2 {
+    background: #ffffff;
+    border-radius: 6px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.1);
+    border-width: 1px;
+    padding: 8px 12px 8px 12px;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.discount-page .text2 {
+    color: rgba(0, 0, 0, 0.5);
+    text-align: left;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    position: relative;
+    flex: 1;
+    height: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.discount-page .input2 {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 520px;
+    position: absolute;
+    left: 598px;
+    top: 548px;
+    overflow: hidden;
+}
+.discount-page .button {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: absolute;
+    left: 598px;
+    top: 640px;
+    overflow: hidden;
+}
+.discount-page .seconday {
+    border-radius: 8px;
+    border-style: solid;
+    border-color: #000000;
+    border-width: 1px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 240px;
+    position: relative;
+}
+.discount-page .title4 {
+    color: #000000;
+    text-align: left;
+    font-family: "Roboto-Medium", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    position: relative;
+}
+.discount-page .primary {
+    background: #000000;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 240px;
+    position: relative;
+}
+.discount-page .title5 {
+    color: #ffffff;
+    text-align: left;
+    font-family: "Roboto-Medium", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    position: relative;
+}
+.discount-page .section {
+    padding: 60px;
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    width: 1420px;
+    height: 221px;
+    position: absolute;
+    left: 0px;
+    top: 1540px;
+    overflow: hidden;
+}
+.discount-page .container2 {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 100px;
+    position: relative;
+}
+.discount-page .title6 {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    position: relative;
+    width: 501px;
+    height: 114px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.discount-page .title7 {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+    width: 331px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.discount-page .group-2 {
+    position: absolute;
+    inset: 0;
+}
+.discount-page .container3 {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    justify-content: flex-start;
+    width: 1412px;
+    height: 50.2px;
+    position: absolute;
+    left: 0px;
+    top: 831px;
+}
+.discount-page .title8 {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Bold", sans-serif;
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 700;
+    position: relative;
+    width: 520px;
+}
+.discount-page .table-top-instance {
+    width: 4.51% !important;
+    height: 91.7px !important;
+    position: absolute !important;
+    right: 85.56% !important;
+    left: 9.94% !important;
+    top: calc(50% - -21.5px) !important;
+}
+.discount-page .table-top-instance2 {
+    width: 15.47% !important;
+    height: 91.42px !important;
+    position: absolute !important;
+    right: 70.17% !important;
+    left: 14.36% !important;
+    top: calc(50% - -21.5px) !important;
+}
+.discount-page .table-top-instance3 {
+    width: 13.59% !important;
+    height: 91.7px !important;
+    position: absolute !important;
+    right: 44.28% !important;
+    left: 42.13% !important;
+    top: calc(50% - -21.5px) !important;
+}
+.discount-page .table-top-instance4 {
+    width: 13.59% !important;
+    height: 91.7px !important;
+    position: absolute !important;
+    right: 30.87% !important;
+    left: 55.54% !important;
+    top: calc(50% - -21.5px) !important;
+}
+.discount-page .table-top-instance5 {
+    width: 9.15% !important;
+    height: 91.7px !important;
+    position: absolute !important;
+    right: 9.04% !important;
+    left: 81.81% !important;
+    top: calc(50% - -21.5px) !important;
+}
+.discount-page .table-cells-instance {
+    width: 64.54px !important;
+    height: 68.54px !important;
+    position: absolute !important;
+    left: 137.76px !important;
+    top: 1008.12px !important;
+}
+.discount-page .table-cells-instance2 {
+    width: 220.99px !important;
+    height: 68.54px !important;
+    position: absolute !important;
+    left: 202.86px !important;
+    top: 1008.12px !important;
+}
+.discount-page .table-cells-instance3 {
+    width: 14.2% !important;
+    height: 68.54px !important;
+    position: absolute !important;
+    right: 43.07% !important;
+    left: 42.73% !important;
+    top: calc(50% - -127.51px) !important;
+}
+.discount-page .table-cells-instance4 {
+    width: 9.08% !important;
+    height: 68.54px !important;
+    position: absolute !important;
+    right: 11.75% !important;
+    left: 79.17% !important;
+    top: calc(50% - -127.51px) !important;
+}
+.discount-page .table-cells-instance5 {
+    width: 64.54px !important;
+    height: 70.47px !important;
+    position: absolute !important;
+    left: 137.76px !important;
+    top: 1076.65px !important;
+}
+.discount-page .table-cells-instance6 {
+    width: 220.99px !important;
+    height: 70.47px !important;
+    position: absolute !important;
+    left: 202.86px !important;
+    top: 1076.65px !important;
+}
+.discount-page .table-cells-instance7 {
+    width: 14.2% !important;
+    height: 70.47px !important;
+    position: absolute !important;
+    right: 43.07% !important;
+    left: 42.73% !important;
+    top: calc(50% - -196.04px) !important;
+}
+.discount-page .table-cells-instance8 {
+    width: 9.08% !important;
+    height: 70.47px !important;
+    position: absolute !important;
+    right: 11.75% !important;
+    left: 79.17% !important;
+    top: calc(50% - -196.04px) !important;
+}
+.discount-page .table-cells-instance9 {
+    width: 64.54px !important;
+    height: 67.57px !important;
+    position: absolute !important;
+    left: 137.76px !important;
+    top: 1147.12px !important;
+}
+.discount-page .table-cells-instance10 {
+    width: 220.99px !important;
+    height: 67.57px !important;
+    position: absolute !important;
+    left: 202.86px !important;
+    top: 1147.12px !important;
+}
+.discount-page .table-cells-instance11 {
+    width: 14.2% !important;
+    height: 67.57px !important;
+    position: absolute !important;
+    right: 43.07% !important;
+    left: 42.73% !important;
+    top: calc(50% - -266.51px) !important;
+}
+.discount-page .table-cells-instance12 {
+    width: 9.08% !important;
+    height: 67.57px !important;
+    position: absolute !important;
+    right: 11.75% !important;
+    left: 79.17% !important;
+    top: calc(50% - -266.51px) !important;
+}
+.discount-page .table-cells-instance13 {
+    width: 64.54px !important;
+    height: 70.47px !important;
+    position: absolute !important;
+    left: 137.76px !important;
+    top: 1214.69px !important;
+}
+.discount-page .table-cells-instance14 {
+    width: 220.99px !important;
+    height: 70.47px !important;
+    position: absolute !important;
+    left: 202.86px !important;
+    top: 1214.69px !important;
+}
+.discount-page .table-cells-instance15 {
+    width: 14.2% !important;
+    height: 70.47px !important;
+    position: absolute !important;
+    right: 43.07% !important;
+    left: 42.73% !important;
+    top: calc(50% - -334.08px) !important;
+}
+.discount-page .table-cells-instance16 {
+    width: 9.08% !important;
+    height: 70.47px !important;
+    position: absolute !important;
+    right: 11.75% !important;
+    left: 79.17% !important;
+    top: calc(50% - -334.08px) !important;
+}
+.discount-page .table-cells-instance17 {
+    width: 64.54px !important;
+    height: 69.5px !important;
+    position: absolute !important;
+    left: 137.76px !important;
+    top: 1285.16px !important;
+}
+.discount-page .table-cells-instance18 {
+    width: 220.99px !important;
+    height: 69.5px !important;
+    position: absolute !important;
+    left: 202.86px !important;
+    top: 1285.16px !important;
+}
+.discount-page .table-cells-instance19 {
+    width: 14.2% !important;
+    height: 69.5px !important;
+    position: absolute !important;
+    right: 43.07% !important;
+    left: 42.73% !important;
+    top: calc(50% - -404.55px) !important;
+}
+.discount-page .table-cells-instance20 {
+    width: 8.95% !important;
+    height: 69.5px !important;
+    position: absolute !important;
+    right: 11.74% !important;
+    left: 79.31% !important;
+    top: calc(50% - -404.69px) !important;
+}
+.discount-page .table-cells-instance21 {
+    width: 64.54px !important;
+    height: 68.54px !important;
+    position: absolute !important;
+    left: 137.76px !important;
+    top: 1354.66px !important;
+}
+.discount-page .table-cells-instance22 {
+    width: 220.99px !important;
+    height: 68.54px !important;
+    position: absolute !important;
+    left: 202.86px !important;
+    top: 1354.66px !important;
+}
+.discount-page .table-top-instance6 {
+    width: 15.47% !important;
+    height: 91.42px !important;
+    position: absolute !important;
+    right: 57.28% !important;
+    left: 27.25% !important;
+    top: calc(50% - -21.5px) !important;
+}
+.discount-page .table-cells-instance23 {
+    width: 220.99px !important;
+    height: 68.54px !important;
+    position: absolute !important;
+    left: 384.85px !important;
+    top: 1008.12px !important;
+}
+.discount-page .table-cells-instance24 {
+    width: 220.99px !important;
+    height: 70.47px !important;
+    position: absolute !important;
+    left: 384.85px !important;
+    top: 1076.65px !important;
+}
+.discount-page .table-cells-instance25 {
+    width: 220.99px !important;
+    height: 67.57px !important;
+    position: absolute !important;
+    left: 384.85px !important;
+    top: 1147.12px !important;
+}
+.discount-page .table-cells-instance26 {
+    width: 220.99px !important;
+    height: 70.47px !important;
+    position: absolute !important;
+    left: 384.85px !important;
+    top: 1214.69px !important;
+}
+.discount-page .table-cells-instance27 {
+    width: 220.99px !important;
+    height: 69.5px !important;
+    position: absolute !important;
+    left: 384.85px !important;
+    top: 1285.16px !important;
+}
+.discount-page .table-cells-instance28 {
+    width: 220.99px !important;
+    height: 68.54px !important;
+    position: absolute !important;
+    left: 384.85px !important;
+    top: 1354.66px !important;
+}
+.discount-page .table-cells-instance29 {
+    width: 14.2% !important;
+    height: 68.54px !important;
+    position: absolute !important;
+    right: 43.07% !important;
+    left: 42.73% !important;
+    top: calc(50% - -474.05px) !important;
+}
+.discount-page .table-cells-instance30 {
+    width: 14.2% !important;
+    height: 68.54px !important;
+    position: absolute !important;
+    right: 31.37% !important;
+    left: 54.43% !important;
+    top: calc(50% - -126.53px) !important;
+}
+.discount-page .table-cells-instance31 {
+    width: 14.2% !important;
+    height: 70.47px !important;
+    position: absolute !important;
+    right: 31.37% !important;
+    left: 54.43% !important;
+    top: calc(50% - -195.07px) !important;
+}
+.discount-page .table-cells-instance32 {
+    width: 14.2% !important;
+    height: 67.57px !important;
+    position: absolute !important;
+    right: 31.37% !important;
+    left: 54.43% !important;
+    top: calc(50% - -265.54px) !important;
+}
+.discount-page .table-cells-instance33 {
+    width: 14.2% !important;
+    height: 70.47px !important;
+    position: absolute !important;
+    right: 31.37% !important;
+    left: 54.43% !important;
+    top: calc(50% - -333.11px) !important;
+}
+.discount-page .table-cells-instance34 {
+    width: 14.2% !important;
+    height: 69.5px !important;
+    position: absolute !important;
+    right: 31.37% !important;
+    left: 54.43% !important;
+    top: calc(50% - -403.58px) !important;
+}
+.discount-page .table-cells-instance35 {
+    width: 14.2% !important;
+    height: 68.54px !important;
+    position: absolute !important;
+    right: 31.37% !important;
+    left: 54.43% !important;
+    top: calc(50% - -473.08px) !important;
+}
+.discount-page .table-top-instance7 {
+    width: 14.61% !important;
+    height: 91.7px !important;
+    position: absolute !important;
+    right: 18.07% !important;
+    left: 67.32% !important;
+    top: calc(50% - -21.5px) !important;
+}
+.discount-page .table-cells-curre-instance {
+    width: 165.25px !important;
+    height: 68.54px !important;
+    position: absolute !important;
+    left: 957.87px !important;
+    top: 1007.12px !important;
+}
+.discount-page .table-cells-curre-instance2 {
+    width: 165.25px !important;
+    height: 70.47px !important;
+    position: absolute !important;
+    left: 957.87px !important;
+    top: 1075.65px !important;
+}
+.discount-page .table-cells-curre-instance3 {
+    width: 165.25px !important;
+    height: 67.57px !important;
+    position: absolute !important;
+    left: 957.87px !important;
+    top: 1146.12px !important;
+}
+.discount-page .table-cells-curre-instance4 {
+    width: 172.2px !important;
+    height: 60.3px !important;
+    position: absolute !important;
+    left: 950.52px !important;
+    top: 1223.89px !important;
+}
+.discount-page .table-cells-curre-instance5 {
+    width: 165.25px !important;
+    height: 69.5px !important;
+    position: absolute !important;
+    left: 957.87px !important;
+    top: 1284.16px !important;
+}
+.discount-page .table-cells-curre-instance6 {
+    width: 165.25px !important;
+    height: 68.54px !important;
+    position: absolute !important;
+    left: 957.87px !important;
+    top: 1353.66px !important;
+}
+.discount-page .table-cells-instance36 {
+    width: 8.95% !important;
+    height: 68.54px !important;
+    position: absolute !important;
+    right: 11.74% !important;
+    left: 79.31% !important;
+    top: calc(50% - -474.19px) !important;
+}
+.discount-page .pagination {
+    width: 215.12px;
+    height: 47.3px;
+    position: absolute;
+    left: 169.24px;
+    top: 1445.4px;
+}
+.discount-page .content {
+    color: var(--black, #00072b);
+    text-align: left;
+    font-family: var(--body-2-font-family, "OpenSans-Regular", sans-serif);
+    font-size: var(--body-2-font-size, 14px);
+    line-height: var(--body-2-line-height, 20px);
+    letter-spacing: var(--body-2-letter-spacing, 0.25px);
+    font-weight: var(--body-2-font-weight, 400);
+    position: absolute;
+    right: 40.12px;
+    top: 7px;
+    width: 17px;
+}
+.discount-page .content2 {
+    color: var(--gray-3, #b0bac9);
+    text-align: left;
+    font-family: var(--body-2-font-family, "OpenSans-Regular", sans-serif);
+    font-size: var(--body-2-font-size, 14px);
+    line-height: var(--body-2-line-height, 20px);
+    letter-spacing: var(--body-2-letter-spacing, 0.25px);
+    font-weight: var(--body-2-font-weight, 400);
+    position: absolute;
+    right: 37.81%;
+    left: 56.38%;
+    width: 5.81%;
+    top: 8px;
+}
+.discount-page .small-icon-button-secondary-default {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+.discount-page .button-base-secondary-default {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    right: 0%;
+    left: 0%;
+    bottom: 0%;
+    top: 0%;
+}
+.discount-page .background {
+    height: auto;
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    top: 0px;
+    overflow: visible;
+}
+.discount-page .icons-8-back-filled {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    top: 7px;
+    overflow: visible;
+}
+.discount-page .text-field-small-simple {
+    width: 33px;
+    height: 55px;
+    position: absolute;
+    left: 61px;
+    top: -23px;
+    overflow: hidden;
+}
+.discount-page .field-container-default {
+    height: 32px;
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    top: 23px;
+}
+.discount-page .base-bg-default {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    right: 0%;
+    left: 0%;
+    bottom: 0%;
+    top: 0%;
+    overflow: visible;
+}
+.discount-page .rectangle {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    right: 0%;
+    left: 0%;
+    bottom: 0%;
+    top: 0%;
+    overflow: visible;
+}
+.discount-page .placeholder {
+    color: var(--primary, #304ffe);
+    text-align: left;
+    font-family: var(--body-2-font-family, "OpenSans-Regular", sans-serif);
+    font-size: var(--body-2-font-size, 14px);
+    line-height: var(--body-2-line-height, 20px);
+    letter-spacing: var(--body-2-letter-spacing, 0.25px);
+    font-weight: var(--body-2-font-weight, 400);
+    position: absolute;
+    right: 12px;
+    left: 12px;
+    top: 29px;
+}
+.discount-page .small-icon-button-secondary-default2 {
+    width: 31.29px;
+    height: 30.89px;
+    position: absolute;
+    right: 1022.87px;
+    top: 1446.37px;
+}
+.discount-page .background2 {
+    height: auto;
+    position: absolute;
+    right: 0.29px;
+    left: 0px;
+    bottom: -0.11px;
+    top: 0px;
+    overflow: visible;
+}
+.discount-page .icons-8-right {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    left: 50%;
+    translate: -50%;
+    top: 7px;
+    overflow: visible;
+}
+.discount-page .rows-per-page {
+    width: 238.59px;
+    height: 47.3px;
+    position: absolute;
+    left: 1148.06px;
+    top: 1492.7px;
+}
+.discount-page .content3 {
+    color: var(--gray-1, #454d59);
+    text-align: left;
+    font-family: var(--body-2-font-family, "OpenSans-Regular", sans-serif);
+    font-size: var(--body-2-font-size, 14px);
+    line-height: var(--body-2-line-height, 20px);
+    letter-spacing: var(--body-2-letter-spacing, 0.25px);
+    font-weight: var(--body-2-font-weight, 400);
+    position: absolute;
+    right: 103.59px;
+    left: -32px;
+    top: calc(50% - 28.65px);
+}
+.discount-page .text-field-small-select-hard {
+    width: 60px;
+    height: 55px;
+    position: absolute;
+    left: -32px;
+    top: -69px;
+}
+.discount-page .base-bg-select {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    right: 0%;
+    left: 0%;
+    bottom: 0%;
+    top: 0%;
+    overflow: visible;
+}
+.discount-page .rectangle2 {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    right: 0%;
+    left: 0%;
+    bottom: 0%;
+    top: 0%;
+    overflow: visible;
+}
+.discount-page .placeholder2 {
+    color: var(--black, #00072b);
+    text-align: left;
+    font-family: var(--body-2-font-family, "OpenSans-Regular", sans-serif);
+    font-size: var(--body-2-font-size, 14px);
+    line-height: var(--body-2-line-height, 20px);
+    letter-spacing: var(--body-2-letter-spacing, 0.25px);
+    font-weight: var(--body-2-font-weight, 400);
+    position: absolute;
+    right: 12px;
+    left: 12px;
+    top: 29px;
+}
+.discount-page .ic-arrow-drop-down {
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    right: 8px;
+    top: 31px;
+    overflow: visible;
+}
+.discount-page .frame-427318907 {
+    width: 98.4px;
+    height: 97.26px;
+    position: absolute;
+    left: 461.48px;
+    top: 927.28px;
+    overflow: hidden;
+}
