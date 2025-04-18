@@ -9,6 +9,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {SupplierPage} from "./SupplierPage/SupplierPage.jsx";
+import { DiscountPage } from "./DiscountPage/DiscountPage.jsx";
 
 export default function App() {
     const [setUsers] = useState([]);
@@ -25,7 +26,9 @@ export default function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/customer" element={<CustomerPage />} />
-
+                <Route path="/orders" element={<OrderPage />} />
+                <Route path="/supplier" element={<SupplierPage />} />
+                <Route path="/discount" element={<DiscountPage />} />
 
             </Routes>
 
