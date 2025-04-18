@@ -11,6 +11,20 @@ import {
     TableCellsTypeSearch,
 } from "../TableParts"
 
+import background0 from './assets/background0.svg';
+import background1 from './assets/background1.svg';
+import baseBgDefault0 from './assets/base-bg-default0.svg';
+import baseBgSelect0 from './assets/base-bg-select0.svg';
+import counter0 from './assets/counter0.svg';
+import icArrowDropDown0 from './assets/ic-arrow-drop-down0.svg';
+import icSearch0 from './assets/ic-search0.svg';
+
+import icons8BackFilled0 from './assets/icons-8-back-filled0.svg';
+import icons8More0 from './assets/icons-8-more0.svg';
+import icons8Right0 from './assets/icons-8-right0.svg';
+import rectangle0 from './assets/rectangle0.svg';
+import rectangle1 from './assets/rectangle1.svg';
+
 export const DiscountPage = ({ className, ...props }) => {
     return (
         <div className={"discount-page " + className}>
@@ -284,33 +298,33 @@ export const DiscountPage = ({ className, ...props }) => {
                 <div className="content2">/ </div>
                 <div className="small-icon-button-secondary-default">
                     <div className="button-base-secondary-default">
-                        <img className="background" src="background0.svg" />
+                        <img className="background" src={background0} />
                     </div>
-                    <img className="icons-8-back-filled" src="icons-8-back-filled0.svg" />
+                    <img className="icons-8-back-filled" src={icons8BackFilled0} />
                 </div>
                 <div className="text-field-small-simple">
                     <div className="field-container-default">
-                        <img className="base-bg-default" src="base-bg-default0.svg" />
-                        <img className="rectangle" src="rectangle0.svg" />
+                        <img className="base-bg-default" src={baseBgDefault0} />
+                        <img className="rectangle" src={rectangle0} />
                     </div>
                     <div className="placeholder">1 </div>
                 </div>
             </div>
             <div className="small-icon-button-secondary-default2">
                 <div className="button-base-secondary-default">
-                    <img className="background2" src="background1.svg" />
+                    <img className="background2" src={background1} />
                 </div>
-                <img className="icons-8-right" src="icons-8-right0.svg" />
+                <img className="icons-8-right" src={icons8Right0} />
             </div>
             <div className="rows-per-page">
                 <div className="content3">Rows per page </div>
                 <div className="text-field-small-select-hard">
                     <div className="field-container-default">
-                        <img className="base-bg-select" src="base-bg-select0.svg" />
-                        <img className="rectangle2" src="rectangle1.svg" />
+                        <img className="base-bg-select" src={baseBgSelect0} />
+                        <img className="rectangle2" src={rectangle1} />
                     </div>
                     <div className="placeholder2">15 </div>
-                    <img className="ic-arrow-drop-down" src="ic-arrow-drop-down0.svg" />
+                    <img className="ic-arrow-drop-down" src={icArrowDropDown0} />
                 </div>
             </div>
             <div className="frame-427318907"></div>
