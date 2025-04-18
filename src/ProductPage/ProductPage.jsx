@@ -1,4 +1,7 @@
 import "./ProductPage.css";
+//Import image
+import image360 from "/src/ProductPage/image-360.png";
+import image190 from "../CustomerPage/assets/image-190.png";
 
 export const ProductPage = ({ className, ...props }) => {
     return (
@@ -30,7 +33,7 @@ export const ProductPage = ({ className, ...props }) => {
                     <div className="item">
                         <div className="frame">
                             <div className="icon">📆 </div>
-                            <img className="image-36" src="image-360.png" />
+                            <img className="image-36" src={image360} />
                         </div>
                         <div className="frame-427318906">
                             <div className="title5">Nikon N400 Camera </div>

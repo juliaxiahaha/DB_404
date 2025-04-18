@@ -273,16 +273,16 @@
     position: relative;
     flex: 1;
 }
-.product-page .navigation {
-    background: #ffffff;
-    display: flex;
-    flex-direction: row;
-    gap: 40px;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    position: relative;
-}
+/*.product-page .navigation {*/
+/*    background: #ffffff;*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    gap: 40px;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    flex-shrink: 0;*/
+/*    position: relative;*/
+/*}*/
 .product-page .tab {
     color: #000000;
     text-align: left;
