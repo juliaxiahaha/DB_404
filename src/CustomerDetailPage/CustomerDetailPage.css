@@ -1,0 +1,736 @@
+.customer-detail-page,
+.customer-detail-page * {
+    box-sizing: border-box;
+}
+.customer-detail-page {
+    background: #ffffff;
+    height: 2181px;
+    position: relative;
+    overflow: hidden;
+}
+.customer-detail-page .section {
+    padding: 60px;
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    width: 1440px;
+    height: 212px;
+    position: absolute;
+    left: -2px;
+    top: 1969px;
+    overflow: hidden;
+}
+.customer-detail-page .container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 100px;
+    position: relative;
+}
+.customer-detail-page .title {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    position: relative;
+    width: 501px;
+    height: 114px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.customer-detail-page .title2 {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+    width: 331px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.customer-detail-page .section2 {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 60px 170px 60px 170px;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    width: 1440px;
+    height: 197px;
+    position: absolute;
+    left: -2px;
+    top: 80px;
+    overflow: hidden;
+}
+.customer-detail-page .avatar {
+    background: rgba(217, 217, 217, 0.5);
+    border-radius: 50px;
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+}
+.customer-detail-page .image-1 {
+    border-radius: 277px;
+    width: 99.36px;
+    height: 99px;
+    position: absolute;
+    left: 0px;
+    top: 1.5px;
+    object-fit: cover;
+    aspect-ratio: 99.36/99;
+}
+.customer-detail-page .image-2 {
+    border-radius: 277px;
+    width: 99.36px;
+    height: 99px;
+    position: absolute;
+    left: 0px;
+    top: 1.5px;
+    object-fit: cover;
+    aspect-ratio: 99.36/99;
+}
+.customer-detail-page .image-3 {
+    border-radius: 277px;
+    width: 99.36px;
+    height: 99px;
+    position: absolute;
+    left: 0px;
+    top: 1.5px;
+    object-fit: cover;
+    aspect-ratio: 99.36/99;
+}
+.customer-detail-page .container2 {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1;
+    position: relative;
+}
+.customer-detail-page .title3 {
+    color: #ffffff;
+    text-align: left;
+    font-family: "Roboto-Bold", sans-serif;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 700;
+    position: relative;
+    align-self: stretch;
+}
+.customer-detail-page .selection {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+.customer-detail-page .label-normal {
+    background: rgba(217, 217, 217, 0.5);
+    border-radius: 2px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.1);
+    border-width: 0.5px;
+    padding: 2px 4px 2px 4px;
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+.customer-detail-page .label-text {
+    color: #000000;
+    text-align: left;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    font-weight: 400;
+    position: relative;
+}
+.customer-detail-page .description {
+    color: #ffffff;
+    text-align: left;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+}
+.customer-detail-page .vector-200 {
+    flex-shrink: 0;
+    height: 0px;
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    overflow: visible;
+}
+.customer-detail-page .form {
+    padding: 60px 170px 60px 170px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    width: 1440px;
+    height: 624px;
+    position: absolute;
+    left: -2px;
+    top: 251px;
+    overflow: hidden;
+}
+.customer-detail-page .container3 {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.customer-detail-page .title4 {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Bold", sans-serif;
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 700;
+    position: relative;
+    width: 520px;
+}
+.customer-detail-page .description2 {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    position: relative;
+    width: 520px;
+}
+.customer-detail-page .list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.customer-detail-page .row {
+    display: flex;
+    flex-direction: row;
+    gap: 80px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.customer-detail-page .input {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 510px;
+    position: relative;
+    overflow: hidden;
+}
+.customer-detail-page .title5 {
+    color: #000000;
+    text-align: left;
+    font-family: "Roboto-Medium", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 500;
+    position: relative;
+    align-self: stretch;
+}
+.customer-detail-page .textfield {
+    background: #ffffff;
+    border-radius: 6px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.1);
+    border-width: 1px;
+    padding: 8px 12px 8px 12px;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.customer-detail-page .text {
+    color: rgba(0, 0, 0, 0.5);
+    text-align: left;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    position: relative;
+    flex: 1;
+    height: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.customer-detail-page .button {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+.customer-detail-page .primary {
+    background: #000000;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 240px;
+    position: relative;
+}
+.customer-detail-page .title6 {
+    color: #ffffff;
+    text-align: left;
+    font-family: "Roboto-Medium", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
+    position: relative;
+}
+.customer-detail-page .vector-2002 {
+    flex-shrink: 0;
+    height: 0px;
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    overflow: visible;
+}
+.customer-detail-page .list2 {
+    padding: 60px 170px 60px 170px;
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    width: 1440px;
+    height: 536px;
+    position: absolute;
+    left: -2px;
+    top: 851px;
+    overflow: hidden;
+}
+.customer-detail-page .container4 {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    position: relative;
+}
+.customer-detail-page .container5 {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.customer-detail-page .title7 {
+    color: #000000;
+    text-align: left;
+    font-family: "Roboto-Bold", sans-serif;
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 700;
+    position: relative;
+    align-self: stretch;
+}
+.customer-detail-page .description3 {
+    color: #000000;
+    text-align: left;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+}
+.customer-detail-page .row2 {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.customer-detail-page .item {
+    padding: 12px 0px 12px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    position: relative;
+}
+.customer-detail-page .frame {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 50px;
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    aspect-ratio: 1;
+}
+.customer-detail-page .icon {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 62.5px;
+    line-height: 100px;
+    font-weight: 400;
+    position: absolute;
+    left: 50%;
+    translate: -50% -50%;
+    top: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.customer-detail-page .image-34 {
+    border-radius: 52px;
+    width: 137.22px;
+    height: 104px;
+    position: absolute;
+    left: -19px;
+    top: 0px;
+    object-fit: cover;
+    aspect-ratio: 137.22/104;
+}
+.customer-detail-page .frame-427318906 {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.customer-detail-page .title8 {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+}
+.customer-detail-page .subtitle {
+    color: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+}
+.customer-detail-page .subtitle2 {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Medium", sans-serif;
+    font-size: 28px;
+    line-height: 36px;
+    font-weight: 500;
+    position: relative;
+    align-self: stretch;
+}
+.customer-detail-page .image {
+    border-radius: 39.5px;
+    width: 89.88px;
+    height: 95px;
+    position: absolute;
+    left: 5px;
+    top: 0px;
+    object-fit: cover;
+    aspect-ratio: 89.88/95;
+}
+.customer-detail-page .image-container {
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+}
+.customer-detail-page .image2 {
+    background: rgba(217, 217, 217, 0.5);
+    align-self: stretch;
+    flex: 1;
+    position: relative;
+}
+.customer-detail-page .image-12 {
+    width: 520.36px;
+    height: 508px;
+    position: absolute;
+    left: 0px;
+    top: -46px;
+    object-fit: cover;
+    aspect-ratio: 520.36/508;
+}
+.customer-detail-page .vector-2003 {
+    flex-shrink: 0;
+    height: 0px;
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    overflow: visible;
+}
+.customer-detail-page .item2 {
+    padding: 12px 0px 12px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 146.67px;
+    position: absolute;
+    left: 218px;
+    top: 1683px;
+}
+.customer-detail-page .image3 {
+    border-radius: 52px;
+    width: 137.22px;
+    height: 104px;
+    position: absolute;
+    left: -19px;
+    top: 0px;
+    object-fit: cover;
+    aspect-ratio: 137.22/104;
+}
+.customer-detail-page .frame-4273189062 {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: 189px;
+    position: relative;
+}
+.customer-detail-page .title9 {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    position: relative;
+    width: 194px;
+}
+.customer-detail-page .item3 {
+    padding: 12px 0px 12px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 146.67px;
+    position: absolute;
+    left: 495px;
+    top: 1683px;
+}
+.customer-detail-page .item4 {
+    padding: 12px 0px 12px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 146.67px;
+    position: absolute;
+    left: 796px;
+    top: 1683px;
+}
+.customer-detail-page .item5 {
+    padding: 12px 0px 12px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 146.67px;
+    position: absolute;
+    left: 1097px;
+    top: 1677px;
+}
+.customer-detail-page .form2 {
+    padding: 60px 170px 60px 170px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    width: 1440px;
+    position: absolute;
+    left: 0px;
+    top: 1361px;
+    overflow: hidden;
+}
+.customer-detail-page .image-35 {
+    flex-shrink: 0;
+    width: 96px;
+    height: 96px;
+    position: relative;
+    object-fit: cover;
+    aspect-ratio: 1;
+}
+.customer-detail-page .vector-2004 {
+    flex-shrink: 0;
+    height: 0px;
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    overflow: visible;
+}
+.customer-detail-page .top-bar {
+    background: #ffffff;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 1440px;
+    height: 80px;
+    position: absolute;
+    left: 0px;
+    top: 2px;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+}
+.customer-detail-page .rectangle-4137 {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 100px;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    aspect-ratio: 1;
+}
+.customer-detail-page .title10 {
+    color: #000000;
+    text-align: left;
+    font-family: "Roboto-Medium", sans-serif;
+    font-size: 28px;
+    line-height: 36px;
+    font-weight: 500;
+    position: relative;
+    flex: 1;
+}
+.customer-detail-page .navigation {
+    background: #ffffff;
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+}
+.customer-detail-page .tab {
+    color: #000000;
+    text-align: left;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    position: relative;
+}
+.customer-detail-page .textfield2 {
+    border-radius: 6px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.1);
+    border-width: 1px;
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    width: 200px;
+    position: relative;
+}
+.customer-detail-page .text2 {
+    color: rgba(0, 0, 0, 0.5);
+    text-align: left;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    position: relative;
+    flex: 1;
+}
+.customer-detail-page .ic-search {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    overflow: visible;
+    aspect-ratio: 1;
+}
