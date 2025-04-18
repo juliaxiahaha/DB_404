@@ -1,7 +1,9 @@
 import "./ProductPage.css";
 //Import image
-import image360 from "/src/ProductPage/image-360.png";
-import image190 from "../CustomerPage/assets/image-190.png";
+import image360 from "/src/ProductPage/assets/image-360.png";
+import section1 from "/src/ProductPage/assets/section1.svg";
+import vector2000 from "/src/ProductPage/assets/vector-2000.svg";
+
 
 export const ProductPage = ({ className, ...props }) => {
     return (
@@ -13,12 +15,12 @@ export const ProductPage = ({ className, ...props }) => {
                     <div className="title3">Privacy Policy </div>
                 </div>
             </div>
-            <img className="section2" src="section1.svg" />
+            <img className="section2" src={section1} />
             <div className="section3">
                 <div className="container2">
                     <div className="title4">Select a product from the product list: </div>
                 </div>
-                <img className="vector-200" src="vector-2000.svg" />
+                <img className="vector-200" src={vector2000} />
             </div>
             <div className="list">
                 <div className="row">
