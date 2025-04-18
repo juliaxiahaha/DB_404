@@ -1,0 +1,81 @@
+.table-top-type-droplist,
+.table-top-type-droplist * {
+  box-sizing: border-box;
+}
+.table-top-type-droplist {
+  background: var(--white, #ffffff);
+  padding: 6px 12px 6px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 103px;
+  position: relative;
+  box-shadow: var(
+    --dafault-table-separator-box-shadow,
+    inset 0px -1px 0px 0px rgba(201, 207, 218, 1)
+  );
+  overflow: hidden;
+}
+.table-top-type-droplist .title {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.table-top-type-droplist .table-title {
+  color: var(--black, #00072b);
+  text-align: left;
+  font-family: var(
+    --subtitle-2-semibold-font-family,
+    "OpenSans-SemiBold",
+    sans-serif
+  );
+  font-size: var(--subtitle-2-semibold-font-size, 14px);
+  line-height: var(--subtitle-2-semibold-line-height, 24px);
+  font-weight: var(--subtitle-2-semibold-font-weight, 600);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.table-top-type-droplist .counter {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  overflow: visible;
+}
+.table-top-type-droplist .select {
+  display: flex;
+  flex-direction: row;
+  gap: 7px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.table-top-type-droplist .all {
+  color: var(--black, #00072b);
+  text-align: left;
+  font-family: var(--body-2-font-family, "OpenSans-Regular", sans-serif);
+  font-size: var(--body-2-font-size, 14px);
+  line-height: var(--body-2-line-height, 20px);
+  letter-spacing: var(--body-2-letter-spacing, 0.25px);
+  font-weight: var(--body-2-font-weight, 400);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.table-top-type-droplist .ic-arrow-drop-down {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  overflow: visible;
+}

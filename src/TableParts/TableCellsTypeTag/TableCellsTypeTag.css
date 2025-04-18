@@ -1,0 +1,22 @@
+.table-cells-type-tag,
+.table-cells-type-tag * {
+  box-sizing: border-box;
+}
+.table-cells-type-tag {
+  background: #ffffff;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 114px;
+  position: relative;
+  box-shadow: var(
+    --cell-table-separator-box-shadow,
+    inset 0px -1px 0px 0px rgba(223, 226, 233, 1)
+  );
+}
+.table-cells-type-tag .tag-instance {
+  flex-shrink: 0 !important;
+}
