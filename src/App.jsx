@@ -10,6 +10,9 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import {SupplierPage} from "./SupplierPage/SupplierPage.jsx";
 import { DiscountPage } from "./DiscountPage/DiscountPage.jsx";
+import {EmployeePage} from "./EmployeePage/EmployeePage.jsx";
+import {ProductPage} from "./ProductPage/ProductPage.jsx";
+
 
 export default function App() {
     const [setUsers] = useState([]);
@@ -29,7 +32,8 @@ export default function App() {
                 <Route path="/orders" element={<OrderPage />} />
                 <Route path="/supplier" element={<SupplierPage />} />
                 <Route path="/discount" element={<DiscountPage />} />
-
+                <Route path="/employees" element={<EmployeePage />} />
+                <Route path="/products" element={<ProductPage />} />
             </Routes>
 
         </BrowserRouter>
