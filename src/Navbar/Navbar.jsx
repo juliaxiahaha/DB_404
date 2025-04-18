@@ -1,6 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
+import search from "./assets/ic-search0.svg";
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -39,7 +40,7 @@ const Navbar = () => {
                 <button className="tab" onClick={() => navigate("/login")}>Login</button>
                 <div className="textfield">
                     <div className="text">Search in site</div>
-                    <img className="ic-search" src="ic-search0.svg" alt="Search" />
+                    <img className="ic-search" src={search} alt="Search" />
                 </div>
             </div>
         </div>

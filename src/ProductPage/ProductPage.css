@@ -1,0 +1,378 @@
+.product-page,
+.product-page * {
+    box-sizing: border-box;
+}
+.product-page {
+    background: #ffffff;
+    height: 1462px;
+    position: relative;
+    overflow: hidden;
+}
+.product-page .section {
+    padding: 60px;
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    width: 1440px;
+    height: 160px;
+    position: absolute;
+    left: 11px;
+    top: 2880px;
+    overflow: hidden;
+}
+.product-page .container {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 100px;
+    position: relative;
+}
+.product-page .title {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+    width: 99px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.product-page .title2 {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+    width: 175px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.product-page .title3 {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+    width: 124px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.product-page .section2 {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    width: 1440px;
+    height: 0px;
+    position: absolute;
+    left: 11px;
+    top: 3180px;
+    overflow: visible;
+}
+.product-page .section3 {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 60px 170px 60px 170px;
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    width: 1440px;
+    position: absolute;
+    left: 0px;
+    top: 137px;
+    overflow: hidden;
+}
+.product-page .container2 {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 1;
+    position: relative;
+}
+.product-page .title4 {
+    color: #ffffff;
+    text-align: center;
+    font-family: "Roboto-Bold", sans-serif;
+    font-size: 40px;
+    line-height: 48px;
+    font-weight: 700;
+    position: relative;
+    width: 520px;
+}
+.product-page .vector-200 {
+    flex-shrink: 0;
+    height: 0px;
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    overflow: visible;
+}
+.product-page .list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    width: 1440px;
+    height: 919px;
+    position: absolute;
+    left: 0px;
+    top: 353px;
+}
+.product-page .row {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.product-page .item {
+    padding: 12px 0px 12px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    position: relative;
+}
+.product-page .frame {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 50px;
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    aspect-ratio: 1;
+}
+.product-page .icon {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 62.5px;
+    line-height: 100px;
+    font-weight: 400;
+    position: absolute;
+    left: 50%;
+    translate: -50% -50%;
+    top: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.product-page .frame-427318906 {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    justify-content: flex-start;
+    align-self: stretch;
+    flex-shrink: 0;
+    position: relative;
+}
+.product-page .title5 {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+}
+.product-page .image-36 {
+    border-radius: 57.5px;
+    width: 115px;
+    height: 115px;
+    position: absolute;
+    left: -8px;
+    top: -0.5px;
+    object-fit: cover;
+    aspect-ratio: 1;
+}
+.product-page .icon2 {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 62.5px;
+    line-height: 100px;
+    font-weight: 400;
+    position: absolute;
+    left: calc(50% - 49px);
+    top: 50%;
+    translate: 0 -50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.product-page .top-bar {
+    background: #ffffff;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    width: 1440px;
+    height: 80px;
+    position: absolute;
+    left: 0px;
+    top: 2px;
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+}
+.product-page .rectangle-4137 {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 100px;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    aspect-ratio: 1;
+}
+.product-page .title6 {
+    color: #000000;
+    text-align: left;
+    font-family: "Roboto-Medium", sans-serif;
+    font-size: 28px;
+    line-height: 36px;
+    font-weight: 500;
+    position: relative;
+    flex: 1;
+}
+/*.product-page .navigation {*/
+/*    background: #ffffff;*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    gap: 40px;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*    flex-shrink: 0;*/
+/*    position: relative;*/
+/*}*/
+.product-page .tab {
+    color: #000000;
+    text-align: left;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    position: relative;
+}
+.product-page .textfield {
+    border-radius: 6px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.1);
+    border-width: 1px;
+    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    align-items: center;
+    justify-content: flex-end;
+    flex-shrink: 0;
+    width: 200px;
+    position: relative;
+}
+.product-page .text {
+    color: rgba(0, 0, 0, 0.5);
+    text-align: left;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    position: relative;
+    flex: 1;
+}
+.product-page .ic-search {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    overflow: visible;
+    aspect-ratio: 1;
+}
+.product-page .section4 {
+    padding: 60px;
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    align-items: center;
+    justify-content: center;
+    width: 1440px;
+    position: absolute;
+    left: 0px;
+    top: 1242px;
+    overflow: hidden;
+}
+.product-page .container3 {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    height: 100px;
+    position: relative;
+}
+.product-page .title7 {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    position: relative;
+    width: 501px;
+    height: 114px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.product-page .title8 {
+    color: #000000;
+    text-align: center;
+    font-family: "Roboto-Regular", sans-serif;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    position: relative;
+    align-self: stretch;
+    width: 331px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
