@@ -3,6 +3,7 @@ import mysql from 'mysql2';
 import cors from 'cors';
 // import fs from 'fs';
 import homeRoutes from './routes/home.js';
+import deleteCustomer from './routes/deleteCustomer.js';
 
 const DB_HOST='db-mysql-nyc3-77807-do-user-20581125-0.l.db.ondigitalocean.com'
 const DB_USER='doadmin'
@@ -76,6 +77,7 @@ app.get('/api', (req, res) => {
 });
 
 app.use('/home', homeRoutes(db));
+app.use('/api/deleteCustomer', deleteCustomer(db));
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}/api`);
