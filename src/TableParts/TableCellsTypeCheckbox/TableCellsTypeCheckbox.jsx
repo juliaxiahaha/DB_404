@@ -1,4 +1,5 @@
 import "./TableCellsTypeCheckbox.css";
+import icon24Px0 from '../assets/icon-24-px0.svg';
 
 function TableCellsTypeCheckbox({
                                   type = "action",
@@ -13,7 +14,7 @@ function TableCellsTypeCheckbox({
           {...props}
       >
         <div className="check-box-default">
-          <img className="icon-24-px" src="icon-24-px0.svg" alt="" />
+          <img className="icon-24-px" src={icon24Px0} alt="" />
         </div>
       </div>
   );
