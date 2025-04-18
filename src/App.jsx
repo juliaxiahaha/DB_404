@@ -3,6 +3,7 @@ import "./styles.css";
 import { HomePage } from "./HomePage/HomePage";
 import { LoginPage } from "./LoginPage/LoginPage";
 import { CustomerPage } from "./CustomerPage/CustomerPage";
+import { OrderPage } from "./OrderPage/OrderPage";
 import Navbar from "./Navbar/Navbar";
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {useEffect, useState} from "react";
@@ -23,6 +24,7 @@ export default function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/customer" element={<CustomerPage />} />
+                <Route path="/orders" element={<OrderPage />} />
 
             </Routes>
 
