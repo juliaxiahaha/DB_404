@@ -5,6 +5,7 @@ import cors from 'cors';
 import homeRoutes from './routes/home.js';
 import deleteCustomer from './routes/deleteCustomer.js';
 import insertCustomer from './routes/insertCustomer.js';
+import updateCustomer from './routes/updateCustomer.js';
 
 
 const DB_HOST='db-mysql-nyc3-77807-do-user-20581125-0.l.db.ondigitalocean.com'
@@ -81,6 +82,7 @@ app.get('/api', (req, res) => {
 app.use('/home', homeRoutes(db));
 app.use('/api/customers', insertCustomer(db));
 app.use('/api/customers', deleteCustomer(db));
+app.use('/api/customers', updateCustomer(db));
 
 
 app.listen(PORT, () => {
