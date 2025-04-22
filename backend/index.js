@@ -8,6 +8,11 @@ import deleteCustomer from './routes/deleteCustomer.js';
 import updateCustomer from './routes/updateCustomer.js';
 import insertCustomer from './routes/insertCustomer.js';
 import sorterRoutes from './routes/sorter.js';
+import deleteEmployee from './routes/deleteEmployee.js';
+import deleteShipping from './routes/deleteShipping.js';
+import deleteOrder          from './routes/deleteOrder.js';
+import deleteOrderDetail    from './routes/deleteOrderDetail.js';
+import deleteShoppingCart   from './routes/deleteShoppingCart.js';
 
 const DB_HOST='db-mysql-nyc3-77807-do-user-20581125-0.l.db.ondigitalocean.com'
 const DB_USER='doadmin'
@@ -86,6 +91,12 @@ app.use('/api/customers', insertCustomer(db));
 app.use('/api/customers', deleteCustomer(db));
 app.use('/api/customers', updateCustomer(db));
 app.use('/api/sorter', sorterRoutes(db));
+app.use('/api/employees', deleteEmployee(db));
+app.use('/api/shippings', deleteShipping(db));
+// Order-related DELETE
+app.use('/api/orders', deleteOrder(db));             // DELETE /api/orders/:id
+app.use('/api/orderDetails', deleteOrderDetail(db)); // DELETE /api/orderDetails/:orderId/:productId
+app.use('/api/shoppingCarts', deleteShoppingCart(db));// DELETE /api/shoppingCarts/:customerId/:productId
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}/api`);
