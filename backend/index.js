@@ -110,7 +110,7 @@ app.use('/api/products', insertProduct(db));
 app.use('/api/employees', insertEmployee(db));
 app.use('/api/shippings', insertShipping(db));
 app.use('/api/orders', insertOrder(db));
-app.use('/api/orders', insertOrderDetail(db));
+app.use('/api/orderDetails', insertOrderDetail(db));
 app.use('/api/shoppingCarts', insertShoppingCart(db));
 
 app.listen(PORT, () => {
