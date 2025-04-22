@@ -7,3 +7,7 @@ export { default as TableTopTypeDroplist } from "./TableTopTypeDroplist/TableTop
 export { default as TableCellsTypeCheckbox } from "./TableCellsTypeCheckbox/TableCellsTypeCheckbox.jsx";
 export { default as TableCellsCurre } from "./TableCellsCurre/TableCellsCurre.jsx";
 export { default as TableCellsTypeAction } from "./TableCellsTypeAction/TableCellsTypeAction.jsx";
+export { default as TableCellsTypeStatus } from "./TableCellsTypeStatus/TableCellsTypeStatus.jsx";
+export { default as TableCellsTypePersonCell } from "./TableCellsTypePersonCell/TableCellsTypePersonCell.jsx";
+export { default as StatusTypeDanger } from "./StatusTypeDanger/StatusTypeDanger.jsx";
+export { default as StatusTypeWarning } from "./StatusTypeWarning/StatusTypeWarning.jsx";

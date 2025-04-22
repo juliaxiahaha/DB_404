@@ -1,69 +1,94 @@
 import "./OrderPage.css";
 
-// Import SVGs
-import counter0 from "/src/OrderPage/assets/counter0.svg";
-import baseBgSelect0 from "/src/OrderPage/assets/base-bg-select0.svg";
-import rectangle0 from "/src/OrderPage/assets/rectangle0.svg";
-import icArrowDropDown0 from "/src/OrderPage/assets/ic-arrow-drop-down0.svg";
-import background0 from "/src/OrderPage/assets/background0.svg";
-import icons8Right0 from "/src/OrderPage/assets/icons-8-right0.svg";
-import background1 from "/src/OrderPage/assets/background1.svg";
-import icons8BackFilled0 from "/src/OrderPage/assets/icons-8-back-filled0.svg";
-import baseBgDefault0 from "/src/OrderPage/assets/base-bg-default0.svg";
-import rectangle1 from "/src/OrderPage/assets/rectangle1.svg";
-import icSearch0 from "/src/OrderPage/assets/ic-search0.svg";
-
-
+import {
+    TableCellsTypeCheckbox,
+    TableCellsTypeText,
+    TableCellsTypeStatus,
+    TableCellsTypeTag,
+    TableCellsTypePersonCell,
+    TableCellsCurre,
+    TableCellsTypeAction,
+    StatusTypeDanger,
+    StatusTypeWarning,
+} from "../TableParts";
 
 export const OrderPage = ({ className, ...props }) => {
     return (
         <div className={"order-page " + className}>
-            <img className="counter" src={counter0} />
+            <div className="order-container">
+                <h1 className="order-title">Order List</h1>
 
-            <div className="rows-per-page">
-                <div className="content">Rows per page </div>
-                <div className="text-field-small-select-hard">
-                    <div className="field-container-default">
-                        <img className="base-bg-select" src={baseBgSelect0} />
-                        <img className="rectangle" src={rectangle0} />
-                    </div>
-                    <div className="placeholder">15 </div>
-                    <img className="ic-arrow-drop-down" src={icArrowDropDown0} />
-                </div>
-            </div>
-            <div className="pagination">
-                <div className="content2">16 </div>
-                <div className="content3">/ </div>
-                <div className="small-icon-button-secondary-default">
-                    <div className="button-base-secondary-default">
-                        <img className="background" src={background0} />
-                    </div>
-                    <img className="icons-8-right" src={icons8Right0} />
-                </div>
-                <div className="small-icon-button-secondary-default2">
-                    <div className="button-base-secondary-default">
-                        <img className="background2" src={background1} />
-                    </div>
-                    <img className="icons-8-back-filled" src={icons8BackFilled0} />
-                </div>
-                <div className="text-field-small-simple">
-                    <div className="field-container-default">
-                        <img className="base-bg-default" src={baseBgDefault0} />
-                        <img className="rectangle2" src={rectangle1} />
-                    </div>
-                    <div className="placeholder2">1 </div>
-                </div>
-            </div>
-            <div className="section">
-                <div className="container">
-                    <div className="title">Contact Us: buyaozhaowomen@store.com </div>
-                    <div className="title2">Copyright © 2025 Store Management </div>
-                </div>
-            </div>
-            <div className="container2">
-                <div className="title3">Order List </div>
-            </div>
+                <div className="order-table">
+                    <TableCellsTypeCheckbox />
+                    <TableCellsTypeText text="#1023" />
+                    <TableCellsTypeStatus text="Completed" />
+                    <TableCellsTypeText text="Evan Flores" />
+                    <TableCellsTypeTag text="8/24/2000" />
+                    <TableCellsTypePersonCell text="Evan Flores" />
+                    <TableCellsCurre text="$452.85" />
+                    <TableCellsTypeAction />
 
+                    <TableCellsTypeCheckbox />
+                    <TableCellsTypeText text="#0202" />
+                    <TableCellsTypeStatus
+                        text="Delivered"
+                        component={<StatusTypeDanger type="danger" />}
+                    />
+                    <TableCellsTypeText text="Arlene Wilson" />
+                    <TableCellsTypeTag text="7/31/1999" />
+                    <TableCellsTypePersonCell text="Arlene Wilson" />
+                    <TableCellsCurre text="$901.31" />
+                    <TableCellsTypeAction />
+
+                    <TableCellsTypeCheckbox />
+                    <TableCellsTypeText text="#4399" />
+                    <TableCellsTypeStatus
+                        text="Shipped"
+                        component={<StatusTypeWarning type="warning" />}
+                    />
+                    <TableCellsTypeText text="Jennie Cooper" />
+                    <TableCellsTypeTag text="4/19/2004" />
+                    <TableCellsTypePersonCell text="Jennie Cooper" />
+                    <TableCellsCurre text="$641.20" />
+                    <TableCellsTypeAction />
+
+                    <TableCellsTypeCheckbox />
+                    <TableCellsTypeText text="#1717" />
+                    <TableCellsTypeStatus
+                        text="Canceled"
+                        component={<StatusTypeDanger type="danger" />}
+                    />
+                    <TableCellsTypeText text="Philip Steward" />
+                    <TableCellsTypeTag text="5/5/2023" />
+                    <TableCellsTypePersonCell text="Philip Steward" />
+                    <TableCellsCurre text="$510.30" />
+                    <TableCellsTypeAction />
+
+                    <TableCellsTypeCheckbox />
+                    <TableCellsTypeText text="#3928" />
+                    <TableCellsTypeStatus
+                        text="Refunded"
+                        component={<StatusTypeWarning type="warning" />}
+                    />
+                    <TableCellsTypeText text="Jorge Black" />
+                    <TableCellsTypeTag text="3/4/2004" />
+                    <TableCellsTypePersonCell text="Jorge Black" />
+                    <TableCellsCurre text="$828.90" />
+                    <TableCellsTypeAction />
+
+                    <TableCellsTypeCheckbox />
+                    <TableCellsTypeText text="#2749" />
+                    <TableCellsTypeStatus
+                        text="Processing"
+                        component={<StatusTypeDanger type="danger" />}
+                    />
+                    <TableCellsTypeText text="Gladys Jones" />
+                    <TableCellsTypeTag text="9/25/2002" />
+                    <TableCellsTypePersonCell text="Gladys Jones" />
+                    <TableCellsCurre text="$845.59" />
+                    <TableCellsTypeAction />
+                </div>
+            </div>
         </div>
     );
 };
