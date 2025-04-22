@@ -19,3 +19,5 @@ export const TableCellsTypePersonCell = ({
       </div>
   );
 };
+
+export default TableCellsTypePersonCell

@@ -1,0 +1,29 @@
+.user,
+.user * {
+  box-sizing: border-box;
+}
+.user {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+.user .ava {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  position: relative;
+  overflow: visible;
+}
+.user .content {
+  color: var(--black, #00072b);
+  text-align: left;
+  font-family: var(--body-2-font-family, "OpenSans-Regular", sans-serif);
+  font-size: var(--body-2-font-size, 14px);
+  line-height: var(--body-2-line-height, 20px);
+  letter-spacing: var(--body-2-letter-spacing, 0.25px);
+  font-weight: var(--body-2-font-weight, 400);
+  position: relative;
+}
