@@ -42,7 +42,23 @@ export default function(db) {
             }
             res.json({ message: 'Product inserted successfully', results });
         });
+
+
     });
+
+    router.get('/employees', (req, res) => {
+        const sql = 'SELECT name FROM Employee LIMIT 3';
+
+        db.query(sql, (err, results) => {
+            if (err) {
+                console.error('Failed to fetch employees:', err);
+                return res.status(500).json({ error: 'Failed to fetch employees' });
+            }
+            res.json(results);
+        });
+    });
+
+
 
     return router;
 }
