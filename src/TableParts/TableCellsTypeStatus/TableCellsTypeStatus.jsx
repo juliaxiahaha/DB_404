@@ -19,3 +19,5 @@ export const TableCellsTypeStatus = ({
       </div>
   );
 };
+
+export default TableCellsTypeStatus
