@@ -52,12 +52,6 @@ export const DiscountPage = ({ className, ...props }) => {
                     </div>
                 </div>
             </div>
-            <div className="input2">
-                <div className="title3">Product </div>
-                <div className="textfield2">
-                    <div className="text2">Select products </div>
-                </div>
-            </div>
             <div className="button">
                 <div className="seconday">
                     <div className="title4">Cancel </div>
