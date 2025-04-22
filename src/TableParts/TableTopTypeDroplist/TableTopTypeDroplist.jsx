@@ -1,4 +1,5 @@
 import "./TableTopTypeDroplist.css";
+import counter0 from '../assets/counter0.svg';
 
 function TableTopTypeDroplist({
                                 type = "search",
@@ -16,7 +17,7 @@ function TableTopTypeDroplist({
       >
         <div className="title">
           <div className="table-title">{text}</div>
-          <img className="counter" src="counter0.svg" alt="" />
+          <img className="counter" src={counter0} alt="" />
         </div>
 
         <div className="select">

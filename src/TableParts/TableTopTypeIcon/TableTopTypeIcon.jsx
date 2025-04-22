@@ -1,4 +1,5 @@
 import "./TableTopTypeIcon.css";
+import icon24Px0 from "../assets/icon-24-px0.svg";
 
 function TableTopTypeIcon({ type = "search", className = "", ...props }) {
   const variantsClassName = `type-${type}`;
@@ -8,7 +9,7 @@ function TableTopTypeIcon({ type = "search", className = "", ...props }) {
           className={`table-top-type-icon ${className} ${variantsClassName}`}
           {...props}
       >
-        <img className="icon-24-px" src="icon-24-px0.svg" alt="" />
+        <img className="icon-24-px" src={icon24Px0} alt="" />
       </div>
   );
 }
