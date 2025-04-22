@@ -1,0 +1,27 @@
+.status-type-warning,
+.status-type-warning * {
+  box-sizing: border-box;
+}
+.status-type-warning {
+  border-radius: 4px;
+  border-style: solid;
+  border-color: var(--yellow, #db8c28);
+  border-width: 1px;
+  padding: 1px 12px 1px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+.status-type-warning ._01-oct-2018 {
+  color: var(--yellow, #db8c28);
+  text-align: center;
+  font-family: var(--caption-font-family, "OpenSans-Regular", sans-serif);
+  font-size: var(--caption-font-size, 12px);
+  line-height: var(--caption-line-height, 18px);
+  letter-spacing: var(--caption-letter-spacing, 0.4px);
+  font-weight: var(--caption-font-weight, 400);
+  position: relative;
+}
