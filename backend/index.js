@@ -7,6 +7,7 @@ import discountRoutes from './routes/discount.js';
 import deleteCustomer from './routes/deleteCustomer.js';
 import updateCustomer from './routes/updateCustomer.js';
 import insertCustomer from './routes/insertCustomer.js';
+import sorterRoutes from './routes/sorter.js';
 
 const DB_HOST='db-mysql-nyc3-77807-do-user-20581125-0.l.db.ondigitalocean.com'
 const DB_USER='doadmin'
@@ -84,6 +85,7 @@ app.use('/discount', discountRoutes(db));
 app.use('/api/customers', insertCustomer(db));
 app.use('/api/customers', deleteCustomer(db));
 app.use('/api/customers', updateCustomer(db));
+app.use('/api/sorter', sorterRoutes(db));
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}/api`);
