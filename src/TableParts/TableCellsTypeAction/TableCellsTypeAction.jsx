@@ -1,4 +1,5 @@
 import "./TableCellsTypeAction.css";
+import icon8more from "../assets/icons-8-more0.svg";
 
 function TableCellsTypeAction({
                                 type = "action",
@@ -12,7 +13,7 @@ function TableCellsTypeAction({
           className={`table-cells-type-action ${className} ${variantsClassName}`}
           {...props}
       >
-        <img className="icons-8-more" src="icons-8-more0.svg" alt="" />
+        <img className="icons-8-more" src={icon8more} alt="" />
       </div>
   );
 }
