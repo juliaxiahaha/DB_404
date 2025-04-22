@@ -5,7 +5,6 @@ const router = express.Router();
 export default function(db) {
     const toNullable = v => v === undefined || v === '' ? null : v;
 
-    // POST /api/customers/insert
     router.post('/insert', (req, res) => {
         const {
             new_Customer_ID,
