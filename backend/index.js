@@ -35,6 +35,8 @@ import getEmployees       from './routes/getEmployees.js';
 import getOrderDetails       from './routes/getOrderDetails.js';
 import getOrders          from './routes/getOrders.js';
 import getProducts       from './routes/getProducts.js';
+import getProductReviews   from './routes/getProductReviews.js';
+import getShippings       from './routes/getShippings.js';
 
 const DB_HOST='db-mysql-nyc3-77807-do-user-20581125-0.l.db.ondigitalocean.com'
 const DB_USER='doadmin'
@@ -140,6 +142,8 @@ app.use('/api/employees', getEmployees(db));
 app.use('/api/orderDetails', getOrderDetails(db));
 app.use('/api/orders', getOrders(db));
 app.use('/api/products', getProducts(db));
+app.use('/api/productReviews', getProductReviews(db));
+app.use('/api/shippings', getShippings(db));
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}/api`);
