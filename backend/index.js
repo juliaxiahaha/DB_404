@@ -42,6 +42,7 @@ import getSuppliers       from './routes/getSuppliers.js';
 import getCustomerById from "./routes/getCustomerById.js";
 import getProductById    from './routes/getProductById.js';
 import getSupplierByProductId  from './routes/getSupplierByProductId.js';
+import getReviewsByProductId from './routes/getReviewsByProductId.js';
 
 const DB_HOST='db-mysql-nyc3-77807-do-user-20581125-0.l.db.ondigitalocean.com'
 const DB_USER='doadmin'
@@ -154,6 +155,7 @@ app.use('/api/suppliers', getSuppliers(db));
 app.use('/api/customers', getCustomerById(db));
 app.use('/api/products', getProductById(db));
 app.use('/api/suppliers', getSupplierByProductId(db));
+app.use('/api/productReviews', getReviewsByProductId(db));
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}/api`);
