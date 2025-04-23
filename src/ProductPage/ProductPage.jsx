@@ -1,5 +1,6 @@
 // src/ProductPage.jsx
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';               // ← 新增
 import axios from 'axios';
 import './ProductPage.css';
 import section1 from '/src/ProductPage/assets/section1.svg';
@@ -15,7 +16,7 @@ export const ProductPage = ({ className, ...props }) => {
             .then(res => setProducts(res.data))
             .catch(err => {
                 console.error(err);
-                setError('failed to load');
+                setError('加载产品失败');
             })
             .finally(() => setLoading(false));
     }, []);
@@ -33,6 +34,7 @@ export const ProductPage = ({ className, ...props }) => {
 
     return (
         <div className={`product-page ${className}`} {...props}>
+            {/* 顶栏 */}
             <div className="section">
                 <div className="container">
                     <div className="title">Contact Us</div>
@@ -41,8 +43,10 @@ export const ProductPage = ({ className, ...props }) => {
                 </div>
             </div>
 
+            {/* 装饰图 */}
             <img className="section2" src={section1} />
 
+            {/* 黑底横幅 */}
             <div className="section3">
                 <div className="container2">
                     <div className="title4">Select a product from the product list:</div>
@@ -50,16 +54,22 @@ export const ProductPage = ({ className, ...props }) => {
                 <img className="vector-200" src={vector2000} />
             </div>
 
+            {/* 产品列表 */}
             <div className="list">
                 {rows.map((row, ri) => (
                     <div className="row" key={ri}>
                         {row.map(prod => (
-                            <div className="item" key={prod.id || prod.ProductID}>
-                                <div className="frame">
-                                    <div className="icon">📦</div>
-                                </div>
+                            <div className="item" key={prod.ProductID /* 或 prod.id */}>
+                                {/* 点击图标跳详情 */}
+                                <Link to={`/products/${prod.ProductID}`}>
+                                    <div className="frame">
+                                        <div className="icon">📦</div>
+                                    </div>
+                                </Link>
                                 <div className="frame-427318906">
-                                    <div className="title5">{prod.name || prod.product_name}</div>
+                                    <div className="title5">
+                                        {prod.name || prod.ProductName}
+                                    </div>
                                 </div>
                             </div>
                         ))}
@@ -67,10 +77,15 @@ export const ProductPage = ({ className, ...props }) => {
                 ))}
             </div>
 
+            {/* 底部横幅 */}
             <div className="section4">
                 <div className="container3">
-                    <div className="title7">Contact Us: buyaozhaowomen@store.com</div>
-                    <div className="title8">Copyright © 2025 Store Management</div>
+                    <div className="title7">
+                        Contact Us: buyaozhaowomen@store.com
+                    </div>
+                    <div className="title8">
+                        Copyright © 2025 Store Management
+                    </div>
                 </div>
             </div>
         </div>

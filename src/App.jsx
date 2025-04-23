@@ -12,6 +12,7 @@ import {SupplierPage} from "./SupplierPage/SupplierPage.jsx";
 import { DiscountPage } from "./DiscountPage/DiscountPage.jsx";
 import {EmployeePage} from "./EmployeePage/EmployeePage.jsx";
 import {ProductPage} from "./ProductPage/ProductPage.jsx";
+import {ProductDetailPage} from "./ProductDetailPage/ProductDetailPage.jsx";
 
 
 export default function App() {
@@ -34,6 +35,7 @@ export default function App() {
                 <Route path="/discount" element={<DiscountPage />} />
                 <Route path="/employees" element={<EmployeePage />} />
                 <Route path="/products" element={<ProductPage />} />
+                <Route path="/products/:id" element={<ProductDetailPage />} />
             </Routes>
 
         </BrowserRouter>

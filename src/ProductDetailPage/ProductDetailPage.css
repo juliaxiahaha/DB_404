@@ -1,0 +1,964 @@
+.product-detail-page,
+.product-detail-page * {
+  box-sizing: border-box;
+}
+.product-detail-page {
+  background: #ffffff;
+  height: 3150px;
+  position: relative;
+  overflow: hidden;
+}
+.product-detail-page .title {
+  color: #000000;
+  text-align: left;
+  font-family: "Roboto-Bold", sans-serif;
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 700;
+  position: absolute;
+  left: 856px;
+  top: 168px;
+  width: 520px;
+}
+.product-detail-page .title2 {
+  color: #000000;
+  text-align: left;
+  font-family: "Roboto-Bold", sans-serif;
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 700;
+  position: absolute;
+  left: 210px;
+  top: 168px;
+  width: 520px;
+}
+.product-detail-page .data-metrics {
+  padding: 60px 170px 60px 170px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  width: 1440px;
+  position: absolute;
+  left: -4px;
+  top: 1603px;
+  overflow: hidden;
+}
+.product-detail-page .container {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.product-detail-page .container2 {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+  position: relative;
+}
+.product-detail-page .title3 {
+  color: #000000;
+  text-align: center;
+  font-family: "Roboto-Bold", sans-serif;
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 700;
+  position: relative;
+  width: 520px;
+}
+.product-detail-page .list {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.product-detail-page .row {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.product-detail-page .metric {
+  border-radius: 6px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.1);
+  border-width: 1px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.product-detail-page .title4 {
+  color: rgba(0, 0, 0, 0.5);
+  text-align: left;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.product-detail-page .data {
+  color: #000000;
+  text-align: left;
+  font-family: "Roboto-Medium", sans-serif;
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 500;
+  position: relative;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.product-detail-page .change {
+  color: #000000;
+  text-align: left;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  position: relative;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.product-detail-page .container3 {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 440px;
+  position: relative;
+}
+.product-detail-page .container4 {
+  border-radius: 6px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.1);
+  border-width: 1px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+}
+.product-detail-page .title5 {
+  color: #000000;
+  text-align: left;
+  font-family: "Roboto-Medium", sans-serif;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 500;
+  position: relative;
+  align-self: stretch;
+}
+.product-detail-page .y-axis {
+  color: rgba(0, 0, 0, 0.5);
+  text-align: left;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+}
+.product-detail-page .graph {
+  align-self: stretch;
+  flex: 1;
+  height: auto;
+  position: relative;
+  overflow: visible;
+}
+.product-detail-page .x-axis {
+  color: rgba(0, 0, 0, 0.5);
+  text-align: right;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+}
+.product-detail-page .vector-200 {
+  flex-shrink: 0;
+  height: 0px;
+  position: absolute;
+  right: 0px;
+  left: 0px;
+  bottom: 0px;
+  overflow: visible;
+}
+.product-detail-page .section {
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  width: 1440px;
+  height: 0px;
+  position: absolute;
+  left: 11px;
+  top: 3180px;
+  overflow: visible;
+}
+.product-detail-page .title6 {
+  color: #000000;
+  text-align: center;
+  font-family: "Roboto-Light", sans-serif;
+  font-size: 32px;
+  line-height: 28px;
+  font-weight: 300;
+  position: absolute;
+  left: 704px;
+  top: 286px;
+  width: 673px;
+}
+.product-detail-page .title7 {
+  color: #000000;
+  text-align: center;
+  font-family: "Roboto-Light", sans-serif;
+  font-size: 32px;
+  line-height: 28px;
+  font-weight: 300;
+  position: absolute;
+  left: 57px;
+  top: 286px;
+  width: 673px;
+  height: 91px;
+}
+.product-detail-page .title8 {
+  color: #000000;
+  text-align: center;
+  font-family: "Roboto-Light", sans-serif;
+  font-size: 32px;
+  line-height: 28px;
+  font-weight: 300;
+  position: absolute;
+  left: 55px;
+  top: 398px;
+  width: 673px;
+  height: 91px;
+}
+.product-detail-page .image-33 {
+  width: 140px;
+  height: 140px;
+  position: absolute;
+  left: 973px;
+  top: 389px;
+  object-fit: cover;
+  aspect-ratio: 1;
+}
+.product-detail-page .container5 {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  width: 609px;
+  height: 327px;
+  position: absolute;
+  left: 784px;
+  top: 771px;
+}
+.product-detail-page .list2 {
+  padding: 20px 0px 20px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.product-detail-page .row2 {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.product-detail-page .card {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+.product-detail-page .user {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.product-detail-page .avatar {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+  position: relative;
+}
+.product-detail-page .avatar2 {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 32px;
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1;
+}
+.product-detail-page .frame-427318906 {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex: 1;
+  position: relative;
+}
+.product-detail-page .title9 {
+  color: #000000;
+  text-align: left;
+  font-family: "Roboto-Medium", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  position: relative;
+  align-self: stretch;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.product-detail-page .frame-427318817 {
+  flex-shrink: 0;
+  width: 58.26px;
+  height: 9.81px;
+  position: relative;
+  overflow: visible;
+}
+.product-detail-page .title10 {
+  color: #000000;
+  text-align: left;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 12px;
+  line-height: 24px;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+  height: 24px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.product-detail-page .title11 {
+  color: #000000;
+  text-align: left;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+  height: 72px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.product-detail-page .frame-4273188172 {
+  flex-shrink: 0;
+  width: 58.26px;
+  height: 9.81px;
+  position: relative;
+  overflow: visible;
+}
+.product-detail-page .container6 {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 48px;
+  position: relative;
+}
+.product-detail-page .container7 {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  width: 609px;
+  height: 327px;
+  position: absolute;
+  left: 784px;
+  top: 1199px;
+}
+.product-detail-page .frame-4273188173 {
+  flex-shrink: 0;
+  width: 58.26px;
+  height: 9.81px;
+  position: relative;
+  overflow: visible;
+}
+.product-detail-page .frame-4273188174 {
+  flex-shrink: 0;
+  width: 58.26px;
+  height: 9.81px;
+  position: relative;
+  overflow: visible;
+}
+.product-detail-page .social-posts {
+  padding: 60px 170px 60px 170px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  width: 622px;
+  position: absolute;
+  left: 52px;
+  top: 617px;
+  overflow: hidden;
+}
+.product-detail-page .list3 {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 698px;
+  position: relative;
+}
+.product-detail-page .row3 {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: center;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.product-detail-page .post {
+  border-radius: 6px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.1);
+  border-width: 1px;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  width: 600px;
+  position: relative;
+  overflow: hidden;
+}
+.product-detail-page .user2 {
+  padding: 12px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.product-detail-page .subtitle {
+  color: rgba(0, 0, 0, 0.5);
+  text-align: left;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.product-detail-page .icon-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.product-detail-page .icon {
+  color: #000000;
+  text-align: center;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.product-detail-page .image-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  height: 300px;
+  position: relative;
+  overflow: hidden;
+}
+.product-detail-page .image {
+  background: rgba(217, 217, 217, 0.5);
+  align-self: stretch;
+  flex: 1;
+  position: relative;
+}
+.product-detail-page .title12 {
+  color: #000000;
+  text-align: center;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  position: absolute;
+  right: 16px;
+  left: 16px;
+  top: 50%;
+  translate: 0 -50%;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-detail-page .pagination {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 50%;
+  translate: -50%;
+  bottom: 8px;
+}
+.product-detail-page .rectangle-3343 {
+  background: #ffffff;
+  border-radius: 100px;
+  flex-shrink: 0;
+  width: 20px;
+  height: 4px;
+  position: relative;
+}
+.product-detail-page .rectangle-3344 {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+  flex-shrink: 0;
+  width: 4px;
+  height: 4px;
+  position: relative;
+  aspect-ratio: 1;
+}
+.product-detail-page .rectangle-3347 {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+  flex-shrink: 0;
+  width: 4px;
+  height: 4px;
+  position: relative;
+  aspect-ratio: 1;
+}
+.product-detail-page .rectangle-3340 {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 100px;
+  flex-shrink: 0;
+  width: 4px;
+  height: 4px;
+  position: relative;
+  aspect-ratio: 1;
+}
+.product-detail-page .image-29 {
+  width: 599.25px;
+  height: 329px;
+  position: absolute;
+  left: 0px;
+  top: -15px;
+  object-fit: cover;
+  aspect-ratio: 599.25/329;
+}
+.product-detail-page .text-content {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.product-detail-page .title13 {
+  color: #000000;
+  text-align: left;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+}
+.product-detail-page .frame-427318818 {
+  flex-shrink: 0;
+  width: 58.26px;
+  height: 9.81px;
+  position: relative;
+  overflow: visible;
+}
+.product-detail-page .image-30 {
+  width: 599.29px;
+  height: 463px;
+  position: absolute;
+  left: 1px;
+  top: -82px;
+  object-fit: cover;
+  aspect-ratio: 599.29/463;
+}
+.product-detail-page .vector-2002 {
+  flex-shrink: 0;
+  height: 0px;
+  position: absolute;
+  right: 0px;
+  left: 0px;
+  bottom: -0.19px;
+  overflow: visible;
+}
+.product-detail-page .title14 {
+  color: #000000;
+  text-align: center;
+  font-family: "Roboto-Bold", sans-serif;
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 700;
+  position: absolute;
+  left: 468px;
+  top: 599px;
+  width: 520px;
+}
+.product-detail-page .top-bar {
+  background: #ffffff;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  width: 1440px;
+  height: 80px;
+  position: absolute;
+  left: 0px;
+  top: 2px;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+.product-detail-page .rectangle-4137 {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 100px;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  position: relative;
+  aspect-ratio: 1;
+}
+.product-detail-page .title15 {
+  color: #000000;
+  text-align: left;
+  font-family: "Roboto-Medium", sans-serif;
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 500;
+  position: relative;
+  flex: 1;
+}
+.product-detail-page .navigation {
+  background: #ffffff;
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.product-detail-page .tab {
+  color: #000000;
+  text-align: left;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  position: relative;
+}
+.product-detail-page .textfield {
+  border-radius: 6px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.1);
+  border-width: 1px;
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  width: 200px;
+  position: relative;
+}
+.product-detail-page .text {
+  color: rgba(0, 0, 0, 0.5);
+  text-align: left;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  position: relative;
+  flex: 1;
+}
+.product-detail-page .ic-search {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  overflow: visible;
+  aspect-ratio: 1;
+}
+.product-detail-page .container8 {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 213px;
+  height: 48px;
+  position: absolute;
+  left: 146px;
+  top: 2731px;
+}
+.product-detail-page .title16 {
+  color: #000000;
+  text-align: left;
+  font-family: "Roboto-Bold", sans-serif;
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 700;
+  position: relative;
+  width: 254px;
+}
+.product-detail-page .row4 {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 310px;
+  position: absolute;
+  left: 900px;
+  top: 2655px;
+}
+.product-detail-page .item {
+  padding: 12px 0px 12px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  position: relative;
+}
+.product-detail-page .frame {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 50px;
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  position: relative;
+  aspect-ratio: 1;
+}
+.product-detail-page .frame-4273189062 {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.product-detail-page .title17 {
+  color: #000000;
+  text-align: center;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+}
+.product-detail-page .subtitle2 {
+  color: #000000;
+  text-align: center;
+  font-family: "Roboto-Medium", sans-serif;
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 500;
+  position: relative;
+  align-self: stretch;
+}
+.product-detail-page .item2 {
+  padding: 12px 0px 12px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+  height: 260px;
+  position: absolute;
+  left: 453px;
+  top: 2639px;
+}
+.product-detail-page .icon2 {
+  color: #000000;
+  text-align: center;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 62.5px;
+  line-height: 100px;
+  font-weight: 400;
+  position: absolute;
+  left: 50%;
+  translate: -50% -50%;
+  top: 50%;
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.product-detail-page .item3 {
+  padding: 12px 0px 12px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+  height: 260px;
+  position: absolute;
+  left: 671px;
+  top: 2639px;
+}
+.product-detail-page .section2 {
+  padding: 60px;
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  width: 1431px;
+  position: absolute;
+  left: 0px;
+  top: 2930px;
+  overflow: hidden;
+}
+.product-detail-page .container9 {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 100px;
+  position: relative;
+}
+.product-detail-page .title18 {
+  color: #000000;
+  text-align: center;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 400;
+  position: relative;
+  width: 501px;
+  height: 114px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-detail-page .title19 {
+  color: #000000;
+  text-align: center;
+  font-family: "Roboto-Regular", sans-serif;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 400;
+  position: relative;
+  align-self: stretch;
+  width: 331px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
