@@ -10,6 +10,8 @@ import {
     TableCellsTypeAction,
     TableCellsTypeSearch,
 } from "../TableParts"
+import 'react-data-grid/lib/styles.css';
+import { DataGrid } from 'react-data-grid';
 
 import background0 from './assets/background0.svg';
 import background1 from './assets/background1.svg';
@@ -68,17 +70,50 @@ export const DiscountPage = ({ className, ...props }) => {
     };
 
     const handleUpdate = (discount) => {
-        const newValue = prompt("Enter new discount value:", discount.discount_value);
-        if (newValue !== null) {
+        const updatedType = prompt("Enter new discount type:", discount.discount_type);
+        const updatedValue = prompt("Enter new discount value:", discount.discount_value);
+        const updatedStartDate = prompt("Enter new start date (YYYY-MM-DD):", discount.start_date?.slice(0, 10));
+        const updatedEndDate = prompt("Enter new end date (YYYY-MM-DD):", discount.end_date?.slice(0, 10));
+        if (updatedType && updatedValue && updatedStartDate && updatedEndDate) {
             axios.put(`http://localhost:3001/discount/${discount.Discount_ID}`, {
-                ...discount,
-                discount_value: newValue
+                discount_type: updatedType,
+                discount_value: updatedValue,
+                start_date: updatedStartDate,
+                end_date: updatedEndDate
             })
                 .then(() => axios.get("http://localhost:3001/discount/discounts"))
                 .then(res => setDiscounts(res.data))
                 .catch(err => console.error("Update failed:", err));
         }
     };
+
+
+    const columns = [
+        { key: 'Discount_ID', name: 'Discount ID' },
+        { key: 'discount_type', name: 'Type' },
+        { key: 'discount_value', name: 'Value' },
+        {key: 'start_date',
+            name: 'Start Date',
+            renderCell: ({ row }) => row.start_date?.slice(0, 10)
+        },
+        {
+        key: 'end_date',
+        name: 'End Date',
+        renderCell: ({ row }) => row.end_date?.slice(0, 10)
+        },
+
+        {
+            key: 'actions',
+            name: 'Action',
+            renderCell: ({ row }) => (
+                <div style={{ display: 'flex', gap: '8px' }}>
+                    <button onClick={() => handleUpdate(row)}>Edit</button>
+                    <button onClick={() => handleDelete(row.Discount_ID)}>Delete</button>
+                </div>
+            )
+        }
+    ];
+
 
     return (
         <div className={"discount-page " + className}>
@@ -87,69 +122,72 @@ export const DiscountPage = ({ className, ...props }) => {
                 <div className="description">Fill in the details below </div>
             </div>
             {message && <div className="message-success">{message}</div>}
-            <div className="list">
-                <div className="row">
-                    <div className="input">
-                        <div className="title3">Discount Type </div>
-                        <div className="textfield2">
-                            <input
-                                type="text"
-                                name="discount_type"
-                                placeholder="E.g. Percentage or Fixed Amount"
-                                value={formData.discount_type}
-                                onChange={handleInputChange}
-                                className="text2"
-                            />
+
+            <div className="form-container">
+                <div className="list">
+                    <div className="row">
+                        <div className="input">
+                            <div className="title3">Discount Type </div>
+                            <div className="textfield2">
+                                <input
+                                    type="text"
+                                    name="discount_type"
+                                    placeholder="E.g. Percentage or Fixed Amount"
+                                    value={formData.discount_type}
+                                    onChange={handleInputChange}
+                                    className="text2"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="input">
+                            <div className="title3">Discount Value </div>
+                            <div className="textfield2">
+                                <input
+                                    type="text"
+                                    name="discount_value"
+                                    placeholder="Enter the value"
+                                    value={formData.discount_value}
+                                    onChange={handleInputChange}
+                                    className="text2"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="input">
+                            <div className="title3">Start Date </div>
+                            <div className="textfield2">
+                                <input
+                                    type="date"
+                                    name="start_date"
+                                    value={formData.start_date}
+                                    onChange={handleInputChange}
+                                    className="text2"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="input">
+                            <div className="title3">End Date </div>
+                            <div className="textfield2">
+                                <input
+                                    type="date"
+                                    name="end_date"
+                                    value={formData.end_date}
+                                    onChange={handleInputChange}
+                                    className="text2"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="row">
-                    <div className="input">
-                        <div className="title3">Discount Value </div>
-                        <div className="textfield2">
-                            <input
-                                type="text"
-                                name="discount_value"
-                                placeholder="Enter the value"
-                                value={formData.discount_value}
-                                onChange={handleInputChange}
-                                className="text2"
-                            />
-                        </div>
-                    </div>
+                <div className="button">
+                    <button className="seconday title4" type="button">Cancel</button>
+                    <button className="primary title5" type="button" onClick={handleAddDiscount}>Add Discount</button>
                 </div>
-                <div className="row">
-                    <div className="input">
-                        <div className="title3">Start Date </div>
-                        <div className="textfield2">
-                            <input
-                                type="date"
-                                name="start_date"
-                                value={formData.start_date}
-                                onChange={handleInputChange}
-                                className="text2"
-                            />
-                        </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="input">
-                        <div className="title3">End Date </div>
-                        <div className="textfield2">
-                            <input
-                                type="date"
-                                name="end_date"
-                                value={formData.end_date}
-                                onChange={handleInputChange}
-                                className="text2"
-                            />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="button">
-                <button className="seconday title4" type="button">Cancel</button>
-                <button className="primary title5" type="button" onClick={handleAddDiscount}>Add Discount</button>
             </div>
             <div className="section">
                 <div className="container2">
@@ -160,53 +198,11 @@ export const DiscountPage = ({ className, ...props }) => {
             <div className="container3">
                 <div className="title8">Discount List </div>
             </div>
-            {/* Mapped table UI using TableParts components */}
-            <div className="discount-table" style={{ width: "100%", marginBottom: "2rem" }}>
-                <div className="table-header-row" style={{ display: "flex", alignItems: "center" }}>
-                    <TableTopTypeIcon type="icon" className="table-top-instance" />
-                    <TableTopTypeSearch text="Discount ID" className="table-top-instance2" />
-                    <TableTopTypeSearch text="Start date" className="table-top-instance3" />
-                    <TableTopTypeSearch text="End date" className="table-top-instance4" />
-                    <TableTopTypeSearch text="Action" className="table-top-instance5" />
-                    <TableTopTypeSearch text="Value" className="table-top-instance6" />
-                    <TableTopTypeDroplist type="droplist" text="Type" text2="All" className="table-top-instance7" />
-                </div>
-                {discounts.map(discount => (
-                    <div className="table-row" key={discount.Discount_ID} style={{ display: "flex", alignItems: "center" }}>
-                        <TableCellsTypeCheckbox type="checkbox" className="table-cells-instance" />
-                        <TableCellsTypeText
-                            type="text"
-                            text={discount.Discount_ID.toString()}
-                            className="table-cells-instance2"
-                        />
-                        <TableCellsCurre
-                            text={discount.discount_type}
-                            className="table-cells-curre-instance"
-                        />
-                        <TableCellsTypeText
-                            type="text"
-                            text={discount.discount_value.toString()}
-                            className="table-cells-instance23"
-                        />
-                        <TableCellsTypeTag
-                            type="tag"
-                            text={discount.start_date}
-                            className="table-cells-instance3"
-                        />
-                        <TableCellsTypeTag
-                            type="tag"
-                            text={discount.end_date}
-                            className="table-cells-instance4"
-                        />
-                        <TableCellsTypeAction className="table-cells-instance5">
-                            <button onClick={() => handleUpdate(discount)}>Edit</button>
-                            <button onClick={() => handleDelete(discount.Discount_ID)}>Delete</button>
-                        </TableCellsTypeAction>
-                    </div>
-                ))}
+            <div className="data-grid-container" style={{ marginTop: '2rem', width: '100%' }}>
+                <DataGrid columns={columns} rows={discounts} style={{ height: 400 }} />
             </div>
-            {/* The rest of your original static table and UI below can be kept or removed as appropriate */}
-            {/* ... */}
+
         </div>
+
     );
 };
