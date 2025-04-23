@@ -1,6 +1,6 @@
 // src/ProductPage.jsx
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';               // ← 新增
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import './ProductPage.css';
 import section1 from '/src/ProductPage/assets/section1.svg';
@@ -16,7 +16,7 @@ export const ProductPage = ({ className, ...props }) => {
             .then(res => setProducts(res.data))
             .catch(err => {
                 console.error(err);
-                setError('加载产品失败');
+                setError('failed to load the products');
             })
             .finally(() => setLoading(false));
     }, []);
@@ -43,10 +43,8 @@ export const ProductPage = ({ className, ...props }) => {
                 </div>
             </div>
 
-            {/* 装饰图 */}
             <img className="section2" src={section1} />
 
-            {/* 黑底横幅 */}
             <div className="section3">
                 <div className="container2">
                     <div className="title4">Select a product from the product list:</div>
@@ -54,13 +52,11 @@ export const ProductPage = ({ className, ...props }) => {
                 <img className="vector-200" src={vector2000} />
             </div>
 
-            {/* 产品列表 */}
             <div className="list">
                 {rows.map((row, ri) => (
                     <div className="row" key={ri}>
                         {row.map(prod => (
                             <div className="item" key={prod.ProductID /* 或 prod.id */}>
-                                {/* 点击图标跳详情 */}
                                 <Link to={`/products/${prod.ProductID}`}>
                                     <div className="frame">
                                         <div className="icon">📦</div>
@@ -77,7 +73,6 @@ export const ProductPage = ({ className, ...props }) => {
                 ))}
             </div>
 
-            {/* 底部横幅 */}
             <div className="section4">
                 <div className="container3">
                     <div className="title7">
