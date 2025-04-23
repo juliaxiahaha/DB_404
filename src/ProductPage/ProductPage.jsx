@@ -34,7 +34,6 @@ export const ProductPage = ({ className, ...props }) => {
 
     return (
         <div className={`product-page ${className}`} {...props}>
-            {/* 顶栏 */}
             <div className="section">
                 <div className="container">
                     <div className="title">Contact Us</div>
@@ -56,8 +55,8 @@ export const ProductPage = ({ className, ...props }) => {
                 {rows.map((row, ri) => (
                     <div className="row" key={ri}>
                         {row.map(prod => (
-                            <div className="item" key={prod.ProductID /* 或 prod.id */}>
-                                <Link to={`/products/${prod.ProductID}`}>
+                            <div className="item" key={prod.Product_ID}>
+                                <Link to={`/products/${prod.Product_ID}`}>
                                     <div className="frame">
                                         <div className="icon">📦</div>
                                     </div>
