@@ -12,6 +12,8 @@ import {
 } from "../TableParts"
 import 'react-data-grid/lib/styles.css';
 import { DataGrid } from 'react-data-grid';
+import counterIcon from './assets/ic-arrow-drop-down0.svg';
+import searchIcon from './assets/filter-svgrepo-com.svg';
 
 import background0 from './assets/background0.svg';
 import background1 from './assets/background1.svg';
@@ -41,10 +43,47 @@ export const DiscountPage = ({ className, ...props }) => {
 
     const [message, setMessage] = useState("");
 
-    useEffect(() => {
+    const handleSort = (column) => {
+        axios.get(`http://localhost:3001/api/sorter`, {
+            params: {
+                tbl: 'Discount',
+                col: column,
+                op: 'ASC' // or 'DESC', or track and toggle this if needed
+            }
+        })
+            .then(res => setDiscounts(res.data))
+            .catch(err => console.error("Sort failed:", err));
+    };
+
+    const fetchAllDiscounts = () => {
         axios.get("http://localhost:3001/discount/discounts")
             .then(res => setDiscounts(res.data))
             .catch(err => console.error("Fetch failed:", err));
+    };
+
+    const handleSearch = (column) => {
+        const value = prompt(`Enter value to search in ${column}`);
+        if (!value) {
+            fetchAllDiscounts(); // reset filter
+            return;
+        }
+        if (!value) return;
+
+        axios.get('http://localhost:3001/api/search', {
+            params: {
+                table: 'Discount',
+                col: column,
+                val: value
+            }
+        })
+            .then(res => setDiscounts(res.data))
+            .catch(err => console.error('Search failed:', err));
+    };
+
+
+
+    useEffect(() => {
+        fetchAllDiscounts();
     }, []);
 
     const handleInputChange = (e) => {
@@ -89,17 +128,101 @@ export const DiscountPage = ({ className, ...props }) => {
 
 
     const columns = [
-        { key: 'Discount_ID', name: 'Discount ID' },
-        { key: 'discount_type', name: 'Type' },
-        { key: 'discount_value', name: 'Value' },
-        {key: 'start_date',
-            name: 'Start Date',
-            renderCell: ({ row }) => row.start_date?.slice(0, 10)
+        { key: 'Discount_ID',
+            name: (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    Discount ID
+                    <img
+                        src={counterIcon}
+                        alt="sort icon"
+                        style={{ width: '14px', height: '14px', cursor: 'pointer' }}
+                        onClick={() => handleSort('Discount_ID')}
+                    />
+                    <img
+                        src={searchIcon}
+                        alt="search"
+                        style={{ width: '14px', height: '14px', cursor: 'pointer' }}
+                        onClick={() => handleSearch('Discount_ID')}
+                    />
+                </div>
+            ) },
+        { key: 'discount_type',
+            name: (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    Type
+                    <img
+                        src={counterIcon}
+                        alt="sort icon"
+                        style={{ width: '14px', height: '14px', cursor: 'pointer' }}
+                        onClick={() => handleSort('discount_type')}
+                    />
+                    <img
+                        src={searchIcon}
+                        alt="search"
+                        style={{ width: '14px', height: '14px', cursor: 'pointer' }}
+                        onClick={() => handleSearch('discount_type')}
+                    />
+                </div>
+            ) },
+        { key: 'discount_value',
+            name: (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    Value
+                    <img
+                        src={counterIcon}
+                        alt="sort icon"
+                        style={{ width: '14px', height: '14px', cursor: 'pointer' }}
+                        onClick={() => handleSort('discount_value')}
+                    />
+                    <img
+                        src={searchIcon}
+                        alt="search"
+                        style={{ width: '14px', height: '14px', cursor: 'pointer' }}
+                        onClick={() => handleSearch('discount_value')}
+                    />
+                </div>
+            ) },
+        {
+            key: 'start_date',
+            name: (
+                <div style={{display: 'flex', alignItems: 'center', gap: '6px'}}>
+                    Start Date
+                    <img
+                        src={counterIcon}
+                        alt="sort icon"
+                        style={{width: '14px', height: '14px', cursor: 'pointer'}}
+                        onClick={() => handleSort('start_date')}
+                    />
+                    <img
+                        src={searchIcon}
+                        alt="search"
+                        style={{ width: '14px', height: '14px', cursor: 'pointer' }}
+                        onClick={() => handleSearch('start_date')}
+                    />
+                </div>
+            ),
+            renderCell: ({ row }) => row.end_date?.slice(0, 10)
         },
         {
-        key: 'end_date',
-        name: 'End Date',
-        renderCell: ({ row }) => row.end_date?.slice(0, 10)
+            key: 'end_date',
+            name: (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    End Date
+                    <img
+                        src={counterIcon}
+                        alt="sort icon"
+                        style={{ width: '14px', height: '14px', cursor: 'pointer' }}
+                        onClick={() => handleSort('end_date')}
+                    />
+                    <img
+                        src={searchIcon}
+                        alt="search"
+                        style={{ width: '14px', height: '14px', cursor: 'pointer' }}
+                        onClick={() => handleSearch('end_date')}
+                    />
+                </div>
+            ),
+            renderCell: ({ row }) => row.end_date?.slice(0, 10)
         },
 
         {
