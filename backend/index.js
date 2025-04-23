@@ -21,6 +21,7 @@ import insertShipping      from './routes/insertShipping.js';
 import insertOrder       from './routes/insertOrder.js';
 import insertOrderDetail from './routes/insertOrderDetail.js';
 import insertShoppingCart from './routes/insertShoppingCart.js';
+import searchBy             from './routes/searchBy.js';
 
 const DB_HOST='db-mysql-nyc3-77807-do-user-20581125-0.l.db.ondigitalocean.com'
 const DB_USER='doadmin'
@@ -112,6 +113,7 @@ app.use('/api/shippings', insertShipping(db));
 app.use('/api/orders', insertOrder(db));
 app.use('/api/orderDetails', insertOrderDetail(db));
 app.use('/api/shoppingCarts', insertShoppingCart(db));
+app.use('/api/search', searchBy(db));
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}/api`);
