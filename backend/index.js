@@ -30,6 +30,7 @@ import updateShoppingCart from './routes/updateShoppingCart.js';
 import updateProductReview from './routes/updateProductReview.js';
 import updateShipping     from './routes/updateShipping.js';
 import updateEmployee     from './routes/updateEmployee.js';
+import getCustomers from './routes/getCustomers.js';
 
 const DB_HOST='db-mysql-nyc3-77807-do-user-20581125-0.l.db.ondigitalocean.com'
 const DB_USER='doadmin'
@@ -130,6 +131,7 @@ app.use('/api/shoppingCarts', updateShoppingCart(db));
 app.use('/api/productReviews', updateProductReview(db));
 app.use('/api/shippings', updateShipping(db));
 app.use('/api/employees', updateEmployee(db));
+app.use('/api/customers', getCustomers(db));
 
 
 app.listen(PORT, () => {
