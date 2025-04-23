@@ -25,6 +25,7 @@ import searchBy             from './routes/searchBy.js';
 import updateSupplier from './routes/updateSupplier.js';
 import updateProduct    from './routes/updateProduct.js';
 import updateOrder       from './routes/updateOrder.js';
+import updateOrderDetail from './routes/updateOrderDetail.js';
 
 const DB_HOST='db-mysql-nyc3-77807-do-user-20581125-0.l.db.ondigitalocean.com'
 const DB_USER='doadmin'
@@ -120,6 +121,7 @@ app.use('/api/search', searchBy(db));
 app.use('/api/suppliers', updateSupplier(db));
 app.use('/api/products', updateProduct(db));
 app.use('/api/orders', updateOrder(db));
+app.use('/api/orderDetails', updateOrderDetail(db));
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}/api`);
