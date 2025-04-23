@@ -49,7 +49,7 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
     { key: 'rating',     name: 'Rating',   width: 80  },
     { key: 'comment',    name: 'Comment',  resizable: true,
       formatter: ({ row }) => <span title={row.comment}>{row.comment}</span> },
-    { key: 'review_date',name: 'Date',     width: 120,
+    { key: 'review_date',name: 'Date',     width: 180,
       formatter: ({ row }) => formatDate(row.review_date) },
     { key: 'Customer_ID',name: 'Customer_ID', width: 100 }
   ];
@@ -66,7 +66,11 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
           </div>
           <div className="list">
             <div className="row">
-              <div className="metric"><div className="title4">Product Name</div><div className="data">{product.name}</div></div>
+              <div className="metric" style={{ flex: 'auto', minWidth: '200px' }}>
+                <div className="title4">Product Name</div>
+                <div className="data">{product.name}</div>
+              </div>
+
               <div className="metric"><div className="title4">Retail price</div><div className="data">{money(product.retail_price)}</div></div>
               <div className="metric"><div className="title4">Purchasing price</div><div className="data">{money(product.purchasing_price)}</div></div>
             </div>
