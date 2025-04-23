@@ -71,14 +71,6 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
             </div>
           </div>
 
-          <div className="container3">
-            <div className="container4">
-              <div className="title5">Monthly Sales</div>
-              <div className="y-axis">Sales Value</div>
-              <img className="graph" src="graph0.svg" />
-              <div className="x-axis">Months</div>
-            </div>
-          </div>
           <img className="vector-200" src="vector-2000.svg" />
         </div>
 
