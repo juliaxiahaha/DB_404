@@ -10,7 +10,8 @@ export default function(db) {
         const {
             new_Employee_ID,
             new_basic_salary,
-            new_annual_bonus
+            new_annual_bonus,
+            new_Employee_name
         } = Object.fromEntries(
             Object.entries(req.body).map(([k, v]) => [k, toNullable(v)])
         );
@@ -21,7 +22,7 @@ export default function(db) {
         }
 
         const sql = 'CALL UpdateEmployee(?, ?, ?)';
-        const params = [id, new_basic_salary, new_annual_bonus];
+        const params = [id, new_basic_salary, new_annual_bonus, new_Employee_name,];
 
         db.query(sql, params, (err, results) => {
             if (err) {

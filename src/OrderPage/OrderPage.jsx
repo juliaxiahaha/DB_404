@@ -142,4 +142,4 @@ export const OrderPage = ({ className, ...props }) => {
             </div>
         </div>
     );
-};
+}
