@@ -1,172 +1,127 @@
+/* Container and layout */
 .supplier-page {
-  width: 100%;
-  box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
+  font-family: Arial, sans-serif;
+  padding: 2rem;
   background-color: #fff;
+  color: #333;
 }
 
-/* === HERO SECTION === */
-.hero-section {
-  background-color: #444;
-  padding: 50px 20px;
+.container {
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
   text-align: center;
-  color: white;
 }
 
-.hero-title {
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.hero-subtitle {
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.add-supplier-button {
-  background-color: black;
-  color: white;
-  padding: 10px 30px;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-/* === SUPPLIER LIST SECTION === */
-.list-section {
-  padding: 40px 80px;
-}
-
-.list-title {
-  font-size: 24px;
+/* Titles and text */
+.title2 {
+  font-size: 1.75rem;
   font-weight: 600;
-  margin-bottom: 20px;
+  margin-bottom: 0.5rem;
 }
 
-.supplier-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.supplier-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  border-bottom: 1px solid #eee;
-}
-
-.supplier-logo-placeholder {
-  width: 50px;
-  height: 50px;
-  background-color: #f0f0f0;
-  margin-right: 20px;
-}
-
-.supplier-info {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.supplier-id {
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.supplier-phone {
-  font-size: 14px;
+.description {
+  font-size: 1rem;
   color: #555;
+  margin-bottom: 1rem;
 }
 
-.supplier-email {
-  font-size: 14px;
+.title3 {
+  font-size: 0.9rem;
   font-weight: 500;
-  color: #000;
-  margin-left: 20px;
-  white-space: nowrap;
+  margin-bottom: 0.25rem;
 }
 
-/* === FORM SECTION === */
-.form-title-section {
-  text-align: center;
-  margin-top: 40px;
-}
-
-.form-title {
-  font-size: 28px;
-  font-weight: bold;
-}
-
+/* Message banner */
 .message-success {
+  max-width: 800px;
+  margin: -1rem auto 1.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #e6f7ee;
+  color: #256029;
+  border-radius: 4px;
   text-align: center;
-  color: green;
-  font-size: 16px;
-  margin-top: 10px;
+  font-size: 0.95rem;
 }
 
-/* FORM LAYOUT */
-.form-input-section {
-  margin: 30px auto 60px;
-  max-width: 900px;
+/* Form styling */
+.form-container {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form-row {
-  display: flex;
-  gap: 40px;
   flex-wrap: wrap;
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto 2rem;
 }
 
-.input-group {
-  flex: 1;
+.input {
+  flex: 1 1 250px;
   display: flex;
   flex-direction: column;
 }
 
-.input-group.full-width {
-  width: 100%;
-}
-
-.input-group label {
-  font-size: 14px;
-  margin-bottom: 6px;
-}
-
-.input-group input {
-  padding: 10px;
-  font-size: 14px;
+.text2 {
+  padding: 0.5rem;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 4px;
+  font-size: 0.95rem;
 }
 
-/* BUTTON */
-.form-button-container {
+/* Buttons */
+.button {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  align-items: center;
 }
 
-.save-button {
-  background-color: black;
-  color: white;
-  padding: 12px 30px;
-  font-size: 14px;
+.primary.title4 {
+  background-color: #1976d2;
+  color: #fff;
   border: none;
-  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-/* === FOOTER === */
-.footer {
-  border-top: 1px solid #eee;
-  padding: 20px;
+.primary.title4:hover {
+  background-color: #145ea8;
+}
+
+/* List header */
+.container3 {
+  max-width: 800px;
+  margin: 2rem auto 1rem;
+}
+
+.title5 {
+  font-size: 1.25rem;
+  font-weight: 600;
   text-align: center;
-  font-size: 14px;
-  color: #555;
+}
+
+/* DataGrid container */
+.data-grid-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Footer section */
+.section {
+  background-color: #f9f9f9;
+  padding: 1.5rem 0;
+  margin-top: 3rem;
+}
+
+.section .container2 {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.section .container2 .title,
+.section .container2 .title2 {
+  font-size: 0.875rem;
+  color: #777;
+  margin: 0;
 }
