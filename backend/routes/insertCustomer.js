@@ -9,10 +9,10 @@ export default function(db) {
         const {
             new_Customer_ID,
             new_name,
-            new_contact,
-            new_phone,
             new_address,
-            new_birthdate
+            new_phone,
+            new_email,
+            new_registration_date,
         } = Object.fromEntries(
             Object.entries(req.body).map(([k, v]) => [k, toNullable(v)])
         );
@@ -26,10 +26,10 @@ export default function(db) {
         const params = [
             customerId,    // 404
             new_name,      // 'dsc'
-            new_contact,   // 'dsc'
-            new_phone,     // '234242342'
             new_address,   // 'dsvcds'
-            new_birthdate  // '2001-2-2'
+            new_phone,     // '234242342'
+            new_email,
+            new_registration_date,
         ];
 
         db.query(sql, params, (err, results) => {
