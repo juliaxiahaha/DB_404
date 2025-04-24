@@ -11,10 +11,10 @@ import searchIcon  from "./assets/filter-svgrepo-com.svg";
 export const EmployeePage = () => {
     const [employees, setEmployees] = useState([]);
     const [formData, setFormData] = useState({
-        employee_id: "",
-        name: "",
-        basic_salary: "",
-        annual_bonus: ""
+        new_Employee_ID: "",
+        new_basic_salary: "",
+        new_annual_bonus: "",
+        new_Employee_name: ""
     });
     const [isEditing, setIsEditing] = useState(false);
     const [message, setMessage] = useState("");
@@ -24,13 +24,7 @@ export const EmployeePage = () => {
         axios
             .get("http://localhost:3001/api/employees")
             .then(res => {
-                const normalized = res.data.map(emp => ({
-                    employee_id: emp.Employee_ID,
-                    name:         emp.name,
-                    basic_salary: emp.basic_salary,
-                    annual_bonus: emp.annual_bonus
-                }));
-                setEmployees(normalized);
+                setEmployees(res.data);
             })
             .catch(err => console.error("Fetch failed:", err));
     };
@@ -57,14 +51,7 @@ export const EmployeePage = () => {
                 }
             })
             .then(res => {
-                // normalize backend keys into { employee_id, name, basic_salary, annual_bonus }
-                const normalized = res.data.map(emp => ({
-                    employee_id: emp.Employee_ID,
-                    name:         emp.name,
-                    basic_salary: emp.basic_salary,
-                    annual_bonus: emp.annual_bonus
-                }));
-                setEmployees(normalized);
+                setEmployees(res.data);
             })
             .catch(err => console.error("Sort failed:", err));
     };
@@ -86,70 +73,63 @@ export const EmployeePage = () => {
                 }
             })
             .then(res => {
-                const normalized = res.data.map(emp => ({
-                    employee_id: emp.Employee_ID,
-                    name:         emp.name,
-                    basic_salary: emp.basic_salary,
-                    annual_bonus: emp.annual_bonus
-                }));
-                setEmployees(normalized);
+                setEmployees(res.data);
             })
             .catch(err => console.error("Search failed:", err));
     };
 
     const resetForm = () => {
         setFormData({
-            employee_id: "",
-            name: "",
-            basic_salary: "",
-            annual_bonus: ""
+            new_Employee_ID: "",
+            new_basic_salary: "",
+            new_annual_bonus: "",
+            new_Employee_name: ""
         });
         setIsEditing(false);
         setMessage("");
     };
 
     const handleSave = () => {
-        axios
-            .post("http://localhost:3001/api/employees/insert", formData)
-            .then(() =>
-                // immediately fetch updated list
-                axios.get("http://localhost:3001/api/employees")
-            )
+        console.log("Submitting formData:", formData);
+        axios.post("http://localhost:3001/api/employees/insert", formData)
+            .then(() => axios.get("http://localhost:3001/api/employees"))
             .then(res => {
-                // normalize the response
-                const normalized = res.data.map(emp => ({
-                    employee_id: emp.Employee_ID,
-                    basic_salary: emp.basic_salary,
-                    annual_bonus: emp.annual_bonus,
-                    name:         emp.name,
-                }));
-                setEmployees(normalized);
-
-                setMessage("Employee added successfully!");
-                setTimeout(() => setMessage(""), 3000);
-                resetForm();
+                setEmployees(res.data);
+                setFormData({
+                    new_Employee_ID: "",
+                    new_basic_salary: "",
+                    new_annual_bonus: "",
+                    new_Employee_name: ""
+                });
             })
-            .catch(err => {
-                console.error("Insert failed:", err.response ?? err);
-                setMessage("Add failed.");
-                setTimeout(() => setMessage(""), 3000);
-            });
+            .catch(err => console.error("Insert failed:", err));
     };
 
 
 
     const handleUpdate = () => {
+        // Prepare payload to match backend expectations
+        const payload = {
+            new_Employee_ID: formData.new_Employee_ID,
+            new_basic_salary: formData.new_basic_salary,
+            new_annual_bonus: formData.new_annual_bonus,
+            new_Employee_name: formData.new_Employee_name
+        };
+
+        console.log("Submitting update payload:", payload);
+
         axios
-            .put(
-                `http://localhost:3001/api/employees/${formData.employee_id}`,
-                formData
-            )
+            .put("http://localhost:3001/api/employees/update", payload)
             .then(() => {
                 setMessage("Employee updated!");
                 resetForm();
                 fetchAllEmployees();
             })
-            .catch(() => setMessage("Update failed."));
+            .catch(err => {
+                const errorMessage = err.response?.data?.error || "Update failed.";
+                console.error("Update failed:", errorMessage);
+                setMessage(errorMessage);
+            });
     };
 
     // Delete handler
@@ -167,10 +147,10 @@ export const EmployeePage = () => {
     // Start editing row
     const startEdit = row => {
         setFormData({
-            employee_id: row.employee_id,
-            name:         row.name,
-            basic_salary: row.basic_salary,
-            annual_bonus: row.annual_bonus
+            new_Employee_ID: row.employee_id,
+            new_basic_salary: row.basic_salary,
+            new_annual_bonus: row.annual_bonus,
+            new_Employee_name: row.name
         });
         setIsEditing(true);
         setMessage("");
@@ -179,7 +159,7 @@ export const EmployeePage = () => {
     // Grid columns with both Edit & Delete
     const columns = [
         {
-            key: "employee_id",
+            key: "Employee_ID",
             name: (
                 <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                     Employee ID
@@ -264,7 +244,7 @@ export const EmployeePage = () => {
             renderCell: ({ row }) => (
                 <div style={{ display: "flex", gap: "8px" }}>
                     <button onClick={() => startEdit(row)}>Edit</button>
-                    <button onClick={() => handleDelete(row.employee_id)}>Delete</button>
+                    <button onClick={() => handleDelete(row.Employee_ID)}>Delete</button>
                 </div>
             )
         }
@@ -276,23 +256,23 @@ export const EmployeePage = () => {
             {/* Add / Edit Form */}
             <div className="form container3">
                 <h2>{isEditing ? "Edit Employee" : "Add New Employee"}</h2>
-
                 <label>
-                    Employee ID
+                    ID
                     <input
-                        name="employee_id"
-                        value={formData.employee_id}
+                        type="text"
+                        name="new_Employee_ID"
+                        value={formData.new_Employee_ID}
                         onChange={handleChange}
-                        disabled={isEditing}
-                        placeholder="Enter Employee ID"
+                        placeholder="Enter employee ID"
                     />
                 </label>
 
                 <label>
                     Name
                     <input
-                        name="name"
-                        value={formData.name}
+                        type="text"
+                        name="new_Employee_name"
+                        value={formData.new_Employee_name}
                         onChange={handleChange}
                         placeholder="Enter full name"
                     />
@@ -301,9 +281,8 @@ export const EmployeePage = () => {
                 <label>
                     Basic Salary (USD)
                     <input
-                        name="basic_salary"
-                        type="number"
-                        value={formData.basic_salary}
+                        name="new_basic_salary"
+                        value={formData.new_basic_salary}
                         onChange={handleChange}
                         placeholder="Enter Basic Salary"
                     />
@@ -312,9 +291,8 @@ export const EmployeePage = () => {
                 <label>
                     Annual Bonus (USD)
                     <input
-                        name="annual_bonus"
-                        type="number"
-                        value={formData.annual_bonus}
+                        name="new_annual_bonus"
+                        value={formData.new_annual_bonus}
                         onChange={handleChange}
                         placeholder="Enter Annual Bonus"
                     />
@@ -327,7 +305,12 @@ export const EmployeePage = () => {
                             <button onClick={resetForm}>Cancel</button>
                         </>
                     ) : (
-                        <button onClick={handleSave}>Add Employee</button>
+                        <button
+                            onClick={() => {
+                                console.log("Button clicked. Editing:", isEditing);
+                                handleSave();
+                            }}
+                        >Add Employee</button>
                     )}
                 </div>
 

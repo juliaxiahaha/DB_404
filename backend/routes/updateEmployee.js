@@ -21,7 +21,7 @@ export default function(db) {
             return res.status(400).json({ error: 'Invalid Employee ID' });
         }
 
-        const sql = 'CALL UpdateEmployee(?, ?, ?)';
+        const sql = 'CALL UpdateEmployee(?, ?, ?, ?)';
         const params = [id, new_basic_salary, new_annual_bonus, new_Employee_name,];
 
         db.query(sql, params, (err, results) => {
