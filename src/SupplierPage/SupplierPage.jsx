@@ -1,104 +1,127 @@
 import "./SupplierPage.css";
-
-import React from "react";
-import vector2000 from "/src/SupplierPage/assets/vector-2000.svg";
-import vector2001 from "/src/SupplierPage/assets/vector-2001.svg";
-import vector2002 from "/src/SupplierPage/assets/vector-2002.svg";
-import vector2003 from "/src/SupplierPage/assets/vector-2003.svg";
-import vector2004 from "/src/SupplierPage/assets/vector-2004.svg";
-import image70 from "/src/SupplierPage/assets/image-70.png";
-import image80 from "/src/SupplierPage/assets/image-80.png";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import 'react-data-grid/lib/styles.css';
+import { DataGrid } from 'react-data-grid';
+import counterIcon from './assets/ic-arrow-drop-down0.svg';
+import searchIcon from './assets/filter-svgrepo-com.svg';
 
 export const SupplierPage = ({ className, ...props }) => {
+  const [suppliers, setSuppliers] = useState([]);
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    email: ''
+  });
+  const [message, setMessage] = useState('');
+
+  const fetchAllSuppliers = () => {
+    axios.get("http://localhost:3001/api/suppliers")
+        .then(res => setSuppliers(res.data))
+        .catch(err => console.error("Fetch failed:", err));
+  };
+
+  useEffect(() => {
+    fetchAllSuppliers();
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleAddSupplier = () => {
+    axios.post("http://localhost:3001/api/suppliers/insert", formData)
+        .then(() => fetchAllSuppliers())
+        .then(() => {
+          setMessage("Supplier added successfully!");
+          setTimeout(() => setMessage(""), 3000);
+          setFormData({ name: '', phone: '', email: '' });
+        })
+        .catch(err => console.error("Insert failed:", err));
+  };
+
+  const handleSort = (column) => {
+    axios.get(`http://localhost:3001/api/sorter`, {
+      params: {
+        tbl: 'Supplier',
+        col: column,
+        op: 'ASC'
+      }
+    })
+        .then(res => setSuppliers(res.data))
+        .catch(err => console.error("Sort failed:", err));
+  };
+
+  const handleSearch = (column) => {
+    const value = prompt(`Enter value to search in ${column}`);
+    if (!value) return fetchAllSuppliers();
+
+    axios.get('http://localhost:3001/api/search', {
+      params: { table: 'Supplier', col: column, val: value }
+    })
+        .then(res => setSuppliers(res.data))
+        .catch(err => console.error('Search failed:', err));
+  };
+
+  const renderHeader = (label, columnKey) => (
+      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+        {label}
+        <img src={counterIcon} onClick={() => handleSort(columnKey)} alt="sort" style={{ width: '14px', cursor: 'pointer' }} />
+        <img src={searchIcon} onClick={() => handleSearch(columnKey)} alt="search" style={{ width: '14px', cursor: 'pointer' }} />
+      </div>
+  );
+
+  const columns = [
+    { key: 'Supplier_ID', name: renderHeader('Supplier ID', 'Supplier_ID') },
+    { key: 'name', name: renderHeader('Name', 'name') },
+    { key: 'phone', name: renderHeader('Phone', 'phone') },
+    { key: 'email', name: renderHeader('Email', 'email') }
+  ];
+
   return (
       <div className={`supplier-page ${className}`} {...props}>
-        <div className="section">
-          <div className="container">
-            <div className="title">Contact Us: buyaozhaowomen@store.com</div>
-            <div className="title2">Copyright © 2025 Store Management</div>
+        <div className="container-header">
+          <h2 className="title">Manage Product Suppliers</h2>
+          <p className="description">View and update supplier information</p>
+          <button className="add-button">Add Supplier</button>
+        </div>
+
+        {message && <div className="message-success">{message}</div>}
+
+        <div className="container-sub">
+          <h3 className="title-sub">Supplier List</h3>
+          <div className="data-grid-container">
+            <DataGrid columns={columns} rows={suppliers} style={{ height: 300 }} />
           </div>
         </div>
-        <div className="page">
-          <div className="section2">
-            <div className="container2">
-              <div className="title3">Manage Product Suppliers</div>
-              <div className="description">
-                View and update supplier information
-              </div>
-              <div className="button">
-                <div className="primary">
-                  <div className="title4">Add Supplier</div>
-                </div>
-              </div>
+
+        <div className="form-container">
+          <h3 className="title-sub">Add New Supplier</h3>
+          <div className="form-row">
+            <div className="input-group">
+              <label>Supplier Name</label>
+              <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Enter supplier name" />
             </div>
-            <img className="vector-200" src={vector2000} alt="decorative vector" />
+            <div className="input-group">
+              <label>Supplier Phone</label>
+              <input type="text" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="Enter supplier phone" />
+            </div>
           </div>
-          <div className="list">
-            <div className="container3">
-              <div className="title5">Supplier List</div>
+          <div className="form-row">
+            <div className="input-group full-width">
+              <label>Supplier Email</label>
+              <input type="text" name="email" value={formData.email} onChange={handleInputChange} placeholder="Enter supplier email" />
             </div>
-            <div className="image-4"></div>
-            <div className="list2">
-              <div className="row">
-                <div className="item">
-                  <img className="image-8" src={image80} alt="supplier example" />
-                  <div className="frame-427318906">
-                    <div className="title6">Supplier_ID1</div>
-                    <div className="subtitle">Phone: 4006 700 700</div>
-                  </div>
-                  <div className="subtitle2">meiyouzhaodao@tencent.com</div>
-                  <img className="vector-2002" src={vector2001} alt="action icon" />
-                </div>
-              </div>
-              <div className="row2">
-                <div className="item2">
-                  <img className="image-7" src={image70} alt="supplier example" />
-                  <div className="frame-427318906">
-                    <div className="title7">Supplier_ID2</div>
-                    <div className="subtitle">Phone: 4006 666 312</div>
-                  </div>
-                  <div className="subtitle3">BD@mihoyo.com</div>
-                  <img className="vector-2003" src={vector2002} alt="action icon" />
-                </div>
-              </div>
-            </div>
-            <img className="vector-2004" src={vector2003} alt="decorative vector" />
           </div>
-          <div className="form">
-            <div className="container4">
-              <div className="title8">Add New Supplier</div>
-            </div>
-            <div className="list3">
-              <div className="row3">
-                <div className="input">
-                  <div className="title9">Supplier Name</div>
-                  <div className="textfield">
-                    <div className="text">Enter supplier name</div>
-                  </div>
-                </div>
-                <div className="input">
-                  <div className="title9">Supplier Phone</div>
-                  <div className="textfield">
-                    <div className="text">Enter supplier phone</div>
-                  </div>
-                </div>
-              </div>
-              <div className="row3">
-                <div className="input">
-                  <div className="title9">Supplier Email</div>
-                  <div className="textfield">
-                    <div className="text">Enter supplier email</div>
-                  </div>
-                </div>
-              </div>
-              <div className="button">
-                <div className="primary">
-                  <div className="title4">Save Supplier</div>
-                </div>
-              </div>
-            </div>
-            <img className="vector-2005" src={vector2004} alt="decorative vector" />
+          <div className="form-actions">
+            <button className="submit-button" onClick={handleAddSupplier}>Save Supplier</button>
           </div>
+        </div>
+
+        <div className="footer">
+          <span>Contact Us: buyaozhaowomen@store.com</span>
+          <span>Copyright © 2025 Store Management</span>
         </div>
       </div>
   );
