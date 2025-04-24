@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./CustomerPage.css";
 
 // Import all images here
@@ -21,6 +22,7 @@ import vector2000 from "/src/CustomerPage/assets/vector-2000.svg";
 
 export const CustomerPage = ({ className, ...props }) => {
     const [customers, setCustomers] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get("http://localhost:3001/api/customers")
@@ -37,7 +39,7 @@ export const CustomerPage = ({ className, ...props }) => {
                 <div className="list2">
                     <div className="row">
                         {customers.map((customer, index) => (
-                            <div key={index} className="item">
+                            <div key={index} className="item" onClick={() => navigate(`/customer/${customer.Customer_ID}`)} style={{ cursor: 'pointer' }}>
                                 <div className="frame">
                                     <div className="icon">👤</div>
                                 </div>
