@@ -11,7 +11,8 @@ export default function(db) {
         const {
             new_Employee_ID,
             new_basic_salary,
-            new_annual_bonus
+            new_annual_bonus,
+            new_Employee_name
         } = Object.fromEntries(
             Object.entries(req.body).map(([k, v]) => [k, toNullable(v)])
         );
@@ -21,11 +22,12 @@ export default function(db) {
             return res.status(400).json({ error: 'Invalid Employee ID' });
         }
 
-        const sql = 'CALL InsertEmployee(?, ?, ?)';
+        const sql = 'CALL InsertEmployee(?, ?, ?, ?)';
         const params = [
             id,                   // new_Employee_ID
             new_basic_salary,     // new_basic_salary
-            new_annual_bonus      // new_annual_bonus
+            new_annual_bonus,      // new_annual_bonus
+            new_Employee_name
         ];
 
         db.query(sql, params, (err, results) => {
