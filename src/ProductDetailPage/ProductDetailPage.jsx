@@ -27,7 +27,6 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
       const r = await fetch(url);
       if (!r.ok) throw new Error("sort fetch failed");
       const data = await r.json();
-      // ⬇️ filter by current product id
       const filtered = data.filter(entry => String(entry.Product_ID) === String(id));
       setReviews(filtered);
     } catch (e) {
@@ -66,12 +65,19 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
           fetch(`http://localhost:3001/api/discounts/fromProduct/${id}`)
         ]);
 
-        if ([pRes, sRes, rRes, dRes].some((r) => !r.ok)) throw new Error("Request failed");
+        if ([pRes, sRes, rRes].some((r) => !r.ok)) throw new Error("Request failed");
 
         setProduct(await pRes.json());
         setSupplier(await sRes.json());
         setReviews(await rRes.json());
-        setDiscount(await dRes.json());
+
+        if (dRes.ok) {
+          const d = await dRes.json();
+          setDiscount(d);
+        } else {
+          console.warn("No discount data found.");
+          setDiscount(null);
+        }
       } catch (e) {
         console.error(e);
         setError("Failed to load product-page resources");
@@ -128,18 +134,20 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
         </section>
 
         {/* DISCOUNT */}
-        {discount && (
-            <section>
-              <h2>Current Discount</h2>
+        <section>
+          <h2>Current Discount</h2>
+          {discount ? (
               <div style={{ display: "flex", flexWrap: "wrap", gap: 20 }}>
                 <div className="metric"><div className="title4">Discount_ID</div><div className="data">{discount.Discount_ID}</div></div>
                 <div className="metric"><div className="title4">discount_type</div><div className="data">{discount.discount_type}</div></div>
-                <div className="metric"><div className="title4">discount_value</div><div className="data">{money(discount.discount_value)}</div></div>
+                <div className="metric"><div className="title4">discount_value</div><div className="data">{discount.discount_value + "%"}</div></div>
                 <div className="metric"><div className="title4">start_date</div><div className="data">{formatDate(discount.start_date)}</div></div>
                 <div className="metric"><div className="title4">end_date</div><div className="data">{formatDate(discount.end_date)}</div></div>
               </div>
-            </section>
-        )}
+          ) : (
+              <p style={{ paddingLeft: 8, fontStyle: "italic", color: "gray" }}>No active discount found for this product.</p>
+          )}
+        </section>
 
         {/* CUSTOMER REVIEWS WITH SORT */}
         <section>
