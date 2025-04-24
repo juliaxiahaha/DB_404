@@ -4,11 +4,8 @@ import { useParams } from "react-router-dom";
 import "./ProductDetailPage.css";
 import 'react-data-grid/lib/styles.css';
 import { DataGrid } from 'react-data-grid';
+import ArrowDown from "./assets/ic-arrow-drop-down0.svg";
 
-/**
- * Product detail page – rebuilt with elastic flex layout.
- * All major blocks flow naturally and resize responsively.
- */
 export const ProductDetailPage = ({ className = "", ...props }) => {
   const { id } = useParams();
   const [product, setProduct]   = useState(null);
@@ -18,11 +15,47 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
   const [loading, setLoading]   = useState(true);
   const [error, setError]       = useState(null);
 
-  /** Helpers */
+  const [sortCol, setSortCol]   = useState(null);
+  const [sortDir, setSortDir]   = useState("ASC");
+
   const money      = (n) => `$${Number(n).toFixed(2)}`;
   const formatDate = (d) => new Date(d).toLocaleDateString();
 
-  /** Load all resources in parallel */
+  const fetchSorted = async (col, dir) => {
+    try {
+      const url = `http://localhost:3001/api/sorter?tbl=ProductReview&col=${col}&op=${dir}`;
+      const r = await fetch(url);
+      if (!r.ok) throw new Error("sort fetch failed");
+      const data = await r.json();
+      // ⬇️ filter by current product id
+      const filtered = data.filter(entry => String(entry.Product_ID) === String(id));
+      setReviews(filtered);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const toggleSort = (col) => {
+    const dir = sortCol === col && sortDir === "ASC" ? "DESC" : "ASC";
+    setSortCol(col);
+    setSortDir(dir);
+    fetchSorted(col, dir);
+  };
+
+  const header = (label, colKey) => (
+      <span
+          style={{ display: "inline-flex", alignItems: "center", gap: 4, cursor: "pointer" }}
+          onClick={() => toggleSort(colKey)}
+      >
+      {label}
+        <img
+            src={ArrowDown}
+            alt="sort"
+            style={{ width: 12, transform: sortCol === colKey && sortDir === "DESC" ? "rotate(180deg)" : "none" }}
+        />
+    </span>
+  );
+
   useEffect(() => {
     (async () => {
       try {
@@ -52,97 +85,63 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
   if (error)   return <div className="product-detail-page">{error}</div>;
   if (!product || !supplier) return <div className="product-detail-page">No data found</div>;
 
-  /** Review grid columns */
   const reviewColumns = [
-    { key: "Review_ID",   name: "ID", width: 60 },
-    { key: "rating",      name: "Rating", width: 80 },
+    { key: "Review_ID",   name: header("ID", "Review_ID"), width: 60 },
+    { key: "rating",      name: header("Rating", "rating"), width: 80 },
     {
       key: "comment",
-      name: "Comment",
+      name: header("Comment", "comment"),
       resizable: true,
       formatter: ({ row }) => <span title={row.comment}>{row.comment}</span>
     },
     {
       key: "review_date",
-      name: "Date",
+      name: header("Date", "review_date"),
       width: 180,
       formatter: ({ row }) => formatDate(row.review_date)
     },
-    { key: "Customer_ID", name: "Customer", width: 100 }
+    { key: "Customer_ID", name: header("Customer", "Customer_ID"), width: 100 }
   ];
 
-  /** UI */
   return (
       <div
           className={`product-detail-page ${className}`}
           style={{ display: "flex", flexDirection: "column", gap: 64, padding: 40 }}
           {...props}
       >
-        {/* ⇢ 1. TOP INFO SECTION – elastic row */}
-        <section
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 40,
-              justifyContent: "space-between"
-            }}
-        >
-          {/* Product card */}
-          <div style={{ flex: "1 1 280px", minWidth: 280 }}>
-            <h2 style={{ marginBottom: 16 }}>Product Information</h2>
+        {/* PRODUCT & SUPPLIER */}
+        <section style={{ display: "flex", flexWrap: "wrap", gap: 40 }}>
+          <div style={{ flex: "1 1 280px" }}>
+            <h2>Product Information</h2>
             <div className="metric"><div className="title4">Name</div><div className="data">{product.name}</div></div>
             <div className="metric"><div className="title4">Category</div><div className="data">{product.category}</div></div>
             <div className="metric"><div className="title4">Overall rating</div><div className="data">{Number(product.ratings).toFixed(1)}/5.0</div></div>
             <div className="metric"><div className="title4">Retail price</div><div className="data">{money(product.retail_price)}</div></div>
             <div className="metric"><div className="title4">Purchasing price</div><div className="data">{money(product.purchasing_price)}</div></div>
           </div>
-
-          {/* Supplier card */}
-          <div style={{ flex: "1 1 280px", minWidth: 280 }}>
-            <h2 style={{ marginBottom: 16 }}>Supplier Information</h2>
+          <div style={{ flex: "1 1 280px" }}>
+            <h2>Supplier Information</h2>
             <div className="metric"><div className="title4">Name</div><div className="data">{supplier.name}</div></div>
             <div className="metric"><div className="title4">Phone</div><div className="data">{supplier.phone}</div></div>
             <div className="metric"><div className="title4">Email</div><div className="data">{supplier.email}</div></div>
           </div>
         </section>
 
-        {/* ⇢ 3. DISCOUNT SECTION – elastic metric row */}
+        {/* DISCOUNT */}
         {discount && (
             <section>
               <h2>Current Discount</h2>
-              <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: 20,
-                    justifyContent: "space-between"
-                  }}
-              >
-                <div className="metric" style={{ flex: "1 1 180px" }}>
-                  <div className="title4">Discount_ID</div>
-                  <div className="data">{discount.Discount_ID}</div>
-                </div>
-                <div className="metric" style={{ flex: "1 1 180px" }}>
-                  <div className="title4">discount_type</div>
-                  <div className="data">{discount.discount_type}</div>
-                </div>
-                <div className="metric" style={{ flex: "1 1 180px" }}>
-                  <div className="title4">discount_value</div>
-                  <div className="data">{money(discount.discount_value)}</div>
-                </div>
-                <div className="metric" style={{ flex: "1 1 180px" }}>
-                  <div className="title4">start_date</div>
-                  <div className="data">{formatDate(discount.start_date)}</div>
-                </div>
-                <div className="metric" style={{ flex: "1 1 180px" }}>
-                  <div className="title4">end_date</div>
-                  <div className="data">{formatDate(discount.end_date)}</div>
-                </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 20 }}>
+                <div className="metric"><div className="title4">Discount_ID</div><div className="data">{discount.Discount_ID}</div></div>
+                <div className="metric"><div className="title4">discount_type</div><div className="data">{discount.discount_type}</div></div>
+                <div className="metric"><div className="title4">discount_value</div><div className="data">{money(discount.discount_value)}</div></div>
+                <div className="metric"><div className="title4">start_date</div><div className="data">{formatDate(discount.start_date)}</div></div>
+                <div className="metric"><div className="title4">end_date</div><div className="data">{formatDate(discount.end_date)}</div></div>
               </div>
             </section>
         )}
 
-        {/* ⇢ 4. CUSTOMER REVIEWS */}
+        {/* CUSTOMER REVIEWS WITH SORT */}
         <section>
           <h2>Customer Reviews</h2>
           <DataGrid columns={reviewColumns} rows={reviews} style={{ height: 400 }} />
