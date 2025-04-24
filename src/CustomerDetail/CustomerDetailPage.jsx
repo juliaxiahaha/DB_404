@@ -29,13 +29,31 @@ export const CustomerDetailPage = ({ className, ...props }) => {
       .catch(err => console.error("Failed to fetch orders:", err));
   }, [id]);
 
-  useEffect(() => {
+useEffect(() => {
+    console.log("Fetching shopping cart for customer ID:", id);
     axios.get(`http://localhost:3001/api/shoppingCarts/${id}`)
-      .then((res) => {
-        setCartItems(res.data);
+      .then(async (res) => {
+        console.log("Raw shopping cart data:", res.data);
+        const enriched = await Promise.all(res.data.map(async (item) => {
+          try {
+            const product = await axios.get(`http://localhost:3001/api/products/${item.Product_ID}`);
+            console.log(`Fetched product name for Product_ID ${item.Product_ID}:`, product.data.name);
+            return {
+              ...item,
+              product_name: product.data.name
+            };
+          } catch (err) {
+            console.error(`Failed to fetch product for Product_ID ${item.Product_ID}`, err);
+            return {
+              ...item,
+              product_name: "Unknown"
+            };
+          }
+        }));
+        setCartItems(enriched);
       })
       .catch((err) => {
-        console.error("Failed to fetch shopping cart:", err);
+        console.error("Failed to fetch shopping cart by customer ID:", err);
       });
   }, [id]);
 
@@ -183,19 +201,21 @@ export const CustomerDetailPage = ({ className, ...props }) => {
         <img className="vector-2004" src="vector-2003.svg" />
       </div>
 
-      {cartItems.map((item, index) => (
-        <div className={`item${index + 2}`} key={item.Product_ID || index}>
-          <div className="frame">
-            <div className="icon">🛍️ </div>
-            <img className="image3" src={`image${index + 2}.png`} />
+
+        {cartItems.map((item, index) => (
+          <div className={`item${index + 2}`} key={item.Product_ID || index}>
+            <div className="frame">
+              <div className="icon">🛍️ </div>
+              <img className="image3" src={`image${index + 2}.png`} />
+            </div>
+            <div className="frame-4273189062">
+              <div className="title9">{item.product_name || "Loading..."}</div>
+              <div className="subtitle">Quantity: {item.product_quantity}</div>
+            </div>
+            <div className="subtitle2">${item.product_price ? parseFloat(item.product_price).toFixed(2) : "0.00"}</div>
           </div>
-          <div className="frame-4273189062">
-            <div className="title9">{item.product_name}</div>
-            <div className="subtitle">Quantity: {item.quantity}</div>
-          </div>
-          <div className="subtitle2">${parseFloat(item.total_price).toFixed(2)}</div>
-        </div>
-      ))}
+        ))}
+
     </div>
   );
 };
