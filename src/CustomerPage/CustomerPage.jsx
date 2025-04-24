@@ -8,6 +8,15 @@ import plusUserIcon from "./assets/plus-user-svgrepo-com.svg";
 
 export const CustomerPage = ({ className, ...props }) => {
     const [customers, setCustomers] = useState([]);
+    const [formData, setFormData] = useState({
+      new_Customer_ID: "",
+      new_name: "",
+      new_address: "",
+      new_phone: "",
+      new_email: "",
+      new_membership_registration_date: ""
+    });
+    const [isFormVisible, setFormVisible] = useState(false);
     const navigate = useNavigate();
 
     const handleDelete = (id) => {
@@ -16,19 +25,26 @@ export const CustomerPage = ({ className, ...props }) => {
         .catch(err => console.error("Delete failed:", err));
     };
 
-    const handleInsert = () => {
-        const newCustomer = {
-            new_Customer_ID: prompt("Enter Customer ID"),
-            new_name: prompt("Enter Name"),
-            new_address: prompt("Enter Address"),
-            new_phone: prompt("Enter Phone"),
-            new_email: prompt("Enter Email"),
-            new_membership_registration_date: prompt("Enter Registration Date (YYYY-MM-DD)")
-        };
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData(prev => ({ ...prev, [name]: value }));
+    };
 
-      axios.post("http://localhost:3001/api/customers/insert", newCustomer)
+    const handleSave = () => {
+      axios.post("http://localhost:3001/api/customers/insert", formData)
         .then(() => axios.get("http://localhost:3001/api/customers"))
-        .then(res => setCustomers(res.data))
+        .then(res => {
+          setCustomers(res.data);
+          setFormVisible(false);
+          setFormData({
+            new_Customer_ID: "",
+            new_name: "",
+            new_address: "",
+            new_phone: "",
+            new_email: "",
+            new_membership_registration_date: ""
+          });
+        })
         .catch(err => console.error("Insert failed:", err));
     };
 
@@ -48,11 +64,81 @@ export const CustomerPage = ({ className, ...props }) => {
                         src={plusUserIcon}
                         alt="Add Customer"
                         style={{ width: "24px", height: "24px", marginLeft: "10px", cursor: "pointer" }}
-                        onClick={handleInsert}
+                        onClick={() => setFormVisible(!isFormVisible)}
                       />
                     </div>
                 </div>
                 <div className="list2">
+                    {isFormVisible && (
+                      <div className="form container3">
+                        <h2>Add New Customer</h2>
+
+                        <label>
+                          Customer ID
+                          <input
+                            name="new_Customer_ID"
+                            value={formData.new_Customer_ID}
+                            onChange={handleChange}
+                            placeholder="Enter Customer ID"
+                          />
+                        </label>
+
+                        <label>
+                          Name
+                          <input
+                            name="new_name"
+                            value={formData.new_name}
+                            onChange={handleChange}
+                            placeholder="Enter full name"
+                          />
+                        </label>
+
+                        <label>
+                          Email
+                          <input
+                            name="new_email"
+                            value={formData.new_email}
+                            onChange={handleChange}
+                            placeholder="Enter email"
+                          />
+                        </label>
+
+                        <label>
+                          Phone
+                          <input
+                            name="new_phone"
+                            value={formData.new_phone}
+                            onChange={handleChange}
+                            placeholder="Enter phone number"
+                          />
+                        </label>
+
+                        <label>
+                          Address
+                          <input
+                            name="new_address"
+                            value={formData.new_address}
+                            onChange={handleChange}
+                            placeholder="Enter address"
+                          />
+                        </label>
+
+                        <label>
+                          Registration Date
+                          <input
+                            name="new_membership_registration_date"
+                            type="date"
+                            value={formData.new_membership_registration_date}
+                            onChange={handleChange}
+                          />
+                        </label>
+
+                        <div className="buttons">
+                          <button onClick={handleSave}>Add Customer</button>
+                          <button onClick={() => setFormVisible(false)}>Cancel</button>
+                        </div>
+                      </div>
+                    )}
                     <div className="row">
                         {customers.map((customer, index) => (
                             <div key={index} className="item" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}>
@@ -77,8 +163,7 @@ export const CustomerPage = ({ className, ...props }) => {
                         ))}
                     </div>
                 </div>
-                {/* <img className="img-8734-1" src="img-8734-10.png" /> */}
-                {/* (Nav bar removed) */}
+
                 <div className="section">
                     <div className="container2">
                         <div className="title4">Contact Us: buyaozhaowomen@store.com </div>
