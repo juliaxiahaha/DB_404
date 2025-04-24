@@ -3,6 +3,17 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+import image10 from "./assets/image-10.png";
+import image20 from "./assets/image-20.png";
+import image30 from "./assets/image-30.png";
+import image34 from "./assets/image-340.png";
+import image35 from "./assets/image-350.png";
+import image120 from "./assets/image-120.png";
+import vector2000 from "./assets/vector-2000.svg";
+import vector2001 from "./assets/vector-2001.svg";
+import vector2002 from "./assets/vector-2002.svg";
+import vector2003 from "./assets/vector-2003.svg";
+
 export const CustomerDetailPage = ({ className, ...props }) => {
   const { id } = useParams();
   const [customer, setCustomer] = useState(null);
@@ -83,9 +94,9 @@ useEffect(() => {
       </div>
       <div className="section2">
         <div className="avatar">
-          <img className="image-1" src="image-10.png" />
-          <img className="image-2" src="image-20.png" />
-          <img className="image-3" src="image-30.png" />
+          <img className="image-1" src={image10} />
+          <img className="image-2" src={image20} />
+          <img className="image-3" src={image30} />
         </div>
         <div className="container2">
           <div className="title3">{customer?.name} </div>
@@ -98,7 +109,7 @@ useEffect(() => {
             Welcome to our shop! Enjoy your exclusive benefits.{" "}
           </div>
         </div>
-        <img className="vector-200" src="vector-2000.svg" />
+        <img className="vector-200" src={vector2000} />
       </div>
       <div className="form">
         <div className="container3">
@@ -159,7 +170,7 @@ useEffect(() => {
             </div>
           </div>
         </div>
-        <img className="vector-2002" src="vector-2001.svg" />
+        <img className="vector-2002" src={vector2001} />
       </div>
       <div className="list2">
         <div className="container4">
@@ -173,7 +184,7 @@ useEffect(() => {
                 <div className="item" key={order.Order_ID}>
                   <div className="frame">
                     <div className="icon">🛍️ </div>
-                    <img className="image-34" src="image-340.png" />
+                    <img className="image-34" src={image34} />
                   </div>
                   <div className="frame-427318906">
                     <div className="title8">Order #{order.Order_ID}</div>
@@ -187,18 +198,18 @@ useEffect(() => {
         </div>
         <div className="image-container">
           <div className="image2">
-            <img className="image-12" src="image-120.png" />
+            <img className="image-12" src={image120} />
           </div>
         </div>
-        <img className="vector-2003" src="vector-2002.svg" />
+        <img className="vector-2003" src={vector2002} />
       </div>
       <div className="form2">
         <div className="container3">
           <div className="title4">Shopping Cart </div>
-          <img className="image-35" src="image-350.png" />
+          <img className="image-35" src={image35} />
           <div className="description2">Product amount: {cartItems.length} </div>
         </div>
-        <img className="vector-2004" src="vector-2003.svg" />
+        <img className="vector-2004" src={vector2003} />
       </div>
 
 
