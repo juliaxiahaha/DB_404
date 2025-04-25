@@ -2,7 +2,6 @@
 import express from 'express';
 const router = express.Router();
 
-// Helper：把空字符串或 undefined 转为 null
 const toNullable = v => v === undefined || v === '' ? null : v;
 
 export default function(db) {
@@ -24,7 +23,7 @@ export default function(db) {
 
         const sql = 'CALL InsertEmployee(?, ?, ?, ?)';
         const params = [
-            id,                   // new_Employee_ID
+            new_Employee_ID,      // new_Employee_ID
             new_basic_salary,     // new_basic_salary
             new_annual_bonus,      // new_annual_bonus
             new_Employee_name
