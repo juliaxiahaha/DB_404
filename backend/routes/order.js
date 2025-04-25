@@ -1,27 +1,55 @@
-// routes/customer.js
 import express from 'express';
-
 const router = express.Router();
 
 export default function (db) {
-    // GET all customers
-    router.get('/all', async (req, res) => {
-        const customerQuery = new Promise((resolve, reject) => {
-            db.query('SELECT * FROM store.Customer', (err, c_results) => {
-                if (err) {
-                    console.error('Error querying database for customers:', err);
-                    return reject({ error: 'Database query failed for customers' });
-                }
-                resolve(c_results);
-            });
+    // Get all orders
+    router.get('/orders', (req, res) => {
+        db.query('SELECT * FROM Orders', (err, results) => {
+            if (err) {
+                console.error('Failed to fetch orders:', err);
+                return res.status(500).json({ error: 'Failed to fetch orders' });
+            }
+            res.json(results);
         });
+    });
 
-        try {
-            const customers = await customerQuery;
-            res.json({ customers });
-        } catch (err) {
-            res.status(500).json(err);
-        }
+    // Add a new order
+    router.post('/', (req, res) => {
+        const { order_date, total_price, status, employee, customer_name } = req.body;
+        const query = 'INSERT INTO Orders (order_date, total_price, status, employee, customer_name) VALUES (?, ?, ?, ?, ?)';
+        db.query(query, [order_date, total_price, status, employee, customer_name], (err, result) => {
+            if (err) {
+                console.error('Failed to add order:', err);
+                return res.status(500).json({ error: 'Insert failed' });
+            }
+            res.status(201).json({ message: 'Order added successfully', id: result.insertId });
+        });
+    });
+
+    // Update an order by ID
+    router.put('/:id', (req, res) => {
+        const { id } = req.params;
+        const { order_date, total_price, status, employee, customer_name } = req.body;
+        const query = 'UPDATE Orders SET order_date = ?, total_price = ?, status = ?, employee = ?, customer_name = ? WHERE Order_ID = ?';
+        db.query(query, [order_date, total_price, status, employee, customer_name, id], (err) => {
+            if (err) {
+                console.error('Failed to update order:', err);
+                return res.status(500).json({ error: 'Update failed' });
+            }
+            res.json({ message: 'Order updated successfully' });
+        });
+    });
+
+    // Delete an order by ID
+    router.delete('/:id', (req, res) => {
+        const { id } = req.params;
+        db.query('DELETE FROM Orders WHERE Order_ID = ?', [id], (err) => {
+            if (err) {
+                console.error('Failed to delete order:', err);
+                return res.status(500).json({ error: 'Delete failed' });
+            }
+            res.json({ message: 'Deleted successfully' });
+        });
     });
 
     return router;

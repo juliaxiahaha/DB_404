@@ -26,8 +26,8 @@ export const HomePage = ({ className, ...props }) => {
         fetch('http://localhost:3001/home/employees')
             .then((res) => res.json())
             .then((data) => {
-                console.log("Employee data:", data);  // 👈 check if this logs correctly
-                console.log("Employee data:", data);  // 👈 check if this logs correctly
+                console.log("Employee data:", data);
+                console.log("Employee data:", data);
                 setEmployees(data);
             })
             .catch((err) => console.error('Error fetching employees:', err));

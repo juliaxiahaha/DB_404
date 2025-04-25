@@ -1,0 +1,23 @@
+// src/routes/deleteShipping.js
+import express from 'express';
+const router = express.Router();
+
+export default function(db) {
+    // DELETE /api/shippings/:id
+    router.delete('/:id', (req, res) => {
+        const shipId = parseInt(req.params.id, 10);
+        if (isNaN(shipId)) {
+            return res.status(400).json({ error: 'Invalid Shipping ID' });
+        }
+
+        db.query('CALL DeleteShipping(?)', [shipId], (err, results) => {
+            if (err) {
+                console.error('DeleteShipping failed:', err);
+                return res.status(500).json({ error: 'DeleteShipping failed' });
+            }
+            res.json({ message: `Shipping ${shipId} deleted`, results });
+        });
+    });
+
+    return router;
+}

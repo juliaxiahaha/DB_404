@@ -1,210 +1,169 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./CustomerPage.css";
+import minusUserIcon from "./assets/minus-user-svgrepo-com.svg";
+import plusUserIcon from "./assets/plus-user-svgrepo-com.svg";
 
-// Import all images here
-import image190 from "/src/CustomerPage/assets/image-190.png";
-import image180 from "/src/CustomerPage/assets/image-180.png";
-import image200 from "/src/CustomerPage/assets/image-200.png";
-import image201 from "/src/CustomerPage/assets/image-201.png";
-import image210 from "/src/CustomerPage/assets/image-210.png";
-import image220 from "/src/CustomerPage/assets/image-220.png";
-import image230 from "/src/CustomerPage/assets/image-230.png";
-import image240 from "/src/CustomerPage/assets/image-240.png";
-import image250 from "/src/CustomerPage/assets/image-250.png";
-import image260 from "/src/CustomerPage/assets/image-260.png";
-import mg7617_10 from "/src/CustomerPage/assets/img-7617-10.png";
-import image280 from "/src/CustomerPage/assets/image-280.png";
-import image320 from "/src/CustomerPage/assets/image-320.png";
-import image40 from "/src/CustomerPage/assets/image-40.png";
-import vector2000 from "/src/CustomerPage/assets/vector-2000.svg";
 
 export const CustomerPage = ({ className, ...props }) => {
+    const [customers, setCustomers] = useState([]);
+    const [formData, setFormData] = useState({
+      new_Customer_ID: "",
+      new_name: "",
+      new_address: "",
+      new_phone: "",
+      new_email: "",
+      new_membership_registration_date: ""
+    });
+    const [isFormVisible, setFormVisible] = useState(false);
+    const navigate = useNavigate();
+
+    const handleDelete = (id) => {
+      axios.delete(`http://localhost:3001/api/customers/${id}`)
+        .then(() => setCustomers(prev => prev.filter(c => c.Customer_ID !== id)))
+        .catch(err => console.error("Delete failed:", err));
+    };
+
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSave = () => {
+      axios.post("http://localhost:3001/api/customers/insert", formData)
+        .then(() => axios.get("http://localhost:3001/api/customers"))
+        .then(res => {
+          setCustomers(res.data);
+          setFormVisible(false);
+          setFormData({
+            new_Customer_ID: "",
+            new_name: "",
+            new_address: "",
+            new_phone: "",
+            new_email: "",
+            new_membership_registration_date: ""
+          });
+        })
+        .catch(err => console.error("Insert failed:", err));
+    };
+
+    useEffect(() => {
+        axios.get("http://localhost:3001/api/customers")
+            .then(res => setCustomers(res.data))
+            .catch(err => console.error("Failed to load customers:", err));
+    }, []);
+
     return (
         <div className={"customer-page " + className}>
             <div className="list">
                 <div className="container">
-                    <div className="title">Select a customer from the customer list: </div>
+                    <div className="title">
+                      Select a customer from the customer list:
+                      <img
+                        src={plusUserIcon}
+                        alt="Add Customer"
+                        style={{ width: "24px", height: "24px", marginLeft: "10px", cursor: "pointer" }}
+                        onClick={() => setFormVisible(!isFormVisible)}
+                      />
+                    </div>
                 </div>
                 <div className="list2">
+                    {isFormVisible && (
+                      <div className="form container3">
+                        <h2>Add New Customer</h2>
+
+                        <label>
+                          Customer ID
+                          <input
+                            name="new_Customer_ID"
+                            value={formData.new_Customer_ID}
+                            onChange={handleChange}
+                            placeholder="Enter Customer ID"
+                          />
+                        </label>
+
+                        <label>
+                          Name
+                          <input
+                            name="new_name"
+                            value={formData.new_name}
+                            onChange={handleChange}
+                            placeholder="Enter full name"
+                          />
+                        </label>
+
+                        <label>
+                          Email
+                          <input
+                            name="new_email"
+                            value={formData.new_email}
+                            onChange={handleChange}
+                            placeholder="Enter email"
+                          />
+                        </label>
+
+                        <label>
+                          Phone
+                          <input
+                            name="new_phone"
+                            value={formData.new_phone}
+                            onChange={handleChange}
+                            placeholder="Enter phone number"
+                          />
+                        </label>
+
+                        <label>
+                          Address
+                          <input
+                            name="new_address"
+                            value={formData.new_address}
+                            onChange={handleChange}
+                            placeholder="Enter address"
+                          />
+                        </label>
+
+                        <label>
+                          Registration Date
+                          <input
+                            name="new_membership_registration_date"
+                            type="date"
+                            value={formData.new_membership_registration_date}
+                            onChange={handleChange}
+                          />
+                        </label>
+
+                        <div className="buttons">
+                          <button onClick={handleSave}>Add Customer</button>
+                          <button onClick={() => setFormVisible(false)}>Cancel</button>
+                        </div>
+                      </div>
+                    )}
                     <div className="row">
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">😃 </div>
-                                <img className="image-19" src={image190} />
+                        {customers.map((customer, index) => (
+                            <div key={index} className="item" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer' }}>
+                              <div onClick={() => navigate(`/customer/${customer.Customer_ID}`)} style={{ display: 'flex', alignItems: 'center' }}>
+                                <div className="frame">
+                                    <div className="icon">👤</div>
+                                </div>
+                                <div className="frame-427318906">
+                                    <div className="title2">{customer.name}</div>
+                                </div>
+                              </div>
+                              <img
+                                src={minusUserIcon}
+                                alt="Delete Customer"
+                                style={{ width: "20px", height: "20px", marginLeft: "10px", cursor: "pointer" }}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleDelete(customer.Customer_ID);
+                                }}
+                              />
                             </div>
-                            <div className="frame-427318906">
-                                <div className="title2">Shen Zhou </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <img className="image-18" src={image180} />
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">Kanye West </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <img className="image-20" src={image200} />
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">Taylor Swift </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">👍 </div>
-                                <img className="image-202" src={image201} />
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">NotAlian </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">🎉 </div>
-                                <img className="image-21" src={image210} />
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">Kimi </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
-                    <div className="row">
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">🌟 </div>
-                                <img className="image-22" src={image220} />
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">Timi </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <img className="image-23" src={image230} />
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">Timothée Chalamet </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">📞 </div>
-                                <img className="image-24" src={image240} />
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">Anne Hathaway </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">🔑 </div>
-                                <img className="image-25" src={image250} />
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">Mimi </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">💻 </div>
-                                <img className="image-26" src={image260} />
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">Yu Liu </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">📆 </div>
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">dollar </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">📌 </div>
-                                <img className="img-7617-1" src={mg7617_10} />
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">Fifteen </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">📋 </div>
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">FourEightSeven </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">📧 </div>
-                                <img className="image-28" src={image280} />
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">Harry </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <img className="image-32" src={image320} />
-                            <div className="frame-427318906">
-                                <div className="title2">Customer 15 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">📯 </div>
-                                <img className="image-4" src={image40} />
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">John Doe </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">📜 </div>
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">Customer 17 </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">📇 </div>
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">Customer 18 </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">📚 </div>
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">Customer 19 </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">🖊️ </div>
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="title2">Customer 20 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <img className="vector-200" src={vector2000} />
                 </div>
-                {/* <img className="img-8734-1" src="img-8734-10.png" /> */}
-                {/* (Nav bar removed) */}
+
                 <div className="section">
                     <div className="container2">
                         <div className="title4">Contact Us: buyaozhaowomen@store.com </div>
@@ -215,4 +174,3 @@ export const CustomerPage = ({ className, ...props }) => {
         </div>
     );
 };
-

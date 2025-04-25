@@ -11,3 +11,5 @@ export { default as TableCellsTypeStatus } from "./TableCellsTypeStatus/TableCel
 export { default as TableCellsTypePersonCell } from "./TableCellsTypePersonCell/TableCellsTypePersonCell.jsx";
 export { default as StatusTypeDanger } from "./StatusTypeDanger/StatusTypeDanger.jsx";
 export { default as StatusTypeWarning } from "./StatusTypeWarning/StatusTypeWarning.jsx";
+export { default as StatusTypeDone } from "./StatusTypeDone/StatusTypeDone.jsx";
+export { default as StatusTypeStatus } from "./TableCellsTypeStatus/TableCellsTypeStatus.jsx";
