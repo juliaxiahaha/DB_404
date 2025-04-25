@@ -48,7 +48,7 @@
     width: 100%;
 }
 
-.list {
+.order-page .list {
     display: flex;
     flex-direction: column;
     gap: 40px;

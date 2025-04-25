@@ -4,10 +4,9 @@
 }
 .product-detail-page {
   background: #ffffff;
-  height: 3150px;
   position: relative;
-  overflow: hidden;
 }
+
 .product-detail-page .title {
   color: #000000;
   text-align: left;
@@ -19,6 +18,16 @@
   left: 856px;
   top: 168px;
   width: 520px;
+}
+.product-detail-page h2 {
+  color: #000000;
+  text-align: left;
+  font-family: "Roboto-Bold", sans-serif;
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  margin-top: 0;
 }
 .product-detail-page .title2 {
   color: #000000;
