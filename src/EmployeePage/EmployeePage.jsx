@@ -147,7 +147,7 @@ export const EmployeePage = () => {
     // Start editing row
     const startEdit = row => {
         setFormData({
-            new_Employee_ID: row.employee_id,
+            new_Employee_ID: row.Employee_ID,
             new_basic_salary: row.basic_salary,
             new_annual_bonus: row.annual_bonus,
             new_Employee_name: row.name

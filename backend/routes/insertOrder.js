@@ -43,6 +43,7 @@ export default function(db) {
                 results
             });
         });
+        console.log('Received POST /api/orders/insert with body:', req.body);
     });
 
     return router;

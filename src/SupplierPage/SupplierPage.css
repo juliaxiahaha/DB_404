@@ -1,172 +1,82 @@
+/* SupplierPage.css */
+
 .supplier-page {
-  width: 100%;
-  box-sizing: border-box;
-  font-family: "Roboto", sans-serif;
-  background-color: #fff;
-}
-
-/* === HERO SECTION === */
-.hero-section {
-  background-color: #444;
-  padding: 50px 20px;
-  text-align: center;
-  color: white;
-}
-
-.hero-title {
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.hero-subtitle {
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-.add-supplier-button {
-  background-color: black;
-  color: white;
-  padding: 10px 30px;
-  border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-/* === SUPPLIER LIST SECTION === */
-.list-section {
-  padding: 40px 80px;
-}
-
-.list-title {
-  font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 20px;
-}
-
-.supplier-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.supplier-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px;
-  border-bottom: 1px solid #eee;
-}
-
-.supplier-logo-placeholder {
-  width: 50px;
-  height: 50px;
-  background-color: #f0f0f0;
-  margin-right: 20px;
-}
-
-.supplier-info {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.supplier-id {
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.supplier-phone {
-  font-size: 14px;
-  color: #555;
-}
-
-.supplier-email {
-  font-size: 14px;
-  font-weight: 500;
-  color: #000;
-  margin-left: 20px;
-  white-space: nowrap;
-}
-
-/* === FORM SECTION === */
-.form-title-section {
-  text-align: center;
-  margin-top: 40px;
-}
-
-.form-title {
-  font-size: 28px;
-  font-weight: bold;
-}
-
-.message-success {
-  text-align: center;
-  color: green;
-  font-size: 16px;
-  margin-top: 10px;
-}
-
-/* FORM LAYOUT */
-.form-input-section {
-  margin: 30px auto 60px;
-  max-width: 900px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.form-row {
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.input-group {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.input-group.full-width {
-  width: 100%;
-}
-
-.input-group label {
-  font-size: 14px;
-  margin-bottom: 6px;
-}
-
-.input-group input {
-  padding: 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-/* BUTTON */
-.form-button-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
-}
-
-.save-button {
-  background-color: black;
-  color: white;
-  padding: 12px 30px;
-  font-size: 14px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-/* === FOOTER === */
-.footer {
-  border-top: 1px solid #eee;
   padding: 20px;
-  text-align: center;
-  font-size: 14px;
-  color: #555;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+/* Form Container */
+.supplier-page .form.container3 {
+  background-color: #ffffff;
+  padding: 24px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.supplier-page .form.container3 h2 {
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+  color: #333333;
+}
+
+.supplier-page .form.container3 label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #555555;
+}
+
+.supplier-page .form.container3 input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 4px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  color: #333333;
+}
+
+/* Buttons */
+.supplier-page .buttons {
+  margin-top: 16px;
+}
+
+.supplier-page .buttons button {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 16px;
+  margin-right: 8px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.supplier-page .buttons button:hover {
+  background-color: #0056b3;
+}
+
+/* Message */
+.supplier-page .message {
+  margin-top: 12px;
+  font-size: 0.95rem;
+  color: #28a745;
+}
+
+/* DataGrid Container */
+.supplier-page .container4 {
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Optional: adjust DataGrid row styles */
+.supplier-page .container4 .rdg {
+  --rdg-row-height: 48px;
+  font-size: 0.95rem;
 }
