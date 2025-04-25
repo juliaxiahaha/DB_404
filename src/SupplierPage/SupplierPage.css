@@ -1,127 +1,82 @@
-/* Container and layout */
+/* SupplierPage.css */
+
 .supplier-page {
+  padding: 20px;
   font-family: Arial, sans-serif;
-  padding: 2rem;
-  background-color: #fff;
-  color: #333;
+  background-color: #f5f5f5;
 }
 
-.container {
-  max-width: 800px;
-  margin: 0 auto 1.5rem;
-  text-align: center;
+/* Form Container */
+.supplier-page .form.container3 {
+  background-color: #ffffff;
+  padding: 24px;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Titles and text */
-.title2 {
-  font-size: 1.75rem;
+.supplier-page .form.container3 h2 {
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+  color: #333333;
+}
+
+.supplier-page .form.container3 label {
+  display: block;
+  margin-bottom: 12px;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  color: #555555;
 }
 
-.description {
+.supplier-page .form.container3 input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 4px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  box-sizing: border-box;
   font-size: 1rem;
-  color: #555;
-  margin-bottom: 1rem;
-}
-
-.title3 {
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin-bottom: 0.25rem;
-}
-
-/* Message banner */
-.message-success {
-  max-width: 800px;
-  margin: -1rem auto 1.5rem;
-  padding: 0.75rem 1rem;
-  background-color: #e6f7ee;
-  color: #256029;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 0.95rem;
-}
-
-/* Form styling */
-.form-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  max-width: 800px;
-  margin: 0 auto 2rem;
-}
-
-.input {
-  flex: 1 1 250px;
-  display: flex;
-  flex-direction: column;
-}
-
-.text2 {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 0.95rem;
+  color: #333333;
 }
 
 /* Buttons */
-.button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.supplier-page .buttons {
+  margin-top: 16px;
 }
 
-.primary.title4 {
-  background-color: #1976d2;
-  color: #fff;
+.supplier-page .buttons button {
+  background-color: #007bff;
+  color: #ffffff;
   border: none;
-  padding: 0.75rem 1.5rem;
-  font-size: 0.95rem;
-  font-weight: 500;
+  padding: 10px 16px;
+  margin-right: 8px;
   border-radius: 4px;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background-color 0.2s;
 }
 
-.primary.title4:hover {
-  background-color: #145ea8;
+.supplier-page .buttons button:hover {
+  background-color: #0056b3;
 }
 
-/* List header */
-.container3 {
-  max-width: 800px;
-  margin: 2rem auto 1rem;
+/* Message */
+.supplier-page .message {
+  margin-top: 12px;
+  font-size: 0.95rem;
+  color: #28a745;
 }
 
-.title5 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  text-align: center;
+/* DataGrid Container */
+.supplier-page .container4 {
+  background-color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* DataGrid container */
-.data-grid-container {
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-/* Footer section */
-.section {
-  background-color: #f9f9f9;
-  padding: 1.5rem 0;
-  margin-top: 3rem;
-}
-
-.section .container2 {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-}
-
-.section .container2 .title,
-.section .container2 .title2 {
-  font-size: 0.875rem;
-  color: #777;
-  margin: 0;
+/* Optional: adjust DataGrid row styles */
+.supplier-page .container4 .rdg {
+  --rdg-row-height: 48px;
+  font-size: 0.95rem;
 }
