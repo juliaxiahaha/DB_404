@@ -34,26 +34,14 @@ import axios from "axios";
 
 export const DiscountPage = ({ className, ...props }) => {
     const [discounts, setDiscounts] = useState([]);
+    const [sortState, setSortState] = useState({ column: '', direction: 'ASC' }); // 👈 排序状态
     const [formData, setFormData] = useState({
         discount_type: "",
         discount_value: "",
         start_date: "",
         end_date: ""
     });
-
     const [message, setMessage] = useState("");
-
-    const handleSort = (column) => {
-        axios.get(`http://localhost:3001/api/sorter`, {
-            params: {
-                tbl: 'Discount',
-                col: column,
-                op: 'ASC' // or 'DESC', or track and toggle this if needed
-            }
-        })
-            .then(res => setDiscounts(res.data))
-            .catch(err => console.error("Sort failed:", err));
-    };
 
     const fetchAllDiscounts = () => {
         axios.get("http://localhost:3001/discount/discounts")
@@ -61,13 +49,26 @@ export const DiscountPage = ({ className, ...props }) => {
             .catch(err => console.error("Fetch failed:", err));
     };
 
+    const handleSort = (column) => {
+        const isSameColumn = sortState.column === column;
+        const newDirection = isSameColumn && sortState.direction === 'ASC' ? 'DESC' : 'ASC';
+
+        setSortState({ column, direction: newDirection });
+
+        axios.get(`http://localhost:3001/api/sorter`, {
+            params: {
+                tbl: 'Discount',
+                col: column,
+                op: newDirection
+            }
+        })
+            .then(res => setDiscounts(res.data))
+            .catch(err => console.error("Sort failed:", err));
+    };
+
     const handleSearch = (column) => {
         const value = prompt(`Enter value to search in ${column}`);
-        if (!value) {
-            fetchAllDiscounts(); // reset filter
-            return;
-        }
-        if (!value) return;
+        if (!value) return fetchAllDiscounts();
 
         axios.get('http://localhost:3001/api/search', {
             params: {
@@ -79,8 +80,6 @@ export const DiscountPage = ({ className, ...props }) => {
             .then(res => setDiscounts(res.data))
             .catch(err => console.error('Search failed:', err));
     };
-
-
 
     useEffect(() => {
         fetchAllDiscounts();
@@ -126,18 +125,28 @@ export const DiscountPage = ({ className, ...props }) => {
         }
     };
 
+    const renderSortIcon = (colKey) => (
+        <img
+            src={counterIcon}
+            alt="sort"
+            style={{
+                width: '14px',
+                height: '14px',
+                cursor: 'pointer',
+                transform: sortState.column === colKey && sortState.direction === 'DESC' ? 'rotate(180deg)' : 'none',
+                transition: 'transform 0.2s'
+            }}
+            onClick={() => handleSort(colKey)}
+        />
+    );
 
     const columns = [
-        { key: 'Discount_ID',
+        {
+            key: 'Discount_ID',
             name: (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     Discount ID
-                    <img
-                        src={counterIcon}
-                        alt="sort icon"
-                        style={{ width: '14px', height: '14px', cursor: 'pointer' }}
-                        onClick={() => handleSort('Discount_ID')}
-                    />
+                    {renderSortIcon('Discount_ID')}
                     <img
                         src={searchIcon}
                         alt="search"
@@ -145,17 +154,14 @@ export const DiscountPage = ({ className, ...props }) => {
                         onClick={() => handleSearch('Discount_ID')}
                     />
                 </div>
-            ) },
-        { key: 'discount_type',
+            )
+        },
+        {
+            key: 'discount_type',
             name: (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     Type
-                    <img
-                        src={counterIcon}
-                        alt="sort icon"
-                        style={{ width: '14px', height: '14px', cursor: 'pointer' }}
-                        onClick={() => handleSort('discount_type')}
-                    />
+                    {renderSortIcon('discount_type')}
                     <img
                         src={searchIcon}
                         alt="search"
@@ -163,17 +169,14 @@ export const DiscountPage = ({ className, ...props }) => {
                         onClick={() => handleSearch('discount_type')}
                     />
                 </div>
-            ) },
-        { key: 'discount_value',
+            )
+        },
+        {
+            key: 'discount_value',
             name: (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     Value
-                    <img
-                        src={counterIcon}
-                        alt="sort icon"
-                        style={{ width: '14px', height: '14px', cursor: 'pointer' }}
-                        onClick={() => handleSort('discount_value')}
-                    />
+                    {renderSortIcon('discount_value')}
                     <img
                         src={searchIcon}
                         alt="search"
@@ -187,14 +190,9 @@ export const DiscountPage = ({ className, ...props }) => {
         {
             key: 'start_date',
             name: (
-                <div style={{display: 'flex', alignItems: 'center', gap: '6px'}}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     Start Date
-                    <img
-                        src={counterIcon}
-                        alt="sort icon"
-                        style={{width: '14px', height: '14px', cursor: 'pointer'}}
-                        onClick={() => handleSort('start_date')}
-                    />
+                    {renderSortIcon('start_date')}
                     <img
                         src={searchIcon}
                         alt="search"
@@ -210,12 +208,7 @@ export const DiscountPage = ({ className, ...props }) => {
             name: (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     End Date
-                    <img
-                        src={counterIcon}
-                        alt="sort icon"
-                        style={{ width: '14px', height: '14px', cursor: 'pointer' }}
-                        onClick={() => handleSort('end_date')}
-                    />
+                    {renderSortIcon('end_date')}
                     <img
                         src={searchIcon}
                         alt="search"
@@ -226,7 +219,6 @@ export const DiscountPage = ({ className, ...props }) => {
             ),
             renderCell: ({ row }) => row.end_date?.slice(0, 10)
         },
-
         {
             key: 'actions',
             name: 'Action',
@@ -239,15 +231,16 @@ export const DiscountPage = ({ className, ...props }) => {
         }
     ];
 
-
     return (
         <div className={"discount-page " + className}>
+            {/* 表单与消息展示 */}
             <div className="container">
-                <div className="title2">Add Discount </div>
-                <div className="description">Fill in the details below </div>
+                <div className="title2">Add Discount</div>
+                <div className="description">Fill in the details below</div>
             </div>
             {message && <div className="message-success">{message}</div>}
 
+            {/* 表单 */}
             <div className="form-container">
                 <div className="list">
                     <div className="row">
@@ -314,20 +307,20 @@ export const DiscountPage = ({ className, ...props }) => {
                     <button className="primary title5" type="button" onClick={handleAddDiscount}>Add Discount</button>
                 </div>
             </div>
+
+            {/* 表格 */}
             <div className="section">
                 <div className="container2">
-                    <div className="title6">Contact Us: buyaozhaowomen@store.com </div>
-                    <div className="title7">Copyright © 2025 Store Management </div>
+                    <div className="title6">Contact Us: buyaozhaowomen@store.com</div>
+                    <div className="title7">Copyright © 2025 Store Management</div>
                 </div>
             </div>
             <div className="container3">
-                <div className="title8">Discount List </div>
+                <div className="title8">Discount List</div>
             </div>
             <div className="data-grid-container" style={{ marginTop: '2rem', width: '100%' }}>
                 <DataGrid columns={columns} rows={discounts} style={{ height: 400 }} />
             </div>
-
         </div>
-
     );
 };
