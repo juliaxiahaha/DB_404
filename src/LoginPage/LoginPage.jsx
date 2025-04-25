@@ -1,6 +1,45 @@
 import "./LoginPage.css";
+import { useState } from "react";
 
 export const LoginPage = ({ className, ...props }) => {
+    const [showRegisterModal, setShowRegisterModal] = useState(false);
+    const [registerUsername, setRegisterUsername] = useState("");
+    const [registerPassword, setRegisterPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [registerError, setRegisterError] = useState("");
+
+    const handleRegister = async () => {
+        if (registerPassword !== confirmPassword) {
+            setRegisterError("Passwords do not match");
+            return;
+        }
+        if (registerPassword.length < 8) {
+            setRegisterError("Password must be at least 8 characters");
+            return;
+        }
+        try {
+            const response = await fetch("http://localhost:3001/api/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: registerUsername,
+                    password: registerPassword
+                })
+            });
+            const data = await response.json();
+            if (response.ok) {
+                setShowRegisterModal(false);
+                alert("Registration successful!");
+            } else {
+                setRegisterError(data.error || "Registration failed");
+            }
+        } catch (error) {
+            setRegisterError("Network error");
+        }
+    };
+
     return (
         <div className={"login-page " + className}>
             <div className="section">
@@ -35,7 +74,7 @@ export const LoginPage = ({ className, ...props }) => {
                         </div>
                     </div>
                     <div className="button">
-                        <div className="seconday">
+                        <div className="seconday" onClick={() => setShowRegisterModal(true)}>
                             <div className="title5">Create an Account </div>
                         </div>
                         <div className="primary">
@@ -45,6 +84,35 @@ export const LoginPage = ({ className, ...props }) => {
                 </div>
                 <img className="vector-200" src="vector-2000.svg" />
             </div>
+
+            {showRegisterModal && (
+                <div className="register-modal">
+                    <div className="modal-content">
+                        <h3>Create Account</h3>
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            value={registerUsername}
+                            onChange={(e) => setRegisterUsername(e.target.value)}
+                        />
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            value={registerPassword}
+                            onChange={(e) => setRegisterPassword(e.target.value)}
+                        />
+                        <input
+                            type="password"
+                            placeholder="Confirm Password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                        {registerError && <div className="error">{registerError}</div>}
+                        <button onClick={handleRegister}>Submit</button>
+                        <button onClick={() => setShowRegisterModal(false)}>Cancel</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
