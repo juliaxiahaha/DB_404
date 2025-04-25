@@ -3,6 +3,7 @@ import mysql from 'mysql2';
 import cors from 'cors';
 // import fs from 'fs';
 import homeRoutes from './routes/home.js';
+import orderRoutes from './routes/order.js';
 import discountRoutes from './routes/discount.js';
 import deleteCustomer from './routes/deleteCustomer.js';
 import updateCustomer from './routes/updateCustomer.js';
@@ -119,6 +120,7 @@ app.get('/api', (req, res) => {
 
 app.use('/home', homeRoutes(db));
 app.use('/discount', discountRoutes(db));
+app.use('/order', orderRoutes(db));
 app.use('/api/customers', insertCustomer(db));
 app.use('/api/customers', deleteCustomer(db));
 app.use('/api/customers', updateCustomer(db));
@@ -160,6 +162,7 @@ app.use('/api/suppliers', getSupplierByProductId(db));
 app.use('/api/productReviews', getReviewsByProductId(db));
 app.use('/api/discounts', getDiscountByProductId(db));
 app.use('/api/shoppingCarts', getShoppingCartsByID(db));
+
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}/api`);

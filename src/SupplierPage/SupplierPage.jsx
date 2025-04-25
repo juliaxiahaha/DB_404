@@ -81,6 +81,11 @@ export const SupplierPage = ({ className, ...props }) => {
 
   return (
       <div className={`supplier-page ${className}`} {...props}>
+        <div className="container-header">
+          <h2 className="title">Manage Product Suppliers</h2>
+          <p className="description">View and update supplier information</p>
+          <button className="add-button">Add Supplier</button>
+        </div>
 
         {message && <div className="message-success">{message}</div>}
 

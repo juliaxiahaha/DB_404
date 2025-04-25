@@ -15,7 +15,6 @@ export const OrderPage = ({ className, ...props }) => {
         Employee_ID: '',
         Shipping_ID: ''
     });
-
     const [message, setMessage] = useState('');
 
     const normalizeOrders = (data) =>
@@ -30,13 +29,13 @@ export const OrderPage = ({ className, ...props }) => {
             .catch(err => console.error("Fetch failed:", err));
     };
 
+    useEffect(() => {
+        fetchAllOrders();
+    }, []);
+
     const handleSort = (column) => {
-        let actualCol = column;
-        if (column === 'Order_ID') {
-            actualCol = 'CAST(SUBSTRING(Order_ID, 2) AS UNSIGNED)';
-        }
         axios.get(`http://localhost:3001/api/sorter`, {
-            params: { tbl: 'Orders', col: actualCol, op: 'ASC' }
+            params: { tbl: 'Orders', col: column, op: 'ASC' }
         })
             .then(res => setOrders(normalizeOrders(res.data)))
             .catch(err => console.error("Sort failed:", err));
@@ -44,20 +43,14 @@ export const OrderPage = ({ className, ...props }) => {
 
     const handleSearch = (column) => {
         const value = prompt(`Enter value to search in ${column}`);
-        if (!value) {
-            fetchAllOrders();
-            return;
-        }
+        if (!value) return fetchAllOrders();
+
         axios.get('http://localhost:3001/api/search', {
             params: { table: 'Orders', col: column, val: value }
         })
             .then(res => setOrders(normalizeOrders(res.data)))
             .catch(err => console.error('Search failed:', err));
     };
-
-    useEffect(() => {
-        fetchAllOrders();
-    }, []);
 
     const renderHeader = (label, columnKey) => (
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
@@ -68,11 +61,7 @@ export const OrderPage = ({ className, ...props }) => {
     );
 
     const columns = [
-        {
-            key: 'Order_ID',
-            name: renderHeader('Order ID', 'Order_ID'),
-            renderCell: ({ row }) => `#${row.Order_ID}`
-        },
+        { key: 'Order_ID', name: renderHeader('Order ID', 'Order_ID') },
         { key: 'order_date', name: renderHeader('Date', 'order_date') },
         { key: 'total_price', name: renderHeader('Total Price', 'total_price') },
         { key: 'Customer_ID', name: renderHeader('Customer ID', 'Customer_ID') },
@@ -133,7 +122,12 @@ export const OrderPage = ({ className, ...props }) => {
             </div>
 
             <div className="data-grid-container" style={{ marginTop: '2rem', width: '100%' }}>
-                <DataGrid columns={columns} rows={orders} style={{ height: 500 }} />
+                <DataGrid
+                    columns={columns}
+                    rows={orders}
+                    rowKeyGetter={row => row.Order_ID}
+                    style={{ height: 500 }}
+                />
             </div>
 
             <div className="footer">
@@ -142,4 +136,4 @@ export const OrderPage = ({ className, ...props }) => {
             </div>
         </div>
     );
-}
+};
