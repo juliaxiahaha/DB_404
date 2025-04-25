@@ -23,6 +23,10 @@ export const HomePage = ({ className, ...props }) => {
     });
 
     const navigate = useNavigate();
+    const role = localStorage.getItem("role");
+    console.log(role);
+    const canManageEmployees = role === "Developer" || role === "Manager";
+    const canAddProducts = role === "Developer" || role === "Manager";
 
     const handleChange = (field) => (e) => {
         setFormData({ ...product, [field]: e.target.value });
@@ -77,9 +81,11 @@ export const HomePage = ({ className, ...props }) => {
                 <div className="container2">
                     <div className="title3">Employee Information </div>
                     <div className="description2">Manage and monitor employees </div>
+                    {canManageEmployees && (
                     <div className="seconday" onClick={() => navigate("/employees")}>
                         <div className="title4">Manage More Employees </div>
                     </div>
+                    )}
                 </div>
                 <div className="list2">
                     <div className="row">
@@ -114,6 +120,7 @@ export const HomePage = ({ className, ...props }) => {
                 </div>
                 <img className="vector-2002" src={vector2002} />
             </div>
+            {canAddProducts && (
             <div className="form">
                 <div className="container3">
                     <div className="title6">Add New Product </div>
@@ -189,6 +196,7 @@ export const HomePage = ({ className, ...props }) => {
                 </div>
                 <img className="vector-2003" src={vector2003} />
             </div>
+            )}
             <div className="reviews">
                 <div className="container3">
                     <div className="title6">Customer Reviews </div>

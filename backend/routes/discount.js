@@ -1,5 +1,8 @@
 import express from 'express';
+import { authenticateToken, authorizeRoles } from './authentication.js';
 const router = express.Router();
+
+router.use(authenticateToken);
 
 export default function(db) {
 
@@ -15,7 +18,7 @@ export default function(db) {
     });
 
     // Delete a discount by ID
-    router.delete('/:id', (req, res) => {
+    router.delete('/:id', authorizeRoles('Developer', 'Manager'), (req, res) => {
         const {id} = req.params;
         db.query('DELETE FROM Discount WHERE Discount_ID = ?', [id], (err) => {
             if (err) {
@@ -27,7 +30,7 @@ export default function(db) {
     });
 
     // Update a discount by ID
-    router.put('/:id', (req, res) => {
+    router.put('/:id', authorizeRoles('Developer', 'Manager'), (req, res) => {
         const { id } = req.params;
         const { discount_type, discount_value, start_date, end_date } = req.body;
         const query = 'UPDATE Discount SET discount_type = ?, discount_value = ?, start_date = ?, end_date = ? WHERE Discount_ID = ?';
@@ -41,7 +44,7 @@ export default function(db) {
     });
 
     // Add a new discount
-    router.post('/', (req, res) => {
+    router.post('/', authorizeRoles('Developer', 'Manager'), (req, res) => {
         const { discount_type, discount_value, start_date, end_date } = req.body;
         const query = 'INSERT INTO Discount (discount_type, discount_value, start_date, end_date) VALUES (?, ?, ?, ?)';
         db.query(query, [discount_type, discount_value, start_date, end_date], (err, result) => {
