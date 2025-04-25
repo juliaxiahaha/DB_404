@@ -8,6 +8,34 @@ export const LoginPage = ({ className, ...props }) => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [registerError, setRegisterError] = useState("");
 
+    const [loginUsername, setLoginUsername] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
+    const [loginError, setLoginError] = useState("");
+
+    const handleLogin = async () => {
+        try {
+            const response = await fetch("http://localhost:3001/api/auth/login", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: loginUsername,
+                    password: loginPassword
+                })
+            });
+            const data = await response.json();
+            if (data.success) {
+                alert("Login successful!");
+                setLoginError("");
+            } else {
+                setLoginError("Invalid username or password");
+            }
+        } catch (error) {
+            setLoginError("Network error");
+        }
+    };
+
     const handleRegister = async () => {
         if (registerPassword !== confirmPassword) {
             setRegisterError("Passwords do not match");
@@ -45,40 +73,45 @@ export const LoginPage = ({ className, ...props }) => {
             <div className="section">
                 <div className="container">
                     <img className="giphy-1" src="giphy-10.png" />
-                    <div className="title">Contact Us: buyaozhaowomen@store.com </div>
-                    <div className="title2">Copyright © 2025 Store Management </div>
+                    <div className="title">Contact Us: buyaozhaowomen@store.com</div>
+                    <div className="title2">Copyright © 2025 Store Management</div>
                 </div>
             </div>
             <div className="form">
                 <div className="container2">
-                    <div className="title3">Login Form </div>
+                    <div className="title3">Login Form</div>
                 </div>
                 <div className="list">
                     <div className="row">
                         <div className="input">
-                            <div className="title4">Username </div>
-                            <div className="textfield">
-                                <div className="text">Enter your username </div>
-                            </div>
+                            <div className="title4">Username</div>
+                            <input
+                                type="text"
+                                placeholder="Enter your username"
+                                value={loginUsername}
+                                onChange={(e) => setLoginUsername(e.target.value)}
+                            />
                         </div>
                     </div>
                     <div className="row">
                         <div className="input">
-                            <div className="title4">Password </div>
-                            <div className="textfield">
-                                <div className="text">Enter your password </div>
-                            </div>
-                            <div className="info">
-                                Password must be at least 8 characters{" "}
-                            </div>
+                            <div className="title4">Password</div>
+                            <input
+                                type="password"
+                                placeholder="Enter your password"
+                                value={loginPassword}
+                                onChange={(e) => setLoginPassword(e.target.value)}
+                            />
+                            <div className="info">Password must be at least 8 characters</div>
                         </div>
                     </div>
+                    {loginError && <div className="error" style={{ color: "red" }}>{loginError}</div>}
                     <div className="button">
                         <div className="seconday" onClick={() => setShowRegisterModal(true)}>
-                            <div className="title5">Create an Account </div>
+                            <div className="title5">Create an Account</div>
                         </div>
-                        <div className="primary">
-                            <div className="title6">Login </div>
+                        <div className="primary" onClick={handleLogin}>
+                            <div className="title6">Login</div>
                         </div>
                     </div>
                 </div>
