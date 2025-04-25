@@ -1,128 +1,233 @@
-import "./SupplierPage.css";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { DataGrid } from "react-data-grid";
 import axios from "axios";
-import 'react-data-grid/lib/styles.css';
-import { DataGrid } from 'react-data-grid';
-import counterIcon from './assets/ic-arrow-drop-down0.svg';
-import searchIcon from './assets/filter-svgrepo-com.svg';
+import "./SupplierPage.css";
+import counterIcon from "./assets/ic-arrow-drop-down0.svg";
+import searchIcon from "./assets/filter-svgrepo-com.svg";
 
-export const SupplierPage = ({ className, ...props }) => {
-  const [suppliers, setSuppliers] = useState([]);
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: ''
-  });
-  const [message, setMessage] = useState('');
+export const SupplierPage = () => {
+    const [suppliers, setSuppliers] = useState([]);
+    const [formData, setFormData] = useState({
+        new_Supplier_ID: "",
+        new_name: "",
+        new_phone: "",
+        new_email: ""
+    });
+    const [isEditing, setIsEditing] = useState(false);
+    const [message, setMessage] = useState("");
 
-  const fetchAllSuppliers = () => {
-    axios.get("http://localhost:3001/api/suppliers")
-        .then(res => setSuppliers(res.data))
-        .catch(err => console.error("Fetch failed:", err));
-  };
+    // Fetch all suppliers
+    const fetchAllSuppliers = () => {
+        axios
+            .get("http://localhost:3001/api/suppliers")
+            .then(res => setSuppliers(res.data))
+            .catch(err => console.error("Fetch suppliers failed:", err));
+    };
 
-  useEffect(() => {
-    fetchAllSuppliers();
-  }, []);
+    useEffect(() => {
+        fetchAllSuppliers();
+    }, []);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+    // Form change handler
+    const handleChange = e => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
 
-  const handleAddSupplier = () => {
-    axios.post("http://localhost:3001/api/suppliers/insert", formData)
-        .then(() => fetchAllSuppliers())
-        .then(() => {
-          setMessage("Supplier added successfully!");
-          setTimeout(() => setMessage(""), 3000);
-          setFormData({ name: '', phone: '', email: '' });
-        })
-        .catch(err => console.error("Insert failed:", err));
-  };
+    // Sort handler
+    const handleSort = column => {
+        axios
+            .get("http://localhost:3001/api/sorter", {
+                params: { tbl: "Supplier", col: column, op: "ASC" }
+            })
+            .then(res => setSuppliers(res.data))
+            .catch(err => console.error("Sort suppliers failed:", err));
+    };
 
-  const handleSort = (column) => {
-    axios.get(`http://localhost:3001/api/sorter`, {
-      params: {
-        tbl: 'Supplier',
-        col: column,
-        op: 'ASC'
-      }
-    })
-        .then(res => setSuppliers(res.data))
-        .catch(err => console.error("Sort failed:", err));
-  };
+    // Search handler
+    const handleSearch = column => {
+        const value = prompt(`Enter value to search in ${column}`);
+        if (!value) return fetchAllSuppliers();
+        axios
+            .get("http://localhost:3001/api/search", {
+                params: { table: "Supplier", col: column, val: value }
+            })
+            .then(res => setSuppliers(res.data))
+            .catch(err => console.error("Search suppliers failed:", err));
+    };
 
-  const handleSearch = (column) => {
-    const value = prompt(`Enter value to search in ${column}`);
-    if (!value) return fetchAllSuppliers();
+    // Reset form
+    const resetForm = () => {
+        setFormData({ new_Supplier_ID: "", new_name: "", new_phone: "", new_email: "" });
+        setIsEditing(false);
+        setMessage("");
+    };
 
-    axios.get('http://localhost:3001/api/search', {
-      params: { table: 'Supplier', col: column, val: value }
-    })
-        .then(res => setSuppliers(res.data))
-        .catch(err => console.error('Search failed:', err));
-  };
+    // Save new supplier
+    const handleSave = () => {
+        axios
+            .post("http://localhost:3001/api/suppliers/insert", formData)
+            .then(() => fetchAllSuppliers())
+            .then(() => resetForm())
+            .catch(err => console.error("Insert supplier failed:", err));
+    };
 
-  const renderHeader = (label, columnKey) => (
-      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-        {label}
-        <img src={counterIcon} onClick={() => handleSort(columnKey)} alt="sort" style={{ width: '14px', cursor: 'pointer' }} />
-        <img src={searchIcon} onClick={() => handleSearch(columnKey)} alt="search" style={{ width: '14px', cursor: 'pointer' }} />
-      </div>
-  );
+    // Update existing supplier
+    const handleUpdate = () => {
+        axios
+            .put("http://localhost:3001/api/suppliers/update", formData)
+            .then(() => {
+                setMessage("Supplier updated!");
+                resetForm();
+                fetchAllSuppliers();
+            })
+            .catch(err => {
+                console.error("Update supplier failed:", err);
+                setMessage("Update failed.");
+            });
+    };
 
-  const columns = [
-    { key: 'Supplier_ID', name: renderHeader('Supplier ID', 'Supplier_ID') },
-    { key: 'name', name: renderHeader('Name', 'name') },
-    { key: 'phone', name: renderHeader('Phone', 'phone') },
-    { key: 'email', name: renderHeader('Email', 'email') }
-  ];
+    // Delete supplier
+    const handleDelete = id => {
+        if (!window.confirm("Are you sure you want to delete this supplier?")) return;
+        axios
+            .delete(`http://localhost:3001/api/suppliers/${id}`)
+            .then(() => {
+                setMessage("Supplier deleted!");
+                fetchAllSuppliers();
+            })
+            .catch(err => {
+                console.error("Delete supplier failed:", err);
+                setMessage("Delete failed.");
+            });
+    };
 
-  return (
-      <div className={`supplier-page ${className}`} {...props}>
-        <div className="container-header">
-          <h2 className="title">Manage Product Suppliers</h2>
-          <p className="description">View and update supplier information</p>
-          <button className="add-button">Add Supplier</button>
-        </div>
+    // Start edit mode
+    const startEdit = row => {
+        setFormData({
+            new_Supplier_ID: row.Supplier_ID,
+            new_name: row.name,
+            new_phone: row.phone,
+            new_email: row.email
+        });
+        setIsEditing(true);
+        setMessage("");
+    };
 
-        {message && <div className="message-success">{message}</div>}
+    // DataGrid columns
+    const columns = [
+        {
+            key: "Supplier_ID",
+            name: (
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                    ID
+                    <img src={counterIcon} alt="sort" style={{ width: 14, cursor: "pointer" }} onClick={() => handleSort("Supplier_ID")} />
+                    <img src={searchIcon} alt="search" style={{ width: 14, cursor: "pointer" }} onClick={() => handleSearch("Supplier_ID")} />
+                </div>
+            )
+        },
+        {
+            key: "name",
+            name: (
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                    Name
+                    <img src={counterIcon} alt="sort" style={{ width: 14, cursor: "pointer" }} onClick={() => handleSort("name")} />
+                    <img src={searchIcon} alt="search" style={{ width: 14, cursor: "pointer" }} onClick={() => handleSearch("name")} />
+                </div>
+            )
+        },
+        {
+            key: "phone",
+            name: (
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                    Phone
+                    <img src={counterIcon} alt="sort" style={{ width: 14, cursor: "pointer" }} onClick={() => handleSort("phone")} />
+                    <img src={searchIcon} alt="search" style={{ width: 14, cursor: "pointer" }} onClick={() => handleSearch("phone")} />
+                </div>
+            )
+        },
+        {
+            key: "email",
+            name: (
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                    Email
+                    <img src={counterIcon} alt="sort" style={{ width: 14, cursor: "pointer" }} onClick={() => handleSort("email")} />
+                    <img src={searchIcon} alt="search" style={{ width: 14, cursor: "pointer" }} onClick={() => handleSearch("email")} />
+                </div>
+            )
+        },
+        {
+            key: "actions",
+            name: "Actions",
+            renderCell: ({ row }) => (
+                <div style={{ display: "flex", gap: 8 }}>
+                    <button onClick={() => startEdit(row)}>Edit</button>
+                    <button onClick={() => handleDelete(row.Supplier_ID)}>Delete</button>
+                </div>
+            )
+        }
+    ];
 
-        <div className="container-sub">
-          <h3 className="title-sub">Supplier List</h3>
-          <div className="data-grid-container">
-            <DataGrid columns={columns} rows={suppliers} style={{ height: 300 }} />
-          </div>
-        </div>
-
-        <div className="form-container">
-          <h3 className="title-sub">Add New Supplier</h3>
-          <div className="form-row">
-            <div className="input-group">
-              <label>Supplier Name</label>
-              <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Enter supplier name" />
+    return (
+        <div className="supplier-page">
+            <div className="form container3">
+                <h2>{isEditing ? "Edit Supplier" : "Add New Supplier"}</h2>
+                <label>
+                    ID
+                    <input
+                        type="text"
+                        name="new_Supplier_ID"
+                        value={formData.new_Supplier_ID}
+                        onChange={handleChange}
+                        placeholder="Enter supplier ID"
+                    />
+                </label>
+                <label>
+                    Name
+                    <input
+                        type="text"
+                        name="new_name"
+                        value={formData.new_name}
+                        onChange={handleChange}
+                        placeholder="Enter supplier name"
+                    />
+                </label>
+                <label>
+                    Phone
+                    <input
+                        type="text"
+                        name="new_phone"
+                        value={formData.new_phone}
+                        onChange={handleChange}
+                        placeholder="Enter supplier phone"
+                    />
+                </label>
+                <label>
+                    Email
+                    <input
+                        type="text"
+                        name="new_email"
+                        value={formData.new_email}
+                        onChange={handleChange}
+                        placeholder="Enter supplier email"
+                    />
+                </label>
+                <div className="buttons">
+                    {isEditing ? (
+                        <>
+                            <button onClick={handleUpdate}>Update</button>
+                            <button onClick={resetForm}>Cancel</button>
+                        </>
+                    ) : (
+                        <button onClick={handleSave}>Add Supplier</button>
+                    )}
+                </div>
+                {message && <div className="message">{message}</div>}
             </div>
-            <div className="input-group">
-              <label>Supplier Phone</label>
-              <input type="text" name="phone" value={formData.phone} onChange={handleInputChange} placeholder="Enter supplier phone" />
-            </div>
-          </div>
-          <div className="form-row">
-            <div className="input-group full-width">
-              <label>Supplier Email</label>
-              <input type="text" name="email" value={formData.email} onChange={handleInputChange} placeholder="Enter supplier email" />
-            </div>
-          </div>
-          <div className="form-actions">
-            <button className="submit-button" onClick={handleAddSupplier}>Save Supplier</button>
-          </div>
-        </div>
 
-        <div className="footer">
-          <span>Contact Us: buyaozhaowomen@store.com</span>
-          <span>Copyright © 2025 Store Management</span>
+            <div className="container4" style={{ height: 400 }}>
+                <DataGrid columns={columns} rows={suppliers} />
+            </div>
         </div>
-      </div>
-  );
+    );
 };
