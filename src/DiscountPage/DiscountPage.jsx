@@ -181,7 +181,9 @@ export const DiscountPage = ({ className, ...props }) => {
                         onClick={() => handleSearch('discount_value')}
                     />
                 </div>
-            ) },
+            ),
+            renderCell: ({ row }) => `${row.discount_value}%`
+        },
         {
             key: 'start_date',
             name: (
@@ -201,7 +203,7 @@ export const DiscountPage = ({ className, ...props }) => {
                     />
                 </div>
             ),
-            renderCell: ({ row }) => row.end_date?.slice(0, 10)
+            renderCell: ({ row }) => row.start_date?.slice(0, 10)
         },
         {
             key: 'end_date',
