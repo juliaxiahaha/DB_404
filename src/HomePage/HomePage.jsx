@@ -7,7 +7,8 @@ import vector2003 from './assets/vector-2003.svg';
 import frame0 from './assets/frame-4273188170.svg';
 import frame1 from './assets/frame-4273188171.svg';
 import frame2 from './assets/frame-4273188172.svg';
-import {useEffect, useState} from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const HomePage = ({ className, ...props }) => {
     const [product, setFormData] = useState({
@@ -20,18 +21,8 @@ export const HomePage = ({ className, ...props }) => {
         new_Supplier_ID: '',
         new_Discount_ID: ''
     });
-    const [employees, setEmployees] = useState([]);
 
-    useEffect(() => {
-        fetch('http://localhost:3001/home/employees')
-            .then((res) => res.json())
-            .then((data) => {
-                console.log("Employee data:", data);
-                console.log("Employee data:", data);
-                setEmployees(data);
-            })
-            .catch((err) => console.error('Error fetching employees:', err));
-    }, []);
+    const navigate = useNavigate();
 
     const handleChange = (field) => (e) => {
         setFormData({ ...product, [field]: e.target.value });
@@ -86,22 +77,39 @@ export const HomePage = ({ className, ...props }) => {
                 <div className="container2">
                     <div className="title3">Employee Information </div>
                     <div className="description2">Manage and monitor employees </div>
-                    <div className="seconday">
+                    <div className="seconday" onClick={() => navigate("/employees")}>
                         <div className="title4">Manage More Employees </div>
                     </div>
                 </div>
                 <div className="list2">
                     <div className="row">
-                        {employees.map((emp, index) => (
-                            <div className="item" key={index}>
-                                <div className="frame">
-                                    <div className="icon">👤</div>
-                                </div>
-                                <div className="frame-427318906">
-                                    <div className="subtitle">{emp.name}</div>
-                                </div>
+                        <div className="item">
+                            <div className="frame">
+                                <div className="icon">👩‍💼 </div>
                             </div>
-                        ))}
+                            <div className="frame-427318906">
+                                <div className="title5">Manager </div>
+                                <div className="subtitle">Alice Smith </div>
+                            </div>
+                        </div>
+                        <div className="item">
+                            <div className="frame">
+                                <div className="icon">🧑‍💼 </div>
+                            </div>
+                            <div className="frame-427318906">
+                                <div className="title5">Sales Rep </div>
+                                <div className="subtitle">John Doe </div>
+                            </div>
+                        </div>
+                        <div className="item">
+                            <div className="frame">
+                                <div className="icon">👨‍💼 </div>
+                            </div>
+                            <div className="frame-427318906">
+                                <div className="title5">Supervisor </div>
+                                <div className="subtitle">Emily Johnson </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <img className="vector-2002" src={vector2002} />
@@ -180,6 +188,60 @@ export const HomePage = ({ className, ...props }) => {
                     </div>
                 </div>
                 <img className="vector-2003" src={vector2003} />
+            </div>
+            <div className="reviews">
+                <div className="container3">
+                    <div className="title6">Customer Reviews </div>
+                    <div className="description3">Feedback from customers </div>
+                    <div className="button2">
+                        <div className="primary">
+                            <div className="title9">View More </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="list4">
+                    <div className="row">
+                        <div className="card">
+                            <div className="user">
+                                <div className="avatar2">
+                                    <div className="avatar3"></div>
+                                    <div className="frame-4273189062">
+                                        <div className="title10">Customer A </div>
+                                    </div>
+                                </div>
+                                <img className="frame-427318817" src={frame0} />
+                            </div>
+                            <div className="title11">Great service and products. </div>
+                        </div>
+                        <div className="card">
+                            <div className="user">
+                                <div className="avatar2">
+                                    <div className="avatar3"></div>
+                                    <div className="frame-4273189062">
+                                        <div className="title10">Customer B </div>
+                                    </div>
+                                </div>
+                                <img className="frame-4273188172" src={frame1} />
+                            </div>
+                            <div className="title11">Fast shipping, good quality. </div>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="card">
+                            <div className="user">
+                                <div className="avatar2">
+                                    <div className="avatar3"></div>
+                                    <div className="frame-4273189062">
+                                        <div className="title10">Customer C </div>
+                                    </div>
+                                </div>
+                                <img className="frame-4273188173" src={frame2} />
+                            </div>
+                            <div className="title11">Excellent experience overall. </div>
+                        </div>
+                    </div>
+                </div>
+                <img className="vector-2004" src={vector2003} />
             </div>
             <div className="section2">
                 <div className="container4">
