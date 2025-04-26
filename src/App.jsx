@@ -1,5 +1,6 @@
 import "./styles.css";
 
+import { OrderDetailPage } from "./OrderDetailPage/OrderDetailPage.jsx";
 import { HomePage } from "./HomePage/HomePage";
 import { LoginPage } from "./LoginPage/LoginPage";
 import { CustomerPage } from "./CustomerPage/CustomerPage";
