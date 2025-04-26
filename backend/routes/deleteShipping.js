@@ -7,7 +7,7 @@ router.use(authenticateToken);
 
 export default function(db) {
     // DELETE /api/shippings/:id
-    router.delete('/:id', authorizeRoles('Developer', 'Manager'), (req, res) => {
+    router.delete('/:id', (req, res) => {
         const shipId = parseInt(req.params.id, 10);
         if (isNaN(shipId)) {
             return res.status(400).json({ error: 'Invalid Shipping ID' });

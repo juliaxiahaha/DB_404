@@ -9,7 +9,7 @@ const toNullable = v => v === undefined || v === '' ? null : v;
 
 export default function(db) {
     // POST /api/shippings/insert
-    router.post('/insert', authorizeRoles('Developer', 'Manager'), (req, res) => {
+    router.post('/insert', (req, res) => {
         const {
             new_Shipping_ID,
             new_shipping_fee,

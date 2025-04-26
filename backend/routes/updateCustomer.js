@@ -8,7 +8,7 @@ const toNullable = v => v === undefined || v === '' ? null : v;
 
 export default function(db) {
     // PUT /api/customers/update
-    router.put('/update', authorizeRoles('Developer', 'Manager'), (req, res) => {
+    router.put('/update',  (req, res) => {
         const {
             new_Customer_ID,
             new_name,

@@ -9,7 +9,7 @@ const toNullable = v => (v === undefined || v === '' ? null : v);
 
 export default function(db) {
     // PUT /api/orders/update
-    router.put('/update', authorizeRoles('Developer', 'Manager'), (req, res) => {
+    router.put('/update',  (req, res) => {
         const {
             new_Order_ID,
             new_order_date,
