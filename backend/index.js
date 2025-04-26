@@ -46,6 +46,10 @@ import getSupplierByProductId  from './routes/getSupplierByProductId.js';
 import getReviewsByProductId from './routes/getReviewsByProductId.js';
 import getDiscountByProductId   from './routes/getDiscountByProductId.js';
 import getShoppingCartsByID from "./routes/getShoppingCartByID.js";
+import register from "./routes/register.js";
+import loginRoute from './routes/login.js';
+import deleteProduct     from './routes/deleteProduct.js';
+
 
 const DB_HOST='db-mysql-nyc3-77807-do-user-20581125-0.l.db.ondigitalocean.com'
 const DB_USER='doadmin'
@@ -162,6 +166,9 @@ app.use('/api/suppliers', getSupplierByProductId(db));
 app.use('/api/productReviews', getReviewsByProductId(db));
 app.use('/api/discounts', getDiscountByProductId(db));
 app.use('/api/shoppingCarts', getShoppingCartsByID(db));
+app.use('/api/auth', register(db));
+app.use('/api/auth', loginRoute(db));
+app.use('/api/products', deleteProduct(db));
 
 
 app.listen(PORT, () => {

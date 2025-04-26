@@ -43,6 +43,10 @@ export const DiscountPage = ({ className, ...props }) => {
 
     const [message, setMessage] = useState("");
 
+    const role = localStorage.getItem("role");
+    const canAddDiscount = role === "Developer" || role === "Manager";
+    const canModifyDiscounts = role === "Developer" || role === "Manager";
+
     const handleSort = (column) => {
         axios.get(`http://localhost:3001/api/sorter`, {
             params: {
@@ -181,7 +185,9 @@ export const DiscountPage = ({ className, ...props }) => {
                         onClick={() => handleSearch('discount_value')}
                     />
                 </div>
-            ) },
+            ),
+            renderCell: ({ row }) => `${row.discount_value}%`
+        },
         {
             key: 'start_date',
             name: (
@@ -201,7 +207,7 @@ export const DiscountPage = ({ className, ...props }) => {
                     />
                 </div>
             ),
-            renderCell: ({ row }) => row.end_date?.slice(0, 10)
+            renderCell: ({ row }) => row.start_date?.slice(0, 10)
         },
         {
             key: 'end_date',
@@ -229,10 +235,14 @@ export const DiscountPage = ({ className, ...props }) => {
             key: 'actions',
             name: 'Action',
             renderCell: ({ row }) => (
-                <div style={{ display: 'flex', gap: '8px' }}>
-                    <button onClick={() => handleUpdate(row)}>Edit</button>
-                    <button onClick={() => handleDelete(row.Discount_ID)}>Delete</button>
-                </div>
+                canModifyDiscounts ? (
+                    <div style={{ display: 'flex', gap: '8px' }}>
+                        <button onClick={() => handleUpdate(row)}>Edit</button>
+                        <button onClick={() => handleDelete(row.Discount_ID)}>Delete</button>
+                    </div>
+                ) : (
+                    <div>No Action</div>
+                )
             )
         }
     ];
@@ -240,78 +250,82 @@ export const DiscountPage = ({ className, ...props }) => {
 
     return (
         <div className={"discount-page " + className}>
-            <div className="container">
-                <div className="title2">Add Discount </div>
-                <div className="description">Fill in the details below </div>
-            </div>
+            {canAddDiscount && (
+                <div className="container">
+                    <div className="title2">Add Discount </div>
+                    <div className="description">Fill in the details below </div>
+                </div>
+            )}
             {message && <div className="message-success">{message}</div>}
 
-            <div className="form-container">
-                <div className="list">
-                    <div className="row">
-                        <div className="input">
-                            <div className="title3">Discount Type </div>
-                            <div className="textfield2">
-                                <input
-                                    type="text"
-                                    name="discount_type"
-                                    placeholder="E.g. Percentage or Fixed Amount"
-                                    value={formData.discount_type}
-                                    onChange={handleInputChange}
-                                    className="text2"
-                                />
+            {canAddDiscount && (
+                <div className="form-container">
+                    <div className="list">
+                        <div className="row">
+                            <div className="input">
+                                <div className="title3">Discount Type </div>
+                                <div className="textfield2">
+                                    <input
+                                        type="text"
+                                        name="discount_type"
+                                        placeholder="E.g. Percentage or Fixed Amount"
+                                        value={formData.discount_type}
+                                        onChange={handleInputChange}
+                                        className="text2"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input">
+                                <div className="title3">Discount Value </div>
+                                <div className="textfield2">
+                                    <input
+                                        type="text"
+                                        name="discount_value"
+                                        placeholder="Enter the value"
+                                        value={formData.discount_value}
+                                        onChange={handleInputChange}
+                                        className="text2"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input">
+                                <div className="title3">Start Date </div>
+                                <div className="textfield2">
+                                    <input
+                                        type="date"
+                                        name="start_date"
+                                        value={formData.start_date}
+                                        onChange={handleInputChange}
+                                        className="text2"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="input">
+                                <div className="title3">End Date </div>
+                                <div className="textfield2">
+                                    <input
+                                        type="date"
+                                        name="end_date"
+                                        value={formData.end_date}
+                                        onChange={handleInputChange}
+                                        className="text2"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="input">
-                            <div className="title3">Discount Value </div>
-                            <div className="textfield2">
-                                <input
-                                    type="text"
-                                    name="discount_value"
-                                    placeholder="Enter the value"
-                                    value={formData.discount_value}
-                                    onChange={handleInputChange}
-                                    className="text2"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="input">
-                            <div className="title3">Start Date </div>
-                            <div className="textfield2">
-                                <input
-                                    type="date"
-                                    name="start_date"
-                                    value={formData.start_date}
-                                    onChange={handleInputChange}
-                                    className="text2"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="input">
-                            <div className="title3">End Date </div>
-                            <div className="textfield2">
-                                <input
-                                    type="date"
-                                    name="end_date"
-                                    value={formData.end_date}
-                                    onChange={handleInputChange}
-                                    className="text2"
-                                />
-                            </div>
-                        </div>
+                    <div className="button">
+                        <button className="seconday title4" type="button">Cancel</button>
+                        <button className="primary title5" type="button" onClick={handleAddDiscount}>Add Discount</button>
                     </div>
                 </div>
-                <div className="button">
-                    <button className="seconday title4" type="button">Cancel</button>
-                    <button className="primary title5" type="button" onClick={handleAddDiscount}>Add Discount</button>
-                </div>
-            </div>
+            )}
             <div className="section">
                 <div className="container2">
                     <div className="title6">Contact Us: buyaozhaowomen@store.com </div>

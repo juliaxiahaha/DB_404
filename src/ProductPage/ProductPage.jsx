@@ -6,6 +6,7 @@ import './ProductPage.css';
 import section1 from '/src/ProductPage/assets/section1.svg';
 import vector2000 from '/src/ProductPage/assets/vector-2000.svg';
 import addProductIcon from '/src/ProductPage/assets/add_product.svg';
+import deleteIcon from '/src/ProductPage/assets/delete.svg';
 
 export const ProductPage = ({ className, ...props }) => {
     const [products, setProducts] = useState([]);
@@ -22,7 +23,7 @@ export const ProductPage = ({ className, ...props }) => {
         new_Discount_ID: ''
     });
 
-    useEffect(() => {
+    const fetchProducts = () => {
         axios.get('http://localhost:3001/api/products')
             .then(res => setProducts(res.data))
             .catch(err => {
@@ -30,6 +31,10 @@ export const ProductPage = ({ className, ...props }) => {
                 setError('failed to load the products');
             })
             .finally(() => setLoading(false));
+    };
+
+    useEffect(() => {
+        fetchProducts();
     }, []);
 
     const handleInputChange = (e) => {
@@ -61,8 +66,21 @@ export const ProductPage = ({ className, ...props }) => {
                     new_Supplier_ID: '',
                     new_Discount_ID: ''
                 });
+                fetchProducts(); // 刷新产品
             })
             .catch(console.error);
+    };
+
+    const deleteProduct = (id) => {
+        const confirmed = window.confirm(`Are you sure you want to delete product ${id}?`);
+        if (!confirmed) return;
+
+        axios.delete(`http://localhost:3001/api/products/${id}`)
+            .then(() => fetchProducts())
+            .catch(err => {
+                console.error(`Failed to delete product ${id}:`, err);
+                alert('Failed to delete product.');
+            });
     };
 
     if (loading) return <div className="product-page">loading...</div>;
@@ -97,7 +115,24 @@ export const ProductPage = ({ className, ...props }) => {
                         {row.map(prod => (
                             <div className="item" key={prod.Product_ID}>
                                 <Link to={`/products/${prod.Product_ID}`}>
-                                    <div className="frame">
+                                    <div className="frame" style={{ position: 'relative' }}>
+                                        {/* 删除图标，靠近📦 */}
+                                        <img
+                                            src={deleteIcon}
+                                            alt="Delete"
+                                            style={{
+                                                position: 'absolute',
+                                                top: -8,
+                                                right: -8,
+                                                width: 20,
+                                                height: 20,
+                                                cursor: 'pointer'
+                                            }}
+                                            onClick={(e) => {
+                                                e.preventDefault(); // 阻止跳转
+                                                deleteProduct(prod.Product_ID);
+                                            }}
+                                        />
                                         <div className="icon">📦</div>
                                     </div>
                                 </Link>

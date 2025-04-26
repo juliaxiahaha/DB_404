@@ -18,6 +18,8 @@ export const CustomerPage = ({ className, ...props }) => {
     });
     const [isFormVisible, setFormVisible] = useState(false);
     const navigate = useNavigate();
+    const role = localStorage.getItem("role");
+    const canAddCustomers = role === "Developer" || role === "Manager";
 
     const handleDelete = (id) => {
       axios.delete(`http://localhost:3001/api/customers/${id}`)
@@ -60,16 +62,18 @@ export const CustomerPage = ({ className, ...props }) => {
                 <div className="container">
                     <div className="title">
                       Select a customer from the customer list:
-                      <img
-                        src={plusUserIcon}
-                        alt="Add Customer"
-                        style={{ width: "24px", height: "24px", marginLeft: "10px", cursor: "pointer" }}
-                        onClick={() => setFormVisible(!isFormVisible)}
-                      />
+                      {canAddCustomers && (
+                        <img
+                          src={plusUserIcon}
+                          alt="Add Customer"
+                          style={{ width: "24px", height: "24px", marginLeft: "10px", cursor: "pointer" }}
+                          onClick={() => setFormVisible(!isFormVisible)}
+                        />
+                      )}
                     </div>
                 </div>
                 <div className="list2">
-                    {isFormVisible && (
+                    {canAddCustomers && isFormVisible && (
                       <div className="form container3">
                         <h2>Add New Customer</h2>
 
@@ -150,15 +154,17 @@ export const CustomerPage = ({ className, ...props }) => {
                                     <div className="title2">{customer.name}</div>
                                 </div>
                               </div>
-                              <img
-                                src={minusUserIcon}
-                                alt="Delete Customer"
-                                style={{ width: "20px", height: "20px", marginLeft: "10px", cursor: "pointer" }}
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleDelete(customer.Customer_ID);
-                                }}
-                              />
+                              {canAddCustomers && (
+                                <img
+                                  src={minusUserIcon}
+                                  alt="Delete Customer"
+                                  style={{ width: "20px", height: "20px", marginLeft: "10px", cursor: "pointer" }}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleDelete(customer.Customer_ID);
+                                  }}
+                                />
+                              )}
                             </div>
                         ))}
                     </div>
