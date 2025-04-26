@@ -16,7 +16,7 @@ import deleteOrderDetail    from './routes/deleteOrderDetail.js';
 import deleteShoppingCart   from './routes/deleteShoppingCart.js';
 import deleteSupplier    from './routes/SupplierPageEP.js';
 import insertSupplier  from './routes/SupplierPageEP.js';
-import insertProduct    from './routes/insertProduct.js';
+import insertProduct    from './routes/ProductPageEP.js';
 import insertEmployee        from './routes/insertEmployee.js';
 import insertShipping      from './routes/insertShipping.js';
 import insertOrder       from './routes/insertOrder.js';
@@ -35,7 +35,7 @@ import getCustomers from './routes/getCustomers.js';
 import getEmployees       from './routes/getEmployees.js';
 import getOrderDetails       from './routes/getOrderDetails.js';
 import getOrders          from './routes/getOrders.js';
-import getProducts       from './routes/getProducts.js';
+import getProducts       from './routes/ProductPageEP.js';
 import getProductReviews   from './routes/getProductReviews.js';
 import getShippings       from './routes/getShippings.js';
 import getShoppingCarts       from './routes/getShoppingCarts.js';
@@ -48,7 +48,7 @@ import getDiscountByProductId   from './routes/getDiscountByProductId.js';
 import getShoppingCartsByID from "./routes/getShoppingCartByID.js";
 import register from "./routes/register.js";
 import loginRoute from './routes/login.js';
-import deleteProduct     from './routes/deleteProduct.js';
+import deleteProduct     from './routes/ProductPageEP.js';
 import getOneOrder from './routes/getOneOrder.js';
 
 
