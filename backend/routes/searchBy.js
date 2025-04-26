@@ -1,6 +1,9 @@
 // src/routes/searchBy.js
 import express from 'express';
+import { authenticateToken } from './authentication.js';
 const router = express.Router();
+
+router.use(authenticateToken);
 
 const isSafeName = v => /^[A-Za-z0-9_]+$/.test(v);
 

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'; //
 import counterIcon from './assets/ic-arrow-drop-down0.svg';
 import searchIcon from './assets/filter-svgrepo-com.svg';
 import './OrderPage.css';
+import { jwtDecode } from "jwt-decode";
 
 export const OrderPage = ({ className, ...props }) => {
     const [orders, setOrders] = useState([]);
@@ -18,6 +19,7 @@ export const OrderPage = ({ className, ...props }) => {
     });
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
+    const token = localStorage.getItem("token");
     const navigate = useNavigate(); //
 
     const normalizeOrders = (data) =>
@@ -27,7 +29,7 @@ export const OrderPage = ({ className, ...props }) => {
         }));
 
     const fetchAllOrders = () => {
-        axios.get('http://localhost:3001/api/orders')
+        axios.get('http://localhost:3001/api/orders', { headers: { Authorization: `Bearer ${token}` } })
             .then(res => setOrders(normalizeOrders(res.data)))
             .catch(err => console.error("Fetch failed:", err));
     };
@@ -38,7 +40,8 @@ export const OrderPage = ({ className, ...props }) => {
 
     const handleSort = (column) => {
         axios.get(`http://localhost:3001/api/sorter`, {
-            params: { tbl: 'Orders', col: column, op: 'ASC' }
+            params: { tbl: 'Orders', col: column, op: 'ASC' },
+            headers: { Authorization: `Bearer ${token}` }
         })
             .then(res => setOrders(normalizeOrders(res.data)))
             .catch(err => console.error("Sort failed:", err));
@@ -49,7 +52,8 @@ export const OrderPage = ({ className, ...props }) => {
         if (!value) return fetchAllOrders();
 
         axios.get('http://localhost:3001/api/search', {
-            params: { table: 'Orders', col: column, val: value }
+            params: { table: 'Orders', col: column, val: value },
+            headers: { Authorization: `Bearer ${token}` }
         })
             .then(res => setOrders(normalizeOrders(res.data)))
             .catch(err => console.error('Search failed:', err));
@@ -116,7 +120,7 @@ export const OrderPage = ({ className, ...props }) => {
             new_Employee_ID: parseInt(formData.Employee_ID, 10),
             new_Shipping_ID: parseInt(formData.Shipping_ID, 10)
         }, {
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
         })
             .then(res => {
                 fetchAllOrders();
@@ -139,7 +143,7 @@ export const OrderPage = ({ className, ...props }) => {
     };
 
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:3001/api/orders/${id}`)
+        axios.delete(`http://localhost:3001/api/orders/${id}`, { headers: { Authorization: `Bearer ${token}` } })
             .then(() => fetchAllOrders())
             .catch(err => console.error("Delete failed:", err));
     };

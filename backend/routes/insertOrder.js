@@ -1,12 +1,14 @@
 // src/routes/insertOrder.js
 import express from 'express';
+import { authenticateToken, authorizeRoles } from './authentication.js';
 const router = express.Router();
+router.use(authenticateToken);
 
 const toNullable = v => v === undefined || v === '' ? null : v;
 
 export default function(db) {
     // POST /api/orders/insert
-    router.post('/insert', (req, res) => {
+    router.post('/insert', authorizeRoles('Developer', 'Manager'), (req, res) => {
         const {
             new_Order_ID,
             new_order_date,

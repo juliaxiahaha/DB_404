@@ -2,6 +2,7 @@ import "./CustomerDetailPage.css";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 import image10 from "./assets/image-10.png";
 import image20 from "./assets/image-20.png";
@@ -20,8 +21,21 @@ export const CustomerDetailPage = ({ className, ...props }) => {
   const [orders, setOrders] = useState([]);
   const [cartItems, setCartItems] = useState([]);
 
+  // Role/authorization logic
+  const token = localStorage.getItem("token");
+  let role = null;
+  if (token) {
+    try {
+      const decoded = jwtDecode(token);
+      role = decoded.role;
+    } catch (err) {
+      console.error("Failed to decode token", err);
+    }
+  }
+  const canUpdateCustomer = role === "Developer" || role === "Manager";
+
   useEffect(() => {
-    axios.get(`http://localhost:3001/api/customers/${id}`)
+    axios.get(`http://localhost:3001/api/customers/${id}`, { headers: { Authorization: `Bearer ${token}` } })
       .then((res) => {
         console.log("Customer detail fetched:", res.data);
         setCustomer(res.data);
@@ -32,7 +46,7 @@ export const CustomerDetailPage = ({ className, ...props }) => {
   }, [id]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/api/orders")
+    axios.get("http://localhost:3001/api/orders", { headers: { Authorization: `Bearer ${token}` } })
       .then(res => {
         const customerOrders = res.data.filter(order => order.Customer_ID === parseInt(id));
         setOrders(customerOrders.slice(-2).reverse());
@@ -42,12 +56,12 @@ export const CustomerDetailPage = ({ className, ...props }) => {
 
 useEffect(() => {
     console.log("Fetching shopping cart for customer ID:", id);
-    axios.get(`http://localhost:3001/api/shoppingCarts/${id}`)
+    axios.get(`http://localhost:3001/api/shoppingCarts/${id}`, { headers: { Authorization: `Bearer ${token}` } })
       .then(async (res) => {
         console.log("Raw shopping cart data:", res.data);
         const enriched = await Promise.all(res.data.map(async (item) => {
           try {
-            const product = await axios.get(`http://localhost:3001/api/products/${item.Product_ID}`);
+            const product = await axios.get(`http://localhost:3001/api/products/${item.Product_ID}`, { headers: { Authorization: `Bearer ${token}` } });
             console.log(`Fetched product name for Product_ID ${item.Product_ID}:`, product.data.name);
             return {
               ...item,
@@ -69,19 +83,29 @@ useEffect(() => {
   }, [id]);
 
   const handleSave = () => {
-    axios.put("http://localhost:3001/api/customers/update", {
-      new_Customer_ID: customer.Customer_ID,
-      new_name: customer.name,
-      new_address: customer.address,
-      new_phone: customer.phone,
-      new_email: customer.email,
-      new_membership_registration_date: customer.registration_date?.slice(0, 10)
-    })
-    .then(res => alert(res.data.message))
-    .catch(err => {
-      console.error("Update failed:", err);
-      alert("Update failed.");
-    });
+    if (!canUpdateCustomer) {
+      alert("You do not have permission to update customer information.");
+      return;
+    }
+    axios.put(
+      "http://localhost:3001/api/customers/update",
+      {
+        new_Customer_ID: customer.Customer_ID,
+        new_name: customer.name,
+        new_address: customer.address,
+        new_phone: customer.phone,
+        new_email: customer.email,
+        new_membership_registration_date: customer.registration_date?.slice(0, 10)
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` }
+      }
+    )
+      .then(res => alert(res.data.message))
+      .catch(err => {
+        console.error("Update failed:", err);
+        alert("Update failed.");
+      });
   };
 
   return (
@@ -165,9 +189,11 @@ useEffect(() => {
             </div>
           </div>
           <div className="button">
-            <div className="primary" onClick={handleSave}>
-              <div className="title6">Save Changes</div>
-            </div>
+            {canUpdateCustomer && (
+              <div className="primary" onClick={handleSave}>
+                <div className="title6">Save Changes</div>
+              </div>
+            )}
           </div>
         </div>
         <img className="vector-2002" src={vector2001} />

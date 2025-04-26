@@ -6,6 +6,7 @@ import axios from "axios";
 import "./SupplierPage.css";
 import counterIcon from "./assets/ic-arrow-drop-down0.svg";
 import searchIcon from "./assets/filter-svgrepo-com.svg";
+import { jwtDecode } from "jwt-decode";
 
 export const SupplierPage = () => {
     const [suppliers, setSuppliers] = useState([]);
@@ -17,6 +18,17 @@ export const SupplierPage = () => {
     });
     const [isEditing, setIsEditing] = useState(false);
     const [message, setMessage] = useState("");
+
+    const token = localStorage.getItem("token");
+    let role = null;
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        role = decoded.role;
+      } catch (err) {
+        console.error("Failed to decode token", err);
+      }
+    }
 
     // Generate a simple 4-digit ID
     const generateSupplierId = () => Math.floor(1000 + Math.random() * 9000);
@@ -35,7 +47,9 @@ export const SupplierPage = () => {
     // Fetch all suppliers
     const fetchAllSuppliers = () => {
         axios
-            .get("http://localhost:3001/api/suppliers")
+            .get("http://localhost:3001/api/suppliers", {
+              headers: { Authorization: `Bearer ${token}` }
+            })
             .then(res => setSuppliers(res.data))
             .catch(err => console.error("Fetch suppliers failed:", err));
     };
@@ -71,7 +85,9 @@ export const SupplierPage = () => {
             new_email: formData.new_email
         };
         axios
-            .post("http://localhost:3001/api/suppliers/insert", payload)
+            .post("http://localhost:3001/api/suppliers/insert", payload, {
+              headers: { Authorization: `Bearer ${token}` }
+            })
             .then(() => {
                 fetchAllSuppliers();
                 setMessage(`Supplier added with ID ${generatedId}`);
@@ -89,7 +105,9 @@ export const SupplierPage = () => {
     const handleUpdate = () => {
         const payload = { ...formData };
         axios
-            .put("http://localhost:3001/api/suppliers/update", payload)
+            .put("http://localhost:3001/api/suppliers/update", payload, {
+              headers: { Authorization: `Bearer ${token}` }
+            })
             .then(() => {
                 setMessage("Supplier updated!");
                 fetchAllSuppliers();
@@ -107,7 +125,9 @@ export const SupplierPage = () => {
     const handleDelete = (id) => {
         if (!window.confirm("Are you sure you want to delete this supplier?")) return;
         axios
-            .delete(`http://localhost:3001/api/suppliers/${id}`)
+            .delete(`http://localhost:3001/api/suppliers/${id}`, {
+              headers: { Authorization: `Bearer ${token}` }
+            })
             .then(() => {
                 setMessage("Supplier deleted!");
                 fetchAllSuppliers();
@@ -136,7 +156,8 @@ export const SupplierPage = () => {
     const handleSort = (column) => {
         axios
             .get("http://localhost:3001/api/sorter", {
-                params: { tbl: "Supplier", col: column, op: "ASC" }
+                params: { tbl: "Supplier", col: column, op: "ASC" },
+                headers: { Authorization: `Bearer ${token}` }
             })
             .then(res => setSuppliers(res.data))
             .catch(err => console.error("Sort suppliers failed:", err));
@@ -148,7 +169,8 @@ export const SupplierPage = () => {
         if (!value) return fetchAllSuppliers();
         axios
             .get("http://localhost:3001/api/search", {
-                params: { table: "Supplier", col: column, val: value }
+                params: { table: "Supplier", col: column, val: value },
+                headers: { Authorization: `Bearer ${token}` }
             })
             .then(res => setSuppliers(res.data))
             .catch(err => console.error("Search suppliers failed:", err));

@@ -1,12 +1,14 @@
 // src/routes/updateEmployee.js
 import express from 'express';
+import { authenticateToken, authorizeRoles } from './authentication.js';
 const router = express.Router();
+router.use(authenticateToken);
 
 const toNullable = v => (v === undefined || v === '' ? null : v);
 
 export default function(db) {
     // PUT /api/employees/update
-    router.put('/update', (req, res) => {
+    router.put('/update', authorizeRoles('Developer', 'Manager'), (req, res) => {
         const {
             new_Employee_ID,
             new_basic_salary,
