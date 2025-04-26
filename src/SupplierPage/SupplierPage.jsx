@@ -1,3 +1,5 @@
+// SupplierPage.jsx
+import 'react-data-grid/lib/styles.css';
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "react-data-grid";
 import axios from "axios";
@@ -16,6 +18,20 @@ export const SupplierPage = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [message, setMessage] = useState("");
 
+    // Generate a simple 4-digit ID
+    const generateSupplierId = () => Math.floor(1000 + Math.random() * 9000);
+
+    // Format phone as XXX-XXX-XXXX
+    const formatPhoneNumber = (input) => {
+        const digits = input.replace(/\D/g, '').slice(0, 10);
+        const part1 = digits.slice(0, 3);
+        const part2 = digits.slice(3, 6);
+        const part3 = digits.slice(6, 10);
+        if (digits.length > 6) return `${part1}-${part2}-${part3}`;
+        if (digits.length > 3) return `${part1}-${part2}`;
+        return part1;
+    };
+
     // Fetch all suppliers
     const fetchAllSuppliers = () => {
         axios
@@ -29,31 +45,13 @@ export const SupplierPage = () => {
     }, []);
 
     // Form change handler
-    const handleChange = e => {
-        const { name, value } = e.target;
+    const handleChange = (e) => {
+        const { name } = e.target;
+        let { value } = e.target;
+        if (name === 'new_phone') {
+            value = formatPhoneNumber(value);
+        }
         setFormData(prev => ({ ...prev, [name]: value }));
-    };
-
-    // Sort handler
-    const handleSort = column => {
-        axios
-            .get("http://localhost:3001/api/sorter", {
-                params: { tbl: "Supplier", col: column, op: "ASC" }
-            })
-            .then(res => setSuppliers(res.data))
-            .catch(err => console.error("Sort suppliers failed:", err));
-    };
-
-    // Search handler
-    const handleSearch = column => {
-        const value = prompt(`Enter value to search in ${column}`);
-        if (!value) return fetchAllSuppliers();
-        axios
-            .get("http://localhost:3001/api/search", {
-                params: { table: "Supplier", col: column, val: value }
-            })
-            .then(res => setSuppliers(res.data))
-            .catch(err => console.error("Search suppliers failed:", err));
     };
 
     // Reset form
@@ -65,45 +63,65 @@ export const SupplierPage = () => {
 
     // Save new supplier
     const handleSave = () => {
+        const generatedId = generateSupplierId();
+        const payload = {
+            new_Supplier_ID: generatedId,
+            new_name: formData.new_name,
+            new_phone: formData.new_phone,
+            new_email: formData.new_email
+        };
         axios
-            .post("http://localhost:3001/api/suppliers/insert", formData)
-            .then(() => fetchAllSuppliers())
-            .then(() => resetForm())
-            .catch(err => console.error("Insert supplier failed:", err));
+            .post("http://localhost:3001/api/suppliers/insert", payload)
+            .then(() => {
+                fetchAllSuppliers();
+                setMessage(`Supplier added with ID ${generatedId}`);
+                resetForm();
+                setTimeout(() => setMessage(""), 3000);
+            })
+            .catch(err => {
+                console.error("Insert supplier failed:", err);
+                setMessage("Insert failed.");
+                setTimeout(() => setMessage(""), 3000);
+            });
     };
 
     // Update existing supplier
     const handleUpdate = () => {
+        const payload = { ...formData };
         axios
-            .put("http://localhost:3001/api/suppliers/update", formData)
+            .put("http://localhost:3001/api/suppliers/update", payload)
             .then(() => {
                 setMessage("Supplier updated!");
-                resetForm();
                 fetchAllSuppliers();
+                resetForm();
+                setTimeout(() => setMessage(""), 3000);
             })
             .catch(err => {
                 console.error("Update supplier failed:", err);
                 setMessage("Update failed.");
+                setTimeout(() => setMessage(""), 3000);
             });
     };
 
     // Delete supplier
-    const handleDelete = id => {
+    const handleDelete = (id) => {
         if (!window.confirm("Are you sure you want to delete this supplier?")) return;
         axios
             .delete(`http://localhost:3001/api/suppliers/${id}`)
             .then(() => {
                 setMessage("Supplier deleted!");
                 fetchAllSuppliers();
+                setTimeout(() => setMessage(""), 3000);
             })
             .catch(err => {
                 console.error("Delete supplier failed:", err);
                 setMessage("Delete failed.");
+                setTimeout(() => setMessage(""), 3000);
             });
     };
 
     // Start edit mode
-    const startEdit = row => {
+    const startEdit = (row) => {
         setFormData({
             new_Supplier_ID: row.Supplier_ID,
             new_name: row.name,
@@ -114,48 +132,51 @@ export const SupplierPage = () => {
         setMessage("");
     };
 
-    // DataGrid columns
+    // Sort handler
+    const handleSort = (column) => {
+        axios
+            .get("http://localhost:3001/api/sorter", {
+                params: { tbl: "Supplier", col: column, op: "ASC" }
+            })
+            .then(res => setSuppliers(res.data))
+            .catch(err => console.error("Sort suppliers failed:", err));
+    };
+
+    // Search handler
+    const handleSearch = (column) => {
+        const value = prompt(`Enter value to search in ${column}`);
+        if (!value) return fetchAllSuppliers();
+        axios
+            .get("http://localhost:3001/api/search", {
+                params: { table: "Supplier", col: column, val: value }
+            })
+            .then(res => setSuppliers(res.data))
+            .catch(err => console.error("Search suppliers failed:", err));
+    };
+
+    const renderHeader = (label, key) => (
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+            {label}
+            <img
+                src={counterIcon}
+                alt="sort"
+                style={{ width: 14, cursor: "pointer" }}
+                onClick={() => handleSort(key)}
+            />
+            <img
+                src={searchIcon}
+                alt="search"
+                style={{ width: 14, cursor: "pointer" }}
+                onClick={() => handleSearch(key)}
+            />
+        </div>
+    );
+
     const columns = [
-        {
-            key: "Supplier_ID",
-            name: (
-                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    ID
-                    <img src={counterIcon} alt="sort" style={{ width: 14, cursor: "pointer" }} onClick={() => handleSort("Supplier_ID")} />
-                    <img src={searchIcon} alt="search" style={{ width: 14, cursor: "pointer" }} onClick={() => handleSearch("Supplier_ID")} />
-                </div>
-            )
-        },
-        {
-            key: "name",
-            name: (
-                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    Name
-                    <img src={counterIcon} alt="sort" style={{ width: 14, cursor: "pointer" }} onClick={() => handleSort("name")} />
-                    <img src={searchIcon} alt="search" style={{ width: 14, cursor: "pointer" }} onClick={() => handleSearch("name")} />
-                </div>
-            )
-        },
-        {
-            key: "phone",
-            name: (
-                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    Phone
-                    <img src={counterIcon} alt="sort" style={{ width: 14, cursor: "pointer" }} onClick={() => handleSort("phone")} />
-                    <img src={searchIcon} alt="search" style={{ width: 14, cursor: "pointer" }} onClick={() => handleSearch("phone")} />
-                </div>
-            )
-        },
-        {
-            key: "email",
-            name: (
-                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                    Email
-                    <img src={counterIcon} alt="sort" style={{ width: 14, cursor: "pointer" }} onClick={() => handleSort("email")} />
-                    <img src={searchIcon} alt="search" style={{ width: 14, cursor: "pointer" }} onClick={() => handleSearch("email")} />
-                </div>
-            )
-        },
+        { key: "Supplier_ID", name: renderHeader("ID", "Supplier_ID") },
+        { key: "name", name: renderHeader("Name", "name") },
+        { key: "phone", name: renderHeader("Phone", "phone") },
+        { key: "email", name: renderHeader("Email", "email") },
         {
             key: "actions",
             name: "Actions",
@@ -172,16 +193,7 @@ export const SupplierPage = () => {
         <div className="supplier-page">
             <div className="form container3">
                 <h2>{isEditing ? "Edit Supplier" : "Add New Supplier"}</h2>
-                <label>
-                    ID
-                    <input
-                        type="text"
-                        name="new_Supplier_ID"
-                        value={formData.new_Supplier_ID}
-                        onChange={handleChange}
-                        placeholder="Enter supplier ID"
-                    />
-                </label>
+
                 <label>
                     Name
                     <input
@@ -192,6 +204,7 @@ export const SupplierPage = () => {
                         placeholder="Enter supplier name"
                     />
                 </label>
+
                 <label>
                     Phone
                     <input
@@ -199,9 +212,10 @@ export const SupplierPage = () => {
                         name="new_phone"
                         value={formData.new_phone}
                         onChange={handleChange}
-                        placeholder="Enter supplier phone"
+                        placeholder="555-890-1235"
                     />
                 </label>
+
                 <label>
                     Email
                     <input
@@ -212,6 +226,7 @@ export const SupplierPage = () => {
                         placeholder="Enter supplier email"
                     />
                 </label>
+
                 <div className="buttons">
                     {isEditing ? (
                         <>
@@ -222,11 +237,12 @@ export const SupplierPage = () => {
                         <button onClick={handleSave}>Add Supplier</button>
                     )}
                 </div>
+
                 {message && <div className="message">{message}</div>}
             </div>
 
             <div className="container4" style={{ height: 400 }}>
-                <DataGrid columns={columns} rows={suppliers} />
+                <DataGrid columns={columns} rows={suppliers} rowKeyGetter={row => row.Supplier_ID} />
             </div>
         </div>
     );
