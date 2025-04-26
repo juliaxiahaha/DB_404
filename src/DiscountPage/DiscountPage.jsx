@@ -1,3 +1,4 @@
+import { jwtDecode } from 'jwt-decode';
 import "./DiscountPage.css";
 import {
     TableTopTypeIcon,
@@ -43,7 +44,17 @@ export const DiscountPage = ({ className, ...props }) => {
 
     const [message, setMessage] = useState("");
 
-    const role = localStorage.getItem("role");
+    const token = localStorage.getItem("token");
+    console.log(token);
+    let role = null;
+    if (token) {
+        try {
+            const decoded = jwtDecode(token);
+            role = decoded.role;
+        } catch (err) {
+            console.error("Failed to decode token", err);
+        }
+    }
     const canAddDiscount = role === "Developer" || role === "Manager";
     const canModifyDiscounts = role === "Developer" || role === "Manager";
 
@@ -53,14 +64,15 @@ export const DiscountPage = ({ className, ...props }) => {
                 tbl: 'Discount',
                 col: column,
                 op: 'ASC' // or 'DESC', or track and toggle this if needed
-            }
+            },
+            headers: { Authorization: `Bearer ${token}` }
         })
             .then(res => setDiscounts(res.data))
             .catch(err => console.error("Sort failed:", err));
     };
 
     const fetchAllDiscounts = () => {
-        axios.get("http://localhost:3001/discount/discounts")
+        axios.get("http://localhost:3001/discount/discounts", { headers: { Authorization: `Bearer ${token}` } })
             .then(res => setDiscounts(res.data))
             .catch(err => console.error("Fetch failed:", err));
     };
@@ -78,7 +90,8 @@ export const DiscountPage = ({ className, ...props }) => {
                 table: 'Discount',
                 col: column,
                 val: value
-            }
+            },
+            headers: { Authorization: `Bearer ${token}` }
         })
             .then(res => setDiscounts(res.data))
             .catch(err => console.error('Search failed:', err));
@@ -97,7 +110,7 @@ export const DiscountPage = ({ className, ...props }) => {
 
     const handleAddDiscount = () => {
         axios.post("http://localhost:3001/discount/", formData)
-            .then(() => axios.get("http://localhost:3001/discount/discounts"))
+            .then(() => axios.get("http://localhost:3001/discount/discounts", { headers: { Authorization: `Bearer ${token}` } }))
             .then(res => {
                 setDiscounts(res.data);
                 setMessage("Discount added successfully!");
@@ -124,7 +137,7 @@ export const DiscountPage = ({ className, ...props }) => {
                 start_date: updatedStartDate,
                 end_date: updatedEndDate
             })
-                .then(() => axios.get("http://localhost:3001/discount/discounts"))
+                .then(() => axios.get("http://localhost:3001/discount/discounts", { headers: { Authorization: `Bearer ${token}` } }))
                 .then(res => setDiscounts(res.data))
                 .catch(err => console.error("Update failed:", err));
         }
