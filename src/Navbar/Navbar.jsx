@@ -40,14 +40,14 @@ const Navbar = () => {
                 </button>
 
                 {/* Employees -> Button */}
-                {role !== "Employee" && (
+                {(role === "Developer" || role === "Manager") && (
                     <button className="tab" onClick={() => navigate("/employees")}>
                         Employees
                     </button>
                 )}
 
                 {/* Supplier -> Button */}
-                {role !== "Employee" && (
+                {(role === "Developer" || role === "Manager") && (
                     <button className="tab" onClick={() => navigate("/supplier")}>
                         Supplier
                     </button>
