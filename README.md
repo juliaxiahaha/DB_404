@@ -29,4 +29,4 @@ This document provides necessary information regarding database hosting, app hos
     - Before start the backend, remember to run:
         - ```export DB_PW='<Password included in report>'```
         - ```export JWT_SECRET='<SECRET included in report>'```
-    - ```cd backend && node index.js``` to start up backend
+    - ```node backend/index.js``` to start up backend
