@@ -7,7 +7,7 @@ export default function (db) {
         const orderId = req.params.id;
 
         db.query(
-            'SELECT * FROM OrderDetail WHERE Order_ID = ?', // ✅ 改成你真正的表名
+            'SELECT * FROM OrderDetail WHERE Order_ID = ?',
             [orderId],
             (err, results) => {
                 if (err) {
