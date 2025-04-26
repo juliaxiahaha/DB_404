@@ -27,8 +27,8 @@ export const CustomerPage = ({ className, ...props }) => {
         console.error("Failed to decode token", err);
       }
     }
-    const canAddCustomer = role === "Developer" || role === "Manager";
-    const canDeleteCustomer = role === "Developer" || role === "Manager";
+    const canAddCustomer = role === "Developer" || role === "Manager" || role === "Employee";
+    const canDeleteCustomer = role === "Developer" || role === "Manager" || role === "Employee";
     const [isFormVisible, setFormVisible] = useState(false);
     const navigate = useNavigate();
 

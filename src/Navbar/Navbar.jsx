@@ -26,37 +26,53 @@ const Navbar = () => {
                 Store Management System
             </button>
             <div className="navigation">
-                <button className="tab" onClick={() => navigate("/discount")}>
-                    Discount
-                </button>
-                <button className="tab" onClick={() => navigate("/customer")}>Customer</button>
-                <button className="tab" onClick={() => navigate("/products")}>
-                    Products
-                </button>
+                {token && (
+                    <>
+                        <button className="tab" onClick={() => navigate("/discount")}>
+                            Discount
+                        </button>
+                        <button className="tab" onClick={() => navigate("/customer")}>Customer</button>
+                        <button className="tab" onClick={() => navigate("/products")}>
+                            Products
+                        </button>
 
-                {/* Orders -> Button */}
-                <button className="tab" onClick={() => navigate("/orders")}>
-                    Orders
-                </button>
+                        {/* Orders -> Button */}
+                        <button className="tab" onClick={() => navigate("/orders")}>
+                            Orders
+                        </button>
 
-                {/* Employees -> Button */}
-                {(role === "Developer" || role === "Manager") && (
-                    <button className="tab" onClick={() => navigate("/employees")}>
-                        Employees
-                    </button>
-                )}
+                        {/* Employees -> Button */}
+                        {(role === "Developer" || role === "Manager") && (
+                            <button className="tab" onClick={() => navigate("/employees")}>
+                                Employees
+                            </button>
+                        )}
 
-                {/* Supplier -> Button */}
-                {(role === "Developer" || role === "Manager") && (
-                    <button className="tab" onClick={() => navigate("/supplier")}>
-                        Supplier
-                    </button>
+                        {/* Supplier -> Button */}
+                        {(role === "Developer" || role === "Manager") && (
+                            <button className="tab" onClick={() => navigate("/supplier")}>
+                                Supplier
+                            </button>
+                        )}
+                    </>
                 )}
                 <button className="tab" onClick={() => navigate("/login")}>Login</button>
                 <div className="textfield">
                     <div className="text">Search in site</div>
                     <img className="ic-search" src={search} alt="Search" />
                 </div>
+                {token && (
+                    <button
+                        className="logout-button"
+                        style={{ marginLeft: "auto", marginRight: "10px" }}
+                        onClick={() => {
+                            localStorage.removeItem("token");
+                            window.location.href = "/login"; // Redirect and reload
+                        }}
+                    >
+                        Logout
+                    </button>
+                )}
             </div>
         </div>
     );
