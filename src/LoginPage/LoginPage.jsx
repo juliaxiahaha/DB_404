@@ -27,10 +27,8 @@ export const LoginPage = ({ className, ...props }) => {
             const data = await response.json();
             if (data.success) {
                 console.log(data.success);
-                localStorage.setItem("username", data.username);
-                localStorage.setItem("role", data.role);
-                console.log(localStorage.getItem("username"));
-                console.log(localStorage.getItem("role"));
+                localStorage.setItem("token", data.token);
+                console.log(localStorage.getItem("token"));
                 alert("Login successful!");
                 setLoginError("");
             } else {

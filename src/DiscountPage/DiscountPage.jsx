@@ -45,6 +45,7 @@ export const DiscountPage = ({ className, ...props }) => {
     const [message, setMessage] = useState("");
 
     const token = localStorage.getItem("token");
+    console.log(token);
     let role = null;
     if (token) {
         try {
