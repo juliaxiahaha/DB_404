@@ -18,8 +18,6 @@ export const CustomerPage = ({ className, ...props }) => {
     });
     const [isFormVisible, setFormVisible] = useState(false);
     const navigate = useNavigate();
-    const role = localStorage.getItem("role");
-    const canAddCustomers = role === "Developer" || role === "Manager";
 
     const handleDelete = (id) => {
       axios.delete(`http://localhost:3001/api/customers/${id}`)
@@ -62,18 +60,16 @@ export const CustomerPage = ({ className, ...props }) => {
                 <div className="container">
                     <div className="title">
                       Select a customer from the customer list:
-                      {canAddCustomers && (
                         <img
                           src={plusUserIcon}
                           alt="Add Customer"
                           style={{ width: "24px", height: "24px", marginLeft: "10px", cursor: "pointer" }}
                           onClick={() => setFormVisible(!isFormVisible)}
                         />
-                      )}
                     </div>
                 </div>
                 <div className="list2">
-                    {canAddCustomers && isFormVisible && (
+                    {isFormVisible && (
                       <div className="form container3">
                         <h2>Add New Customer</h2>
 
@@ -154,7 +150,6 @@ export const CustomerPage = ({ className, ...props }) => {
                                     <div className="title2">{customer.name}</div>
                                 </div>
                               </div>
-                              {canAddCustomers && (
                                 <img
                                   src={minusUserIcon}
                                   alt="Delete Customer"
@@ -164,7 +159,6 @@ export const CustomerPage = ({ className, ...props }) => {
                                     handleDelete(customer.Customer_ID);
                                   }}
                                 />
-                              )}
                             </div>
                         ))}
                     </div>
