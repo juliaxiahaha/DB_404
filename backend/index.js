@@ -33,7 +33,7 @@ import updateShipping     from './routes/updateShipping.js';
 import updateEmployee     from './routes/updateEmployee.js';
 import getCustomers from './routes/getCustomers.js';
 import getEmployees       from './routes/getEmployees.js';
-import getOrderDetails       from './routes/getOrderDetails.js';
+import getOrderDetails       from './routes/OrderPageEP.js';
 import getOrders          from './routes/OrderPageEP.js';
 import getProducts       from './routes/ProductPageEP.js';
 import getProductReviews   from './routes/getProductReviews.js';
