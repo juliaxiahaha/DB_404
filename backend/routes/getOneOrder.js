@@ -3,12 +3,11 @@ import express from 'express';
 const router = express.Router();
 
 export default function (db) {
-    // GET /api/orderDetails/:id
     router.get('/:id', (req, res) => {
         const orderId = req.params.id;
 
         db.query(
-            'SELECT * FROM OrderDetailPage WHERE Order_ID = ?',
+            'SELECT * FROM OrderDetail WHERE Order_ID = ?', // ✅ 改成你真正的表名
             [orderId],
             (err, results) => {
                 if (err) {
