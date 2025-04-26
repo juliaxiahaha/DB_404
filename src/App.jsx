@@ -4,10 +4,6 @@ import { HomePage } from "./HomePage/HomePage";
 import { LoginPage } from "./LoginPage/LoginPage";
 import { CustomerPage } from "./CustomerPage/CustomerPage";
 import { OrderPage } from "./OrderPage/OrderPage";
-import Navbar from "./Navbar/Navbar";
-import {BrowserRouter, Routes, Route} from "react-router-dom";
-import {useEffect, useState} from "react";
-import axios from "axios";
 import {SupplierPage} from "./SupplierPage/SupplierPage.jsx";
 import { DiscountPage } from "./DiscountPage/DiscountPage.jsx";
 import {EmployeePage} from "./EmployeePage/EmployeePage.jsx";
@@ -16,6 +12,11 @@ import {ProductDetailPage} from "./ProductDetailPage/ProductDetailPage.jsx";
 import {CustomerDetailPage} from "./CustomerDetail/CustomerDetailPage.jsx";
 import {jwtDecode} from 'jwt-decode';
 
+
+import Navbar from "./Navbar/Navbar";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function App() {
     const [setUsers] = useState([]);
@@ -46,6 +47,8 @@ export default function App() {
                 <Route path="/customer" element={<CustomerPage />} />
                 <Route path="/customer/:id" element={<CustomerDetailPage />} />
                 <Route path="/orders" element={<OrderPage />} />
+                <Route path="/order-detail/:orderId" element={<OrderDetailPage />} />
+                <Route path="/supplier" element={<SupplierPage />} />
                 <Route path="/supplier" element={(role === "Developer" || role === "Manager") ? <SupplierPage /> : <div>Not Authorized</div>} />
                 <Route path="/discount" element={<DiscountPage />} />
                 <Route path="/employees" element={(role === "Developer" || role === "Manager") ? <EmployeePage /> : <div>Not Authorized</div>} />
@@ -56,3 +59,4 @@ export default function App() {
         </BrowserRouter>
     );
 }
+

@@ -7,7 +7,7 @@ import vector2003 from './assets/vector-2003.svg';
 import frame0 from './assets/frame-4273188170.svg';
 import frame1 from './assets/frame-4273188171.svg';
 import frame2 from './assets/frame-4273188172.svg';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const HomePage = ({ className, ...props }) => {
@@ -21,6 +21,14 @@ export const HomePage = ({ className, ...props }) => {
         new_Supplier_ID: '',
         new_Discount_ID: ''
     });
+
+    const [reviews, setReviews] = useState([]);
+    useEffect(() => {
+        fetch('http://localhost:3001/api/productReviews')
+            .then(res => res.json())
+            .then(data => setReviews(data))
+            .catch(err => console.error('Failed to fetch reviews:', err));
+    }, []);
 
     const navigate = useNavigate();
     const role = localStorage.getItem("role");
@@ -201,53 +209,24 @@ export const HomePage = ({ className, ...props }) => {
                 <div className="container3">
                     <div className="title6">Customer Reviews </div>
                     <div className="description3">Feedback from customers </div>
-                    <div className="button2">
-                        <div className="primary">
-                            <div className="title9">View More </div>
-                        </div>
-                    </div>
                 </div>
                 <div className="list4">
-                    <div className="row">
-                        <div className="card">
-                            <div className="user">
-                                <div className="avatar2">
-                                    <div className="avatar3"></div>
-                                    <div className="frame-4273189062">
-                                        <div className="title10">Customer A </div>
+                    {reviews.slice(-3).reverse().map((review, index) => (
+                        <div className="row" key={index}>
+                            <div className="card">
+                                <div className="user">
+                                    <div className="avatar2">
+                                        <div className="avatar3"></div>
+                                        <div className="frame-4273189062">
+                                            <div className="title10">{`Customer ${review.Customer_ID}`}</div>
+                                            <div className="rating">{'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}</div>
+                                        </div>
                                     </div>
                                 </div>
-                                <img className="frame-427318817" src={frame0} />
+                                <div className="title11">{review.comment}</div>
                             </div>
-                            <div className="title11">Great service and products. </div>
                         </div>
-                        <div className="card">
-                            <div className="user">
-                                <div className="avatar2">
-                                    <div className="avatar3"></div>
-                                    <div className="frame-4273189062">
-                                        <div className="title10">Customer B </div>
-                                    </div>
-                                </div>
-                                <img className="frame-4273188172" src={frame1} />
-                            </div>
-                            <div className="title11">Fast shipping, good quality. </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="card">
-                            <div className="user">
-                                <div className="avatar2">
-                                    <div className="avatar3"></div>
-                                    <div className="frame-4273189062">
-                                        <div className="title10">Customer C </div>
-                                    </div>
-                                </div>
-                                <img className="frame-4273188173" src={frame2} />
-                            </div>
-                            <div className="title11">Excellent experience overall. </div>
-                        </div>
-                    </div>
+                    ))}
                 </div>
                 <img className="vector-2004" src={vector2003} />
             </div>

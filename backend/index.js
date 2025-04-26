@@ -49,6 +49,7 @@ import getShoppingCartsByID from "./routes/getShoppingCartByID.js";
 import register from "./routes/register.js";
 import loginRoute from './routes/login.js';
 import deleteProduct     from './routes/deleteProduct.js';
+import getOneOrder from './routes/getOneOrder.js';
 
 
 const DB_HOST='db-mysql-nyc3-77807-do-user-20581125-0.l.db.ondigitalocean.com'
@@ -125,6 +126,7 @@ app.get('/api', (req, res) => {
 app.use('/home', homeRoutes(db));
 app.use('/discount', discountRoutes(db));
 app.use('/order', orderRoutes(db));
+app.use('/api/orderDetails', getOneOrder(db));
 app.use('/api/customers', insertCustomer(db));
 app.use('/api/customers', deleteCustomer(db));
 app.use('/api/customers', updateCustomer(db));
@@ -169,7 +171,7 @@ app.use('/api/shoppingCarts', getShoppingCartsByID(db));
 app.use('/api/auth', register(db));
 app.use('/api/auth', loginRoute(db));
 app.use('/api/products', deleteProduct(db));
-
+app.use('/api/orderDetails', getOneOrder(db));
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}/api`);
