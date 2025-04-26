@@ -57,10 +57,7 @@ const Navbar = () => {
                     </>
                 )}
                 <button className="tab" onClick={() => navigate("/login")}>Login</button>
-                <div className="textfield">
-                    <div className="text">Search in site</div>
-                    <img className="ic-search" src={search} alt="Search" />
-                </div>
+
                 {token && (
                     <button
                         className="logout-button"
