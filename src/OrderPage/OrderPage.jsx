@@ -2,6 +2,7 @@ import 'react-data-grid/lib/styles.css';
 import { DataGrid } from 'react-data-grid';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; //
 import counterIcon from './assets/ic-arrow-drop-down0.svg';
 import searchIcon from './assets/filter-svgrepo-com.svg';
 import './OrderPage.css';
@@ -9,13 +10,15 @@ import './OrderPage.css';
 export const OrderPage = ({ className, ...props }) => {
     const [orders, setOrders] = useState([]);
     const [formData, setFormData] = useState({
-        new_order_date: '',
-        new_total_price: '',
-        new_Customer_ID: '',
-        new_Employee_ID: '',
-        new_Shipping_ID: ''
+        order_date: '',
+        total_price: '',
+        Customer_ID: '',
+        Employee_ID: '',
+        Shipping_ID: ''
     });
     const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate(); //
 
     const normalizeOrders = (data) =>
         data.map(order => ({
@@ -61,7 +64,25 @@ export const OrderPage = ({ className, ...props }) => {
     );
 
     const columns = [
-        { key: 'Order_ID', name: renderHeader('Order ID', 'Order_ID') },
+        {
+            key: 'Order_ID',
+            name: renderHeader('Order ID', 'Order_ID'),
+            renderCell: ({ row }) => (
+                <button
+                    onClick={() => navigate(`/order-detail/${row.Order_ID}`)}
+                    style={{
+                        background: 'none',
+                        border: 'none',
+                        color: '#007bff',
+                        cursor: 'pointer',
+                        textDecoration: 'underline',
+                        fontSize: '14px'
+                    }}
+                >
+                    {row.Order_ID}
+                </button>
+            )
+        },
         { key: 'order_date', name: renderHeader('Date', 'order_date') },
         { key: 'total_price', name: renderHeader('Total Price', 'total_price') },
         { key: 'Customer_ID', name: renderHeader('Customer ID', 'Customer_ID') },
@@ -89,35 +110,33 @@ export const OrderPage = ({ className, ...props }) => {
 
         axios.post('http://localhost:3001/api/orders/insert', {
             new_Order_ID: generatedOrderId,
-            new_order_date: formData.new_order_date,
-            new_total_price: parseFloat(formData.new_total_price),
-            new_Customer_ID: parseInt(formData.new_Customer_ID, 10),
-            new_Employee_ID: parseInt(formData.new_Employee_ID, 10),
-            new_Shipping_ID: parseInt(formData.new_Shipping_ID, 10)
+            new_order_date: formData.order_date,
+            new_total_price: parseFloat(formData.total_price),
+            new_Customer_ID: parseInt(formData.Customer_ID, 10),
+            new_Employee_ID: parseInt(formData.Employee_ID, 10),
+            new_Shipping_ID: parseInt(formData.Shipping_ID, 10)
         }, {
             headers: { 'Content-Type': 'application/json' }
         })
             .then(res => {
-                console.log('Insert success:', res.data);
                 fetchAllOrders();
                 setMessage("Order created successfully!");
+                setError("");
                 setTimeout(() => setMessage(""), 3000);
                 setFormData({
-                    new_order_date: '',
-                    new_total_price: '',
-                    new_Customer_ID: '',
-                    new_Employee_ID: '',
-                    new_Shipping_ID: ''
+                    order_date: '',
+                    total_price: '',
+                    Customer_ID: '',
+                    Employee_ID: '',
+                    Shipping_ID: ''
                 });
             })
             .catch(err => {
                 console.error("Insert failed:", err);
-                setMessage("Insert failed!");
-                setTimeout(() => setMessage(""), 3000);
+                setError("Insert failed!");
+                setTimeout(() => setError(""), 4000);
             });
     };
-
-
 
     const handleDelete = (id) => {
         axios.delete(`http://localhost:3001/api/orders/${id}`)
@@ -130,14 +149,15 @@ export const OrderPage = ({ className, ...props }) => {
             <h1 className="order-title">Order List</h1>
 
             {message && <div className="message-success">{message}</div>}
+            {error && <div className="message-error">{error}</div>}
 
             <div className="form-container">
                 <div className="list">
-                    <div className="row"><label>Date <input type="date" name="new_order_date" value={formData.new_order_date} onChange={handleInputChange} /></label></div>
-                    <div className="row"><label>Total Price <input type="text" name="new_total_price" value={formData.new_total_price} onChange={handleInputChange} /></label></div>
-                    <div className="row"><label>Customer ID <input type="number" name="new_Customer_ID" value={formData.new_Customer_ID} onChange={handleInputChange} /></label></div>
-                    <div className="row"><label>Employee ID <input type="number" name="new_Employee_ID" value={formData.new_Employee_ID} onChange={handleInputChange} /></label></div>
-                    <div className="row"><label>Shipping ID <input type="number" name="new_Shipping_ID" value={formData.new_Shipping_ID} onChange={handleInputChange} /></label></div>
+                    <div className="row"><label>Date <input type="date" name="order_date" value={formData.order_date} onChange={handleInputChange} /></label></div>
+                    <div className="row"><label>Total Price <input type="text" name="total_price" value={formData.total_price} onChange={handleInputChange} /></label></div>
+                    <div className="row"><label>Customer ID <input type="number" name="Customer_ID" value={formData.Customer_ID} onChange={handleInputChange} /></label></div>
+                    <div className="row"><label>Employee ID <input type="number" name="Employee_ID" value={formData.Employee_ID} onChange={handleInputChange} /></label></div>
+                    <div className="row"><label>Shipping ID <input type="number" name="Shipping_ID" value={formData.Shipping_ID} onChange={handleInputChange} /></label></div>
                 </div>
                 <div className="button">
                     <button className="seconday title4" type="button">Cancel</button>
