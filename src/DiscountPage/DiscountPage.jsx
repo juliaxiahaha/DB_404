@@ -1,3 +1,4 @@
+import { jwtDecode } from 'jwt-decode';
 import "./DiscountPage.css";
 import {
     TableTopTypeIcon,
@@ -43,7 +44,16 @@ export const DiscountPage = ({ className, ...props }) => {
 
     const [message, setMessage] = useState("");
 
-    const role = localStorage.getItem("role");
+    const token = localStorage.getItem("token");
+    let role = null;
+    if (token) {
+        try {
+            const decoded = jwtDecode(token);
+            role = decoded.role;
+        } catch (err) {
+            console.error("Failed to decode token", err);
+        }
+    }
     const canAddDiscount = role === "Developer" || role === "Manager";
     const canModifyDiscounts = role === "Developer" || role === "Manager";
 
