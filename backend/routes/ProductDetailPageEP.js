@@ -102,7 +102,7 @@ export default function(db) {
         });
     });
 
-    router.get('/fromProduct/:productId', (req, res) => {
+    router.get('/asProduct/:productId', (req, res) => {
         const productId = parseInt(req.params.productId, 10);
         if (isNaN(productId)) {
             return res.status(400).json({ error: 'Invalid Product ID' });

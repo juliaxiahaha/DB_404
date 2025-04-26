@@ -70,7 +70,7 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
           fetch(`http://localhost:3001/api/products/${id}`),
           fetch(`http://localhost:3001/api/suppliers/fromProduct/${id}`),
           fetch(`http://localhost:3001/api/productReviews/byProduct/${id}`),
-          fetch(`http://localhost:3001/api/discounts/fromProduct/${id}`)
+          fetch(`http://localhost:3001/api/discounts/asProduct/${id}`)
         ]);
         if (![pRes, sRes, rRes].every(r => r.ok)) throw new Error("Request failed");
 
