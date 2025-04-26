@@ -8,7 +8,7 @@ This document provides necessary information regarding database hosting, app hos
 
 ### a) Database Hosting
 
-- The database is hosted on **DigitalOcean**.
+- The database is a cloud-based database hosted on **DigitalOcean**.
 
 ### b) App Hosting
 
