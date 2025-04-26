@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { jwtDecode } from "jwt-decode";
 import './OrderDetailPage.css';
 
 export const OrderDetailPage = () => {
@@ -8,17 +9,22 @@ export const OrderDetailPage = () => {
     const [orderDetails, setOrderDetails] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
         const fetchOrderDetails = async () => {
             try {
-                const res = await axios.get(`http://localhost:3001/api/orderDetails/${orderId}`);
+                const res = await axios.get(`http://localhost:3001/api/orderDetails/${orderId}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
                 const rawDetails = res.data;
 
                 const enrichedDetails = await Promise.all(
                     rawDetails.map(async (item) => {
                         try {
-                            const productRes = await axios.get(`http://localhost:3001/api/products/${item.Product_ID}`);
+                            const productRes = await axios.get(`http://localhost:3001/api/products/${item.Product_ID}`, {
+                                headers: { Authorization: `Bearer ${token}` }
+                            });
                             return {
                                 ...item,
                                 Product_Name: productRes.data.name,
@@ -105,4 +111,3 @@ export const OrderDetailPage = () => {
         </div>
     );
 };
-

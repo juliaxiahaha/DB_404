@@ -5,6 +5,7 @@ import "./ProductDetailPage.css";
 import "react-data-grid/lib/styles.css";
 import { DataGrid } from "react-data-grid";
 import ArrowDown from "./assets/ic-arrow-drop-down0.svg";
+import { jwtDecode } from "jwt-decode";
 
 export const ProductDetailPage = ({ className = "", ...props }) => {
   const { id } = useParams();
@@ -28,6 +29,8 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
     new_purchasing_price: ""
   });
 
+  const token = localStorage.getItem("token");
+
   /* ────── HELPERS ────── */
   const money      = n => `$${Number(n).toFixed(2)}`;
   const formatDate = d => new Date(d).toLocaleDateString();
@@ -35,7 +38,9 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
   const fetchSorted = async (col, dir) => {
     try {
       const url = `http://localhost:3001/api/sorter?tbl=ProductReview&col=${col}&op=${dir}`;
-      const r   = await fetch(url);
+      const r   = await fetch(url, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
       if (!r.ok) throw new Error("sort fetch failed");
       const data = await r.json();
       setReviews(data.filter(e => String(e.Product_ID) === String(id)));
@@ -67,10 +72,18 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
     (async () => {
       try {
         const [pRes, sRes, rRes, dRes] = await Promise.all([
-          fetch(`http://localhost:3001/api/products/${id}`),
-          fetch(`http://localhost:3001/api/suppliers/fromProduct/${id}`),
-          fetch(`http://localhost:3001/api/productReviews/byProduct/${id}`),
-          fetch(`http://localhost:3001/api/discounts/fromProduct/${id}`)
+          fetch(`http://localhost:3001/api/products/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          }),
+          fetch(`http://localhost:3001/api/suppliers/fromProduct/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          }),
+          fetch(`http://localhost:3001/api/productReviews/byProduct/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          }),
+          fetch(`http://localhost:3001/api/discounts/fromProduct/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          })
         ]);
         if (![pRes, sRes, rRes].every(r => r.ok)) throw new Error("Request failed");
 
@@ -114,7 +127,7 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
 
       const resp = await fetch("http://localhost:3001/api/products/update", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify(payload)
       });
       if (!resp.ok) throw new Error("Update failed");

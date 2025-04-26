@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { jwtDecode } from "jwt-decode";
 import './ProductPage.css';
 import section1 from '/src/ProductPage/assets/section1.svg';
 import vector2000 from '/src/ProductPage/assets/vector-2000.svg';
@@ -23,8 +24,21 @@ export const ProductPage = ({ className, ...props }) => {
         new_Discount_ID: ''
     });
 
+    const token = localStorage.getItem("token");
+    let role = null;
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        role = decoded.role;
+      } catch (err) {
+        console.error("Failed to decode token", err);
+      }
+    }
+
     const fetchProducts = () => {
-        axios.get('http://localhost:3001/api/products')
+        axios.get('http://localhost:3001/api/products', {
+            headers: { Authorization: `Bearer ${token}` }
+        })
             .then(res => setProducts(res.data))
             .catch(err => {
                 console.error(err);
@@ -53,7 +67,7 @@ export const ProductPage = ({ className, ...props }) => {
             new_Supplier_ID: parseInt(newProduct.new_Supplier_ID, 10),
             new_Discount_ID: parseInt(newProduct.new_Discount_ID, 10)
         }, {
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
         })
             .then(() => {
                 setShowForm(false);
@@ -75,7 +89,9 @@ export const ProductPage = ({ className, ...props }) => {
         const confirmed = window.confirm(`Are you sure you want to delete product ${id}?`);
         if (!confirmed) return;
 
-        axios.delete(`http://localhost:3001/api/products/${id}`)
+        axios.delete(`http://localhost:3001/api/products/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
             .then(() => fetchProducts())
             .catch(err => {
                 console.error(`Failed to delete product ${id}:`, err);

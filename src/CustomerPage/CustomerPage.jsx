@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./CustomerPage.css";
 import minusUserIcon from "./assets/minus-user-svgrepo-com.svg";
 import plusUserIcon from "./assets/plus-user-svgrepo-com.svg";
+import { jwtDecode } from "jwt-decode";
 
 
 export const CustomerPage = ({ className, ...props }) => {
@@ -16,11 +17,25 @@ export const CustomerPage = ({ className, ...props }) => {
       new_email: "",
       new_membership_registration_date: ""
     });
+    const token = localStorage.getItem("token");
+    let role = null;
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        role = decoded.role;
+      } catch (err) {
+        console.error("Failed to decode token", err);
+      }
+    }
+    const canAddCustomer = role === "Developer" || role === "Manager";
+    const canDeleteCustomer = role === "Developer" || role === "Manager";
     const [isFormVisible, setFormVisible] = useState(false);
     const navigate = useNavigate();
 
     const handleDelete = (id) => {
-      axios.delete(`http://localhost:3001/api/customers/${id}`)
+      axios.delete(`http://localhost:3001/api/customers/${id}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
         .then(() => setCustomers(prev => prev.filter(c => c.Customer_ID !== id)))
         .catch(err => console.error("Delete failed:", err));
     };
@@ -31,8 +46,12 @@ export const CustomerPage = ({ className, ...props }) => {
     };
 
     const handleSave = () => {
-      axios.post("http://localhost:3001/api/customers/insert", formData)
-        .then(() => axios.get("http://localhost:3001/api/customers"))
+      axios.post("http://localhost:3001/api/customers/insert", formData, {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+        .then(() => axios.get("http://localhost:3001/api/customers", {
+          headers: { Authorization: `Bearer ${token}` }
+        }))
         .then(res => {
           setCustomers(res.data);
           setFormVisible(false);
@@ -49,7 +68,9 @@ export const CustomerPage = ({ className, ...props }) => {
     };
 
     useEffect(() => {
-        axios.get("http://localhost:3001/api/customers")
+        axios.get("http://localhost:3001/api/customers", {
+          headers: { Authorization: `Bearer ${token}` }
+        })
             .then(res => setCustomers(res.data))
             .catch(err => console.error("Failed to load customers:", err));
     }, []);
@@ -60,16 +81,18 @@ export const CustomerPage = ({ className, ...props }) => {
                 <div className="container">
                     <div className="title">
                       Select a customer from the customer list:
+                      {canAddCustomer && (
                         <img
                           src={plusUserIcon}
                           alt="Add Customer"
                           style={{ width: "24px", height: "24px", marginLeft: "10px", cursor: "pointer" }}
                           onClick={() => setFormVisible(!isFormVisible)}
                         />
+                      )}
                     </div>
                 </div>
                 <div className="list2">
-                    {isFormVisible && (
+                    {canAddCustomer && isFormVisible && (
                       <div className="form container3">
                         <h2>Add New Customer</h2>
 
@@ -150,6 +173,7 @@ export const CustomerPage = ({ className, ...props }) => {
                                     <div className="title2">{customer.name}</div>
                                 </div>
                               </div>
+                              {canDeleteCustomer && (
                                 <img
                                   src={minusUserIcon}
                                   alt="Delete Customer"
@@ -159,6 +183,7 @@ export const CustomerPage = ({ className, ...props }) => {
                                     handleDelete(customer.Customer_ID);
                                   }}
                                 />
+                              )}
                             </div>
                         ))}
                     </div>

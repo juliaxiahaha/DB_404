@@ -3,6 +3,7 @@ import 'react-data-grid/lib/styles.css';
 import React, { useEffect, useState } from 'react';
 import { DataGrid } from 'react-data-grid';
 import axios from 'axios';
+import { jwtDecode } from "jwt-decode";
 import counterIcon from './assets/ic-arrow-drop-down0.svg';
 import searchIcon from './assets/filter-svgrepo-com.svg';
 import './EmployeePage.css';
@@ -15,6 +16,17 @@ export const EmployeePage = () => {
         new_basic_salary: '',
         new_annual_bonus: ''
     });
+    const token = localStorage.getItem("token");
+    let role = null;
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        role = decoded.role;
+      } catch (err) {
+        console.error("Failed to decode token", err);
+      }
+    }
+    const canModifyEmployee = role === "Developer" || role === "Manager";
     const [isEditing, setIsEditing] = useState(false);
     const [message, setMessage] = useState('');
 
@@ -24,7 +36,7 @@ export const EmployeePage = () => {
     // Fetch & normalize
     const fetchAllEmployees = () => {
         axios
-            .get('http://localhost:3001/api/employees')
+            .get('http://localhost:3001/api/employees', { headers: { Authorization: `Bearer ${token}` } })
             .then(res => setEmployees(res.data))
             .catch(err => console.error('Fetch failed:', err));
     };
@@ -51,6 +63,10 @@ export const EmployeePage = () => {
     };
 
     const handleSave = () => {
+        if (!canModifyEmployee) {
+          alert("You do not have permission.");
+          return;
+        }
         const generatedId = generateEmployeeId();
         const payload = {
             new_Employee_ID: generatedId,
@@ -61,7 +77,7 @@ export const EmployeePage = () => {
 
         axios
             .post('http://localhost:3001/api/employees/insert', payload, {
-                headers: { 'Content-Type': 'application/json' }
+                headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
             })
             .then(() => {
                 fetchAllEmployees();
@@ -77,6 +93,10 @@ export const EmployeePage = () => {
     };
 
     const handleUpdate = () => {
+        if (!canModifyEmployee) {
+          alert("You do not have permission.");
+          return;
+        }
         const payload = {
             new_Employee_ID: formData.new_Employee_ID,
             new_Employee_name: formData.new_Employee_name,
@@ -85,7 +105,7 @@ export const EmployeePage = () => {
         };
 
         axios
-            .put('http://localhost:3001/api/employees/update', payload)
+            .put('http://localhost:3001/api/employees/update', payload, { headers: { Authorization: `Bearer ${token}` } })
             .then(() => {
                 setMessage('Employee updated!');
                 fetchAllEmployees();
@@ -100,9 +120,13 @@ export const EmployeePage = () => {
     };
 
     const handleDelete = id => {
+        if (!canModifyEmployee) {
+          alert("You do not have permission.");
+          return;
+        }
         if (!window.confirm('Are you sure you want to delete this employee?')) return;
         axios
-            .delete(`http://localhost:3001/api/employees/${id}`)
+            .delete(`http://localhost:3001/api/employees/${id}`, { headers: { Authorization: `Bearer ${token}` } })
             .then(() => {
                 setMessage('Employee deleted!');
                 fetchAllEmployees();
@@ -129,7 +153,8 @@ export const EmployeePage = () => {
     const handleSort = column => {
         axios
             .get('http://localhost:3001/api/sorter', {
-                params: { tbl: 'Employee', col: column, op: 'ASC' }
+                params: { tbl: 'Employee', col: column, op: 'ASC' },
+                headers: { Authorization: `Bearer ${token}` }
             })
             .then(res => setEmployees(res.data))
             .catch(err => console.error('Sort failed:', err));
@@ -140,7 +165,8 @@ export const EmployeePage = () => {
         if (!value) return fetchAllEmployees();
         axios
             .get('http://localhost:3001/api/search', {
-                params: { table: 'Employee', col: column, val: value }
+                params: { table: 'Employee', col: column, val: value },
+                headers: { Authorization: `Bearer ${token}` }
             })
             .then(res => setEmployees(res.data))
             .catch(err => console.error('Search failed:', err));
