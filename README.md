@@ -12,7 +12,7 @@ This document provides necessary information regarding database hosting, app hos
 
 ### b) App Hosting
 
-- The application (both frontend and backend) is intended to be deployed on a **Linux-based Virtual Private Server (VPS)** environment, such as **DigitalOcean Droplet** or any Ubuntu 22.04+ server.
+- The application (both frontend and backend) is intended to be deployed on a **Linux-based Virtual Private Server (VPS)** environment, such as **DigitalOcean Droplet** or any Ubuntu 22.04+ server. During testing and debugging, it can be deployed locally.
 - Requirements:
     - Node.js (v18 or above)
     - npm (v9 or above)
