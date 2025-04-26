@@ -14,6 +14,7 @@ import {EmployeePage} from "./EmployeePage/EmployeePage.jsx";
 import {ProductPage} from "./ProductPage/ProductPage.jsx";
 import {ProductDetailPage} from "./ProductDetailPage/ProductDetailPage.jsx";
 import {CustomerDetailPage} from "./CustomerDetail/CustomerDetailPage.jsx";
+import {jwtDecode} from 'jwt-decode';
 
 
 export default function App() {
@@ -24,6 +25,18 @@ export default function App() {
             .then(res => setUsers(res.data))
             .catch(err => console.error('API error:', err));
     }, []);
+
+    const token = localStorage.getItem("token");
+    let role = null;
+    if (token) {
+        try {
+            const decoded = jwtDecode(token);
+            role = decoded.role;
+        } catch (err) {
+            console.error("Failed to decode token", err);
+        }
+    }
+
     return (
         <BrowserRouter>
             <Navbar />
@@ -33,9 +46,9 @@ export default function App() {
                 <Route path="/customer" element={<CustomerPage />} />
                 <Route path="/customer/:id" element={<CustomerDetailPage />} />
                 <Route path="/orders" element={<OrderPage />} />
-                <Route path="/supplier" element={<SupplierPage />} />
+                <Route path="/supplier" element={role !== "Employee" ? <SupplierPage /> : <div>Not Authorized</div>} />
                 <Route path="/discount" element={<DiscountPage />} />
-                <Route path="/employees" element={<EmployeePage />} />
+                <Route path="/employees" element={role !== "Employee" ? <EmployeePage /> : <div>Not Authorized</div>} />
                 <Route path="/products" element={<ProductPage />} />
                 <Route path="/products/:id" element={<ProductDetailPage />} />
             </Routes>
@@ -43,4 +56,3 @@ export default function App() {
         </BrowserRouter>
     );
 }
-

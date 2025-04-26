@@ -31,6 +31,7 @@ export const LoginPage = ({ className, ...props }) => {
                 console.log(localStorage.getItem("token"));
                 alert("Login successful!");
                 setLoginError("");
+                window.location.reload();
             } else {
                 setLoginError("Invalid username or password");
             }
