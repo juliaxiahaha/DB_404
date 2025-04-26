@@ -4,13 +4,13 @@ This document provides necessary information regarding database hosting, app hos
 
 
 
-# Hosting Information
+## Hosting Information
 
-## a) Database Hosting
+### a) Database Hosting
 
 - The database is hosted on **DigitalOcean**.
 
-## b) App Hosting
+### b) App Hosting
 
 - The application (both frontend and backend) is intended to be deployed on a **Linux-based Virtual Private Server (VPS)** environment, such as **DigitalOcean Droplet** or any Ubuntu 22.04+ server.
 - Requirements:
@@ -19,7 +19,7 @@ This document provides necessary information regarding database hosting, app hos
     - A process manager like `pm2` (optional, for production)
     - Environment variable setup for database password and JWT secret
 
-# Running code
+## Running code
 
 - **Start both frontend and server at the same time in different terminals**
     - ```git clone <link of the repo>``` to download the repository.
