@@ -46,9 +46,9 @@ export default function App() {
                 <Route path="/customer" element={<CustomerPage />} />
                 <Route path="/customer/:id" element={<CustomerDetailPage />} />
                 <Route path="/orders" element={<OrderPage />} />
-                <Route path="/supplier" element={role !== "Employee" ? <SupplierPage /> : <div>Not Authorized</div>} />
+                <Route path="/supplier" element={(role === "Developer" || role === "Manager") ? <SupplierPage /> : <div>Not Authorized</div>} />
                 <Route path="/discount" element={<DiscountPage />} />
-                <Route path="/employees" element={role !== "Employee" ? <EmployeePage /> : <div>Not Authorized</div>} />
+                <Route path="/employees" element={(role === "Developer" || role === "Manager") ? <EmployeePage /> : <div>Not Authorized</div>} />
                 <Route path="/products" element={<ProductPage />} />
                 <Route path="/products/:id" element={<ProductDetailPage />} />
             </Routes>
