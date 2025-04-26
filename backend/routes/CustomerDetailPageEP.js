@@ -5,7 +5,7 @@ const toNullable = v => v === undefined || v === '' ? null : v;
 
 export default function(db) {
     // GET /api/customers/:id
-    router.get('/:id', (req, res) => {
+    router.get('/single/:id', (req, res) => {
         const id = parseInt(req.params.id, 10);
         if (isNaN(id)) {
             return res.status(400).json({ error: 'Invalid customer ID' });

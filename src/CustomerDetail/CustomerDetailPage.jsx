@@ -21,7 +21,7 @@ export const CustomerDetailPage = ({ className, ...props }) => {
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/api/customers/${id}`)
+    axios.get(`http://localhost:3001/api/customers/single/${id}`)
       .then((res) => {
         console.log("Customer detail fetched:", res.data);
         setCustomer(res.data);
