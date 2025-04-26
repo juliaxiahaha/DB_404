@@ -1,12 +1,14 @@
 // src/routes/insertShoppingCart.js
 import express from 'express';
+import { authenticateToken, authorizeRoles } from './authentication.js';
 const router = express.Router();
+router.use(authenticateToken);
 
 const toNullable = v => v === undefined || v === '' ? null : v;
 
 export default function(db) {
     // POST /api/shoppingCarts/insert
-    router.post('/insert', (req, res) => {
+    router.post('/insert', authorizeRoles('Developer', 'Manager'), (req, res) => {
         const {
             new_Customer_ID,
             new_Product_ID,

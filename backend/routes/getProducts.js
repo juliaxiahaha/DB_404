@@ -1,6 +1,9 @@
 // src/routes/getProducts.js
 import express from 'express';
+import { authenticateToken } from './authentication.js';
 const router = express.Router();
+
+router.use(authenticateToken);
 
 export default function(db) {
     // GET /api/products

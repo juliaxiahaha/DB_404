@@ -1,5 +1,8 @@
+import { authenticateToken } from './authentication.js';
 import express from 'express';
 const router = express.Router();
+
+router.use(authenticateToken);
 
 export default function(db) {
   // GET /api/shoppingCarts/:customerId

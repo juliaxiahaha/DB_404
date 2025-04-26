@@ -1,11 +1,14 @@
 // src/routes/customer.js
 import express from 'express';
+import { authenticateToken, authorizeRoles } from './authentication.js';
 const router = express.Router();
+
+router.use(authenticateToken);
 
 export default function(db) {
     const toNullable = v => v === undefined || v === '' ? null : v;
 
-    router.post('/insert', (req, res) => {
+    router.post('/insert', authorizeRoles('Developer', 'Manager'), (req, res) => {
         const {
             new_Customer_ID,
             new_name,

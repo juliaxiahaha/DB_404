@@ -1,12 +1,15 @@
 // src/routes/updateShipping.js
 import express from 'express';
+import { authenticateToken, authorizeRoles } from './authentication.js';
 const router = express.Router();
+
+router.use(authenticateToken);
 
 const toNullable = v => (v === undefined || v === '' ? null : v);
 
 export default function(db) {
     // PUT /api/shippings/update
-    router.put('/update', (req, res) => {
+    router.put('/update', authorizeRoles('Developer', 'Manager'), (req, res) => {
         const {
             new_Shipping_ID,
             new_shipping_fee,

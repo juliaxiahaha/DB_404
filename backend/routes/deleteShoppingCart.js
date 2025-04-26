@@ -1,10 +1,13 @@
 // src/routes/deleteShoppingCart.js
 import express from 'express';
+import { authenticateToken, authorizeRoles } from './authentication.js';
 const router = express.Router();
+
+router.use(authenticateToken);
 
 export default function(db) {
     // DELETE /api/shoppingCarts/:customerId/:productId
-    router.delete('/:customerId/:productId', (req, res) => {
+    router.delete('/:customerId/:productId', authorizeRoles('Developer', 'Manager'), (req, res) => {
         const custId    = parseInt(req.params.customerId, 10);
         const productId = parseInt(req.params.productId,  10);
 
