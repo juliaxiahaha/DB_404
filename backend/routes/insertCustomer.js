@@ -8,7 +8,7 @@ router.use(authenticateToken);
 export default function(db) {
     const toNullable = v => v === undefined || v === '' ? null : v;
 
-    router.post('/insert', authorizeRoles('Developer', 'Manager'), (req, res) => {
+    router.post('/insert', (req, res) => {
         const {
             new_Customer_ID,
             new_name,

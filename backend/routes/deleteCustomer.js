@@ -7,7 +7,7 @@ router.use(authenticateToken);
 
 export default function(db) {
     // DELETE /api/customers/123
-    router.delete('/:id', authorizeRoles('Developer', 'Manager'), (req, res) => {
+    router.delete('/:id', (req, res) => {
         const victimId = parseInt(req.params.id, 10);
         if (isNaN(victimId)) {
             return res.status(400).json({ error: 'Invalid customer ID' });
