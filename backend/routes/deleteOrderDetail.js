@@ -6,7 +6,7 @@ router.use(authenticateToken);
 
 export default function(db) {
     // DELETE /api/orderDetails/:orderId/:productId
-    router.delete('/:orderId/:productId', authorizeRoles('Developer', 'Manager'), (req, res) => {
+    router.delete('/:orderId/:productId',  (req, res) => {
         const orderId   = parseInt(req.params.orderId,   10);
         const productId = parseInt(req.params.productId, 10);
 
