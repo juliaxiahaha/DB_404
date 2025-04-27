@@ -12,7 +12,6 @@ export const OrderPage = ({ className, ...props }) => {
     const [orders, setOrders] = useState([]);
     const [formData, setFormData] = useState({
         order_date: '',
-        total_price: '',
         Customer_ID: '',
         Employee_ID: '',
         Shipping_ID: ''
@@ -24,8 +23,7 @@ export const OrderPage = ({ className, ...props }) => {
 
     const normalizeOrders = (data) =>
         data.map(order => ({
-            ...order,
-            total_price: typeof order.total_price === 'number' ? `$${order.total_price.toFixed(2)}` : order.total_price
+            ...order
         }));
 
     const fetchAllOrders = () => {
@@ -88,7 +86,6 @@ export const OrderPage = ({ className, ...props }) => {
             )
         },
         { key: 'order_date', name: renderHeader('Date', 'order_date') },
-        { key: 'total_price', name: renderHeader('Total Price', 'total_price') },
         { key: 'Customer_ID', name: renderHeader('Customer ID', 'Customer_ID') },
         { key: 'Employee_ID', name: renderHeader('Employee ID', 'Employee_ID') },
         { key: 'Shipping_ID', name: renderHeader('Shipping ID', 'Shipping_ID') },
@@ -115,7 +112,6 @@ export const OrderPage = ({ className, ...props }) => {
         axios.post('http://localhost:3001/api/orders/insert', {
             new_Order_ID: generatedOrderId,
             new_order_date: formData.order_date,
-            new_total_price: parseFloat(formData.total_price),
             new_Customer_ID: parseInt(formData.Customer_ID, 10),
             new_Employee_ID: parseInt(formData.Employee_ID, 10),
             new_Shipping_ID: parseInt(formData.Shipping_ID, 10)
@@ -129,7 +125,6 @@ export const OrderPage = ({ className, ...props }) => {
                 setTimeout(() => setMessage(""), 3000);
                 setFormData({
                     order_date: '',
-                    total_price: '',
                     Customer_ID: '',
                     Employee_ID: '',
                     Shipping_ID: ''
@@ -158,7 +153,6 @@ export const OrderPage = ({ className, ...props }) => {
             <div className="form-container">
                 <div className="list">
                     <div className="row"><label>Date <input type="date" name="order_date" value={formData.order_date} onChange={handleInputChange} /></label></div>
-                    <div className="row"><label>Total Price <input type="text" name="total_price" value={formData.total_price} onChange={handleInputChange} /></label></div>
                     <div className="row"><label>Customer ID <input type="number" name="Customer_ID" value={formData.Customer_ID} onChange={handleInputChange} /></label></div>
                     <div className="row"><label>Employee ID <input type="number" name="Employee_ID" value={formData.Employee_ID} onChange={handleInputChange} /></label></div>
                     <div className="row"><label>Shipping ID <input type="number" name="Shipping_ID" value={formData.Shipping_ID} onChange={handleInputChange} /></label></div>

@@ -12,7 +12,7 @@ export default function(db) {
         const {
             new_Order_ID,
             new_order_date,
-            new_total_price,
+            new_total_price=0,
             new_Customer_ID,
             new_Employee_ID,
             new_Shipping_ID

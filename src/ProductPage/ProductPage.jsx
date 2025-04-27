@@ -24,6 +24,7 @@ export const ProductPage = ({ className, ...props }) => {
         new_Discount_ID: ''
     });
 
+
     const token = localStorage.getItem("token");
     let role = null;
     if (token) {

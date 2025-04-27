@@ -5,23 +5,23 @@ import "./ProductDetailPage.css";
 import "react-data-grid/lib/styles.css";
 import { DataGrid } from "react-data-grid";
 import ArrowDown from "./assets/ic-arrow-drop-down0.svg";
-import { jwtDecode } from "jwt-decode";
+import axios from "axios";
 
 export const ProductDetailPage = ({ className = "", ...props }) => {
   const { id } = useParams();
 
   /* ────── STATE ────── */
-  const [product, setProduct]   = useState(null);
+  const [product, setProduct] = useState(null);
   const [supplier, setSupplier] = useState(null);
-  const [reviews, setReviews]   = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [discount, setDiscount] = useState(null);
-  const [loading, setLoading]   = useState(true);
-  const [error, setError]       = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const [sortCol, setSortCol]   = useState(null);
-  const [sortDir, setSortDir]   = useState("ASC");
+  const [sortCol, setSortCol] = useState(null);
+  const [sortDir, setSortDir] = useState("ASC");
 
-  const [isEditing,  setIsEditing]  = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
   const [editFields, setEditFields] = useState({
     new_name: "",
     new_category: "",
@@ -29,16 +29,20 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
     new_purchasing_price: ""
   });
 
+  // 👇 新增 Add Order相关state
+  const [orderId, setOrderId] = useState('');
+  const [productQuantity, setProductQuantity] = useState('');
+
   const token = localStorage.getItem("token");
 
   /* ────── HELPERS ────── */
-  const money      = n => `$${Number(n).toFixed(2)}`;
+  const money = n => `$${Number(n).toFixed(2)}`;
   const formatDate = d => new Date(d).toLocaleDateString();
 
   const fetchSorted = async (col, dir) => {
     try {
       const url = `http://localhost:3001/api/sorter?tbl=ProductReview&col=${col}&op=${dir}`;
-      const r   = await fetch(url, {
+      const r = await fetch(url, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (!r.ok) throw new Error("sort fetch failed");
@@ -72,27 +76,19 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
     (async () => {
       try {
         const [pRes, sRes, rRes, dRes] = await Promise.all([
-          fetch(`http://localhost:3001/api/products/${id}`, {
-            headers: { Authorization: `Bearer ${token}` }
-          }),
-          fetch(`http://localhost:3001/api/suppliers/fromProduct/${id}`, {
-            headers: { Authorization: `Bearer ${token}` }
-          }),
-          fetch(`http://localhost:3001/api/productReviews/byProduct/${id}`, {
-            headers: { Authorization: `Bearer ${token}` }
-          }),
-          fetch(`http://localhost:3001/api/discounts/fromProduct/${id}`, {
-            headers: { Authorization: `Bearer ${token}` }
-          })
+          fetch(`http://localhost:3001/api/products/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+          fetch(`http://localhost:3001/api/suppliers/fromProduct/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+          fetch(`http://localhost:3001/api/productReviews/byProduct/${id}`, { headers: { Authorization: `Bearer ${token}` } }),
+          fetch(`http://localhost:3001/api/discounts/fromProduct/${id}`, { headers: { Authorization: `Bearer ${token}` } })
         ]);
         if (![pRes, sRes, rRes].every(r => r.ok)) throw new Error("Request failed");
 
         const pData = await pRes.json();
         setProduct(pData);
         setEditFields({
-          new_name:             pData.name,
-          new_category:         pData.category,
-          new_retail_price:     pData.retail_price,
+          new_name: pData.name,
+          new_category: pData.category,
+          new_retail_price: pData.retail_price,
           new_purchasing_price: pData.purchasing_price
         });
         setSupplier(await sRes.json());
@@ -108,21 +104,21 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
   }, [id]);
 
   if (loading) return <div className="product-detail-page">Loading…</div>;
-  if (error)   return <div className="product-detail-page">{error}</div>;
+  if (error) return <div className="product-detail-page">{error}</div>;
   if (!product || !supplier) return <div className="product-detail-page">No data found</div>;
 
   /* ────── SUBMIT EDIT ────── */
   const submitEdit = async () => {
     try {
       const payload = {
-        new_Product_ID:       product.Product_ID,
-        new_name:             editFields.new_name,
-        new_category:         editFields.new_category,
-        new_retail_price:     parseFloat(editFields.new_retail_price),
+        new_Product_ID: product.Product_ID,
+        new_name: editFields.new_name,
+        new_category: editFields.new_category,
+        new_retail_price: parseFloat(editFields.new_retail_price),
         new_purchasing_price: parseFloat(editFields.new_purchasing_price),
-        new_ratings:          product.ratings,
-        new_Supplier_ID:      product.Supplier_ID,
-        new_Discount_ID:      product.Discount_ID
+        new_ratings: product.ratings,
+        new_Supplier_ID: product.Supplier_ID,
+        new_Discount_ID: product.Discount_ID
       };
 
       const resp = await fetch("http://localhost:3001/api/products/update", {
@@ -133,9 +129,9 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
       if (!resp.ok) throw new Error("Update failed");
 
       setProduct({ ...product, ...{
-          name:             payload.new_name,
-          category:         payload.new_category,
-          retail_price:     payload.new_retail_price,
+          name: payload.new_name,
+          category: payload.new_category,
+          retail_price: payload.new_retail_price,
           purchasing_price: payload.new_purchasing_price
         }});
       setIsEditing(false);
@@ -143,6 +139,32 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
       console.error(e);
       alert("Update failed – see console for details.");
     }
+  };
+
+  /* ────── ADD ORDER FUNCTION ────── */
+  const handleAddOrder = () => {
+    if (!orderId || !productQuantity) {
+      alert('Please fill in both Order ID and Product Quantity');
+      return;
+    }
+
+    axios.post('http://localhost:3001/api/orderDetails/insert', {
+      new_Order_ID: parseInt(orderId, 10),
+      new_Product_ID: parseInt(product.Product_ID, 10),
+      new_product_quantity: parseInt(productQuantity, 10),
+      new_order_status: "Pending"
+    }, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+        .then(() => {
+          alert('Order detail added!');
+          setOrderId('');
+          setProductQuantity('');
+        })
+        .catch(err => {
+          console.error('Failed to add order detail:', err);
+          alert('Failed to add order detail.');
+        });
   };
 
   /* ────── COLUMNS ────── */
@@ -183,10 +205,8 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
                   <div className="metric"><div className="title4">Overall rating</div><div className="data">{Number(product.ratings).toFixed(1)}/5.0</div></div>
 
                   <div style={{ marginTop: 12, display: "flex", gap: 8 }}>
-                    <button onClick={submitEdit}
-                            style={{ color: 'black' }}>Submit</button>
-                    <button onClick={() => setIsEditing(false)}
-                            style={{ color: 'black' }}>Cancel</button>
+                    <button onClick={submitEdit} style={{ color: 'black' }}>Submit</button>
+                    <button onClick={() => setIsEditing(false)} style={{ color: 'black' }}>Cancel</button>
                   </div>
                 </>
             ) : (
@@ -197,14 +217,36 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
                   <div className="metric"><div className="title4">Purchasing price</div><div className="data">{money(product.purchasing_price)}</div></div>
                   <div className="metric"><div className="title4">Overall rating</div><div className="data">{Number(product.ratings).toFixed(1)}/5.0</div></div>
 
-                  <button
-                      onClick={() => setIsEditing(true)}
-                      style={{ color: 'black' }}
-                  >
-                    Edit
-                  </button>
+                  <button onClick={() => setIsEditing(true)} style={{ color: 'black' }}>Edit</button>
                 </>
             )}
+
+            {/* —— Add Order Form —— */}
+            <div style={{ marginTop: "30px" }}>
+              <h2 style={{ fontWeight: "bold", marginBottom: "10px" }}>Add Order</h2>
+              <div style={{ display: "flex", flexDirection: "column", gap: "10px", maxWidth: "300px" }}>
+                <input
+                    type="text"
+                    placeholder="Order ID"
+                    value={orderId}
+                    onChange={(e) => setOrderId(e.target.value)}
+                    style={{ padding: "8px", border: "1px solid #ccc", borderRadius: "4px" }}
+                />
+                <input
+                    type="number"
+                    placeholder="Product Quantity"
+                    value={productQuantity}
+                    onChange={(e) => setProductQuantity(e.target.value)}
+                    style={{ padding: "8px", border: "1px solid #ccc", borderRadius: "4px" }}
+                />
+                <button
+                    onClick={handleAddOrder}
+                    style={{ background: "#000", color: "#fff", padding: "10px", border: "none", borderRadius: "4px", fontWeight: "bold" }}
+                >
+                  Add Order
+                </button>
+              </div>
+            </div>
           </div>
 
           {/* —— Supplier —— */}
@@ -235,6 +277,7 @@ export const ProductDetailPage = ({ className = "", ...props }) => {
           <h2>Customer Reviews</h2>
           <DataGrid columns={reviewColumns} rows={reviews} style={{ height: 400 }} />
         </section>
+
       </div>
   );
 };
