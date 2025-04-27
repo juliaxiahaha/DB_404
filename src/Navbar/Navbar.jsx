@@ -2,7 +2,6 @@ import React from "react";
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import search from "./assets/ic-search0.svg";
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -36,19 +35,16 @@ const Navbar = () => {
                             Products
                         </button>
 
-                        {/* Orders -> Button */}
                         <button className="tab" onClick={() => navigate("/orders")}>
                             Orders
                         </button>
 
-                        {/* Employees -> Button */}
                         {(role === "Developer" || role === "Manager") && (
                             <button className="tab" onClick={() => navigate("/employees")}>
                                 Employees
                             </button>
                         )}
 
-                        {/* Supplier -> Button */}
                         {(role === "Developer" || role === "Manager") && (
                             <button className="tab" onClick={() => navigate("/supplier")}>
                                 Supplier
