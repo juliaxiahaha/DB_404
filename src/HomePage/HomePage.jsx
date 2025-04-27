@@ -1,12 +1,7 @@
 import "./HomePage.css";
-import Navbar from "../Navbar/Navbar.jsx";
 import vector200 from './assets/vector-2000.svg';
-import vector2001 from './assets/vector-2001.svg';
 import vector2002 from './assets/vector-2002.svg';
 import vector2003 from './assets/vector-2003.svg';
-import frame0 from './assets/frame-4273188170.svg';
-import frame1 from './assets/frame-4273188171.svg';
-import frame2 from './assets/frame-4273188172.svg';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 

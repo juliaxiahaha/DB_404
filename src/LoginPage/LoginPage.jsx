@@ -26,9 +26,7 @@ export const LoginPage = ({ className, ...props }) => {
             });
             const data = await response.json();
             if (data.success) {
-                console.log(data.success);
                 localStorage.setItem("token", data.token);
-                console.log(localStorage.getItem("token"));
                 alert("Login successful!");
                 setLoginError("");
                 window.location.reload();

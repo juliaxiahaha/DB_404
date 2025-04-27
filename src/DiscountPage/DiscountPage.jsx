@@ -1,34 +1,10 @@
 import { jwtDecode } from 'jwt-decode';
 import "./DiscountPage.css";
-import {
-    TableTopTypeIcon,
-    TableTopTypeSearch,
-    TableTopTypeDroplist,
-    TableCellsTypeCheckbox,
-    TableCellsTypeText,
-    TableCellsTypeTag,
-    TableCellsCurre,
-    TableCellsTypeAction,
-    TableCellsTypeSearch,
-} from "../TableParts"
 import 'react-data-grid/lib/styles.css';
 import { DataGrid } from 'react-data-grid';
 import counterIcon from './assets/ic-arrow-drop-down0.svg';
 import searchIcon from './assets/filter-svgrepo-com.svg';
 
-import background0 from './assets/background0.svg';
-import background1 from './assets/background1.svg';
-import baseBgDefault0 from './assets/base-bg-default0.svg';
-import baseBgSelect0 from './assets/base-bg-select0.svg';
-import counter0 from './assets/counter0.svg';
-import icArrowDropDown0 from './assets/ic-arrow-drop-down0.svg';
-import icSearch0 from './assets/ic-search0.svg';
-
-import icons8BackFilled0 from './assets/icons-8-back-filled0.svg';
-import icons8More0 from './assets/icons-8-more0.svg';
-import icons8Right0 from './assets/icons-8-right0.svg';
-import rectangle0 from './assets/rectangle0.svg';
-import rectangle1 from './assets/rectangle1.svg';
 
 import { useEffect, useState } from "react";
 import axios from "axios";
