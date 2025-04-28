@@ -12,6 +12,7 @@ import { jwtDecode } from "jwt-decode";
 export const OrderPage = ({ className, ...props }) => {
     const [orders, setOrders] = useState([]);
     const [formData, setFormData] = useState({
+        Order_ID: '',
         order_date: '',
         Customer_ID: '',
         Employee_ID: '',
@@ -21,6 +22,7 @@ export const OrderPage = ({ className, ...props }) => {
     const [error, setError] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [editingOrder, setEditingOrder] = useState(null);
+    const [isEditing, setIsEditing] = useState(false);
     const token = localStorage.getItem("token");
     const navigate = useNavigate();
 
@@ -72,7 +74,7 @@ export const OrderPage = ({ className, ...props }) => {
     const handleUpdate = () => {
         if (!editingOrder) return;
 
-        axios.put('http://localhost:3001/api/orders/update', {
+        axios.put('http://localhost:3001/api/orders', {
             new_Order_ID: editingOrder.Order_ID,
             new_order_date: editingOrder.order_date,
             new_total_price: 0,
@@ -95,9 +97,19 @@ export const OrderPage = ({ className, ...props }) => {
             });
     };
 
+    const startEdit = (row) => {
+        setFormData({
+            Order_ID: row.Order_ID,
+            order_date: row.order_date || '',
+            Customer_ID: row.Customer_ID || '',
+            Employee_ID: row.Employee_ID || '',
+            Shipping_ID: row.Shipping_ID || ''
+        });
+        setIsEditing(true);
+    };
+
     const handleEditClick = (row) => {
-        setEditingOrder({ ...row });
-        setShowModal(true);
+        startEdit(row);
     };
 
     const handleInputChange = (e) => {
@@ -105,9 +117,35 @@ export const OrderPage = ({ className, ...props }) => {
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleModalInputChange = (e) => {
-        const { name, value } = e.target;
-        setEditingOrder(prev => ({ ...prev, [name]: value }));
+    const handleOrderUpdate = () => {
+        axios.put('http://localhost:3001/api/orders', {
+            new_Order_ID: formData.Order_ID,
+            new_order_date: formData.order_date,
+            new_total_price: 0,
+            new_Customer_ID: parseInt(formData.Customer_ID, 10),
+            new_Employee_ID: parseInt(formData.Employee_ID, 10),
+            new_Shipping_ID: parseInt(formData.Shipping_ID, 10)
+        }, {
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
+        })
+            .then(() => {
+                fetchAllOrders();
+                setMessage(`Order ${formData.Order_ID} updated successfully!`);
+                setTimeout(() => setMessage(""), 3000);
+                setFormData({
+                    Order_ID: '',
+                    order_date: '',
+                    Customer_ID: '',
+                    Employee_ID: '',
+                    Shipping_ID: ''
+                });
+                setIsEditing(false);
+            })
+            .catch(err => {
+                console.error("Update failed:", err);
+                setError("Update failed!");
+                setTimeout(() => setError(""), 4000);
+            });
     };
 
     const handleAddOrder = () => {
@@ -127,6 +165,7 @@ export const OrderPage = ({ className, ...props }) => {
                 setMessage("Order created successfully!");
                 setTimeout(() => setMessage(""), 3000);
                 setFormData({
+                    Order_ID: '',
                     order_date: '',
                     Customer_ID: '',
                     Employee_ID: '',
@@ -138,6 +177,24 @@ export const OrderPage = ({ className, ...props }) => {
                 setError("Insert failed!");
                 setTimeout(() => setError(""), 4000);
             });
+    };
+
+    const handleDelete = (orderId) => {
+        if (!window.confirm(`Are you sure you want to delete Order ${orderId}?`)) return;
+
+        axios.delete(`http://localhost:3001/api/orders/${orderId}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        .then(() => {
+            fetchAllOrders();
+            setMessage(`Order ${orderId} deleted successfully!`);
+            setTimeout(() => setMessage(""), 3000);
+        })
+        .catch(err => {
+            console.error("Delete failed:", err);
+            setError("Delete failed!");
+            setTimeout(() => setError(""), 4000);
+        });
     };
 
     const columns = [
@@ -169,7 +226,7 @@ export const OrderPage = ({ className, ...props }) => {
             name: 'Action',
             renderCell: ({ row }) => (
                 <div className="action-cell">
-                    <button className="action-button" onClick={() => handleEditClick(row)}>•••</button>
+                    <button className="delete-button" onClick={() => handleEditClick(row)}>Edit</button>
                     <button onClick={() => handleDelete(row.Order_ID)} className="delete-button">Delete</button>
                 </div>
             )
@@ -191,8 +248,26 @@ export const OrderPage = ({ className, ...props }) => {
                     <div className="row"><label>Shipping ID <input type="number" name="Shipping_ID" value={formData.Shipping_ID} onChange={handleInputChange} /></label></div>
                 </div>
                 <div className="button">
-                    <button className="seconday title4" type="button">Cancel</button>
-                    <button className="primary title5" type="button" onClick={handleAddOrder}>Add Order</button>
+                    {isEditing ? (
+                        <>
+                            <button className="seconday title4" type="button" onClick={() => {
+                                setFormData({
+                                    Order_ID: '',
+                                    order_date: '',
+                                    Customer_ID: '',
+                                    Employee_ID: '',
+                                    Shipping_ID: ''
+                                });
+                                setIsEditing(false);
+                            }}>Cancel</button>
+                            <button className="primary title5" type="button" onClick={handleOrderUpdate}>Update</button>
+                        </>
+                    ) : (
+                        <>
+                            <button className="seconday title4" type="button">Cancel</button>
+                            <button className="primary title5" type="button" onClick={handleAddOrder}>Add Order</button>
+                        </>
+                    )}
                 </div>
             </div>
 

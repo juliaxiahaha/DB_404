@@ -17,6 +17,8 @@ export const DiscountPage = ({ className, ...props }) => {
         start_date: "",
         end_date: ""
     });
+    const [isEditing, setIsEditing] = useState(false);
+    const [editingId, setEditingId] = useState(null);
 
     const [message, setMessage] = useState("");
 
@@ -92,6 +94,12 @@ export const DiscountPage = ({ className, ...props }) => {
                 setDiscounts(res.data);
                 setMessage("Discount added successfully!");
                 setTimeout(() => setMessage(""), 3000);
+                setFormData({
+                    discount_type: "",
+                    discount_value: "",
+                    start_date: "",
+                    end_date: ""
+                });
             })
             .catch(err => console.error("Insert failed:", err));
     };
@@ -102,22 +110,49 @@ export const DiscountPage = ({ className, ...props }) => {
             .catch(err => console.error("Delete failed:", err));
     };
 
-    const handleUpdate = (discount) => {
-        const updatedType = prompt("Enter new discount type:", discount.discount_type);
-        const updatedValue = prompt("Enter new discount value:", discount.discount_value);
-        const updatedStartDate = prompt("Enter new start date (YYYY-MM-DD):", discount.start_date?.slice(0, 10));
-        const updatedEndDate = prompt("Enter new end date (YYYY-MM-DD):", discount.end_date?.slice(0, 10));
-        if (updatedType && updatedValue && updatedStartDate && updatedEndDate) {
-            axios.put(`http://localhost:3001/discount/${discount.Discount_ID}`, {
-                discount_type: updatedType,
-                discount_value: updatedValue,
-                start_date: updatedStartDate,
-                end_date: updatedEndDate
+    const startEdit = (discount) => {
+        setFormData({
+            discount_type: discount.discount_type || "",
+            discount_value: discount.discount_value || "",
+            start_date: discount.start_date ? discount.start_date.slice(0, 10) : "",
+            end_date: discount.end_date ? discount.end_date.slice(0, 10) : ""
+        });
+        setIsEditing(true);
+        setEditingId(discount.Discount_ID);
+        setMessage("");
+    };
+
+    const handleDiscountUpdate = () => {
+        axios.put(`http://localhost:3001/discount/${editingId}`, formData, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(() => axios.get("http://localhost:3001/discount/discounts", { headers: { Authorization: `Bearer ${token}` } }))
+            .then(res => {
+                setDiscounts(res.data);
+                setMessage("Discount updated successfully!");
+                setTimeout(() => setMessage(""), 3000);
+                setFormData({
+                    discount_type: "",
+                    discount_value: "",
+                    start_date: "",
+                    end_date: ""
+                });
+                setIsEditing(false);
+                setEditingId(null);
             })
-                .then(() => axios.get("http://localhost:3001/discount/discounts", { headers: { Authorization: `Bearer ${token}` } }))
-                .then(res => setDiscounts(res.data))
-                .catch(err => console.error("Update failed:", err));
-        }
+            .catch(err => console.error("Update failed:", err));
+    };
+
+    const handleCancelEdit = () => {
+        setFormData({
+            discount_type: "",
+            discount_value: "",
+            start_date: "",
+            end_date: ""
+        });
+        setIsEditing(false);
+        setEditingId(null);
+        setMessage("");
     };
 
 
@@ -227,7 +262,7 @@ export const DiscountPage = ({ className, ...props }) => {
             renderCell: ({ row }) => (
                 canModifyDiscounts ? (
                     <div style={{ display: 'flex', gap: '8px' }}>
-                        <button onClick={() => handleUpdate(row)}>Edit</button>
+                        <button onClick={() => startEdit(row)}>Edit</button>
                         <button onClick={() => handleDelete(row.Discount_ID)}>Delete</button>
                     </div>
                 ) : (
@@ -311,8 +346,17 @@ export const DiscountPage = ({ className, ...props }) => {
                         </div>
                     </div>
                     <div className="button">
-                        <button className="seconday title4" type="button">Cancel</button>
-                        <button className="primary title5" type="button" onClick={handleAddDiscount}>Add Discount</button>
+                        {isEditing ? (
+                            <>
+                                <button className="seconday title4" type="button" onClick={handleCancelEdit}>Cancel</button>
+                                <button className="primary title5" type="button" onClick={handleDiscountUpdate}>Update</button>
+                            </>
+                        ) : (
+                            <>
+                                <button className="seconday title4" type="button">Cancel</button>
+                                <button className="primary title5" type="button" onClick={handleAddDiscount}>Add Discount</button>
+                            </>
+                        )}
                     </div>
                 </div>
             )}

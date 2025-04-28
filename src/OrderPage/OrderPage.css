@@ -145,15 +145,6 @@
     cursor: pointer;
 }
 
-.delete-button {
-    background-color: #f44336;
-    color: #fff;
-    border: none;
-    padding: 4px 10px;
-    border-radius: 4px;
-    font-size: 12px;
-    cursor: pointer;
-}
 
 .modal-buttons {
     display: flex;
