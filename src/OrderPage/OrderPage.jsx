@@ -118,10 +118,9 @@ export const OrderPage = ({ className, ...props }) => {
     };
 
     const handleOrderUpdate = () => {
-        axios.put('http://localhost:3001/api/orders', {
+        axios.put('http://localhost:3001/api/orders/update', {
             new_Order_ID: formData.Order_ID,
             new_order_date: formData.order_date,
-            new_total_price: 0,
             new_Customer_ID: parseInt(formData.Customer_ID, 10),
             new_Employee_ID: parseInt(formData.Employee_ID, 10),
             new_Shipping_ID: parseInt(formData.Shipping_ID, 10)

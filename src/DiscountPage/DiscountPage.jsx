@@ -105,7 +105,9 @@ export const DiscountPage = ({ className, ...props }) => {
     };
 
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:3001/discount/${id}`)
+        axios.delete(`http://localhost:3001/discount/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
             .then(() => setDiscounts(discounts.filter(d => d.Discount_ID !== id)))
             .catch(err => console.error("Delete failed:", err));
     };

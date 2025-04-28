@@ -13,7 +13,6 @@ export default function(db) {
         const {
             new_Order_ID,
             new_order_date,
-            new_total_price,
             new_Customer_ID,
             new_Employee_ID,
             new_Shipping_ID
@@ -26,22 +25,35 @@ export default function(db) {
             return res.status(400).json({ error: 'Invalid Order ID' });
         }
 
-        const sql = 'CALL UpdateOrder(?, ?, ?, ?, ?, ?)';
-        const params = [
-            id,
-            new_order_date,
-            new_total_price,
-            new_Customer_ID,
-            new_Employee_ID,
-            new_Shipping_ID
-        ];
-
-        db.query(sql, params, (err, results) => {
-            if (err) {
-                console.error('UpdateOrder failed:', err);
-                return res.status(500).json({ error: 'UpdateOrder failed' });
+        const selectSql = 'SELECT total_price FROM Orders WHERE Order_ID = ?';
+        db.query(selectSql, [id], (selectErr, selectResults) => {
+            if (selectErr) {
+                console.error('Failed to fetch total_price:', selectErr);
+                return res.status(500).json({ error: 'Failed to fetch total_price' });
             }
-            res.json({ message: `Order ${id} updated`, results });
+            if (selectResults.length === 0) {
+                return res.status(404).json({ error: 'Order not found' });
+            }
+
+            const new_total_price = selectResults[0].total_price;
+
+            const sql = 'CALL UpdateOrder(?, ?, ?, ?, ?, ?)';
+            const params = [
+                id,
+                new_order_date,
+                new_total_price,
+                new_Customer_ID,
+                new_Employee_ID,
+                new_Shipping_ID
+            ];
+
+            db.query(sql, params, (err, results) => {
+                if (err) {
+                    console.error('UpdateOrder failed:', err);
+                    return res.status(500).json({ error: 'UpdateOrder failed' });
+                }
+                res.json({ message: `Order ${id} updated`, results });
+            });
         });
     });
 
