@@ -24,6 +24,7 @@ export const ProductPage = ({ className, ...props }) => {
         new_Discount_ID: ''
     });
 
+
     const token = localStorage.getItem("token");
     let role = null;
     if (token) {
@@ -80,7 +81,7 @@ export const ProductPage = ({ className, ...props }) => {
                     new_Supplier_ID: '',
                     new_Discount_ID: ''
                 });
-                fetchProducts();
+                fetchProducts(); // 刷新产品
             })
             .catch(console.error);
     };
@@ -130,46 +131,28 @@ export const ProductPage = ({ className, ...props }) => {
                     <div className="row" key={ri}>
                         {row.map(prod => (
                             <div className="item" key={prod.Product_ID}>
-                                <div style={{ position: 'relative' }}>
-                                    <Link to={`/products/${prod.Product_ID}`}>
-                                        <div className="frame">
-                                            <div className="icon">📦</div>
-                                        </div>
-                                    </Link>
-                                    <div style={{ position: 'absolute', top: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <Link to={`/products/${prod.Product_ID}`}>
+                                    <div className="frame" style={{ position: 'relative' }}>
+                                        {/* 删除图标，靠近📦 */}
                                         <img
                                             src={deleteIcon}
                                             alt="Delete"
                                             style={{
+                                                position: 'absolute',
+                                                top: -8,
+                                                right: -8,
                                                 width: 20,
                                                 height: 20,
-                                                cursor: 'pointer',
-                                                marginBottom: 2
-                                            }}
-                                            onClick={(e) => {
-                                                e.preventDefault();
-                                                deleteProduct(prod.Product_ID);
-                                            }}
-                                        />
-                                        <button
-                                            style={{
-                                                backgroundColor: 'red',
-                                                color: 'white',
-                                                border: 'none',
-                                                padding: '2px 6px',
-                                                borderRadius: '4px',
-                                                fontSize: '10px',
                                                 cursor: 'pointer'
                                             }}
                                             onClick={(e) => {
-                                                e.preventDefault();
+                                                e.preventDefault(); // 阻止跳转
                                                 deleteProduct(prod.Product_ID);
                                             }}
-                                        >
-                                            Delete
-                                        </button>
+                                        />
+                                        <div className="icon">📦</div>
                                     </div>
-                                </div>
+                                </Link>
                                 <div className="frame-427318906">
                                     <div className="title5">{prod.name || prod.ProductName}</div>
                                 </div>

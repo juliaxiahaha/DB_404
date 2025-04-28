@@ -214,8 +214,8 @@ export const OrderPage = ({ className, ...props }) => {
                         <label>Employee ID: <input type="number" name="Employee_ID" value={editingOrder.Employee_ID} onChange={handleModalInputChange} /></label>
                         <label>Shipping ID: <input type="number" name="Shipping_ID" value={editingOrder.Shipping_ID} onChange={handleModalInputChange} /></label>
                         <div className="modal-buttons">
-                            <button onClick={handleUpdate}>Save</button>
-                            <button onClick={() => setShowModal(false)}>Cancel</button>
+                            <button onClick={handleUpdate}>   Save   </button>
+                            <button onClick={() => setShowModal(false)}>   Cancel   </button>
                         </div>
                     </div>
                 </div>
