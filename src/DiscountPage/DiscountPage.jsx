@@ -85,7 +85,8 @@ export const DiscountPage = ({ className, ...props }) => {
     };
 
     const handleAddDiscount = () => {
-        axios.post("http://localhost:3001/discount/", formData)
+        axios.post("http://localhost:3001/discount/", formData, {
+            headers: { Authorization: `Bearer ${token}` }})
             .then(() => axios.get("http://localhost:3001/discount/discounts", { headers: { Authorization: `Bearer ${token}` } }))
             .then(res => {
                 setDiscounts(res.data);
