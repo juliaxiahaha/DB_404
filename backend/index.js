@@ -50,8 +50,8 @@ import register from "./routes/register.js";
 import loginRoute from './routes/login.js';
 import deleteProduct     from './routes/deleteProduct.js';
 import getOneOrder from './routes/getOneOrder.js';
-import getOrderById from './routes/getOrderById.js';
-import getShippingById from './routes/getShippingById.js';
+import getOrderById from './routes/getOrderByID.js';
+import getShippingById from './routes/getShippingByID.js';
 
 
 const DB_HOST='db-mysql-nyc3-77807-do-user-20581125-0.l.db.ondigitalocean.com'
