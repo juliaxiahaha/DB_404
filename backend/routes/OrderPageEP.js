@@ -1,4 +1,4 @@
-// src/routes/insertOrder.js
+// src/routes/getOrders.js
 import express from 'express';
 import { authenticateToken, authorizeRoles } from './authentication.js';
 const router = express.Router();
@@ -7,7 +7,17 @@ router.use(authenticateToken);
 const toNullable = v => v === undefined || v === '' ? null : v;
 
 export default function(db) {
-    // POST /api/orders/insert
+    // GET /api/orders
+    router.get('/', (req, res) => {
+        db.query('SELECT * FROM Orders', (err, results) => {
+            if (err) {
+                console.error('Failed to retrieve orders:', err);
+                return res.status(500).json({ error: 'Failed to retrieve orders' });
+            }
+            res.json(results);
+        });
+    });
+
     router.post('/insert', (req, res) => {
         const {
             new_Order_ID,
@@ -46,6 +56,21 @@ export default function(db) {
             });
         });
         console.log('Received POST /api/orders/insert with body:', req.body);
+    });
+
+    router.delete('/:id', (req, res) => {
+        const orderId = parseInt(req.params.id, 10);
+        if (isNaN(orderId)) {
+            return res.status(400).json({ error: 'Invalid Order ID' });
+        }
+
+        db.query('CALL DeleteOrder(?)', [orderId], (err, results) => {
+            if (err) {
+                console.error('DeleteOrder failed:', err);
+                return res.status(500).json({ error: 'DeleteOrder failed' });
+            }
+            res.json({ message: `Order ${orderId} deleted`, results });
+        });
     });
 
     return router;
