@@ -1,8 +1,9 @@
+// src/OrderPage/OrderPage.jsx
 import 'react-data-grid/lib/styles.css';
 import { DataGrid } from 'react-data-grid';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; //
+import { useNavigate } from 'react-router-dom';
 import counterIcon from './assets/ic-arrow-drop-down0.svg';
 import searchIcon from './assets/filter-svgrepo-com.svg';
 import './OrderPage.css';
@@ -18,12 +19,15 @@ export const OrderPage = ({ className, ...props }) => {
     });
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
+    const [showModal, setShowModal] = useState(false);
+    const [editingOrder, setEditingOrder] = useState(null);
     const token = localStorage.getItem("token");
-    const navigate = useNavigate(); //
+    const navigate = useNavigate();
 
     const normalizeOrders = (data) =>
         data.map(order => ({
-            ...order
+            ...order,
+            order_date: order.order_date ? new Date(order.order_date).toISOString().split('T')[0] : null
         }));
 
     const fetchAllOrders = () => {
@@ -65,6 +69,77 @@ export const OrderPage = ({ className, ...props }) => {
         </div>
     );
 
+    const handleUpdate = () => {
+        if (!editingOrder) return;
+
+        axios.put('http://localhost:3001/api/orders/update', {
+            new_Order_ID: editingOrder.Order_ID,
+            new_order_date: editingOrder.order_date,
+            new_total_price: 0,
+            new_Customer_ID: editingOrder.Customer_ID,
+            new_Employee_ID: editingOrder.Employee_ID,
+            new_Shipping_ID: editingOrder.Shipping_ID
+        }, {
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
+        })
+            .then(() => {
+                fetchAllOrders();
+                setMessage(`Order ${editingOrder.Order_ID} updated successfully!`);
+                setTimeout(() => setMessage(""), 3000);
+                setShowModal(false);
+            })
+            .catch(err => {
+                console.error("Update failed:", err);
+                setError("Update failed!");
+                setTimeout(() => setError(""), 4000);
+            });
+    };
+
+    const handleEditClick = (row) => {
+        setEditingOrder({ ...row });
+        setShowModal(true);
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleModalInputChange = (e) => {
+        const { name, value } = e.target;
+        setEditingOrder(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleAddOrder = () => {
+        const generatedOrderId = Math.floor(1000 + Math.random() * 9000);
+
+        axios.post('http://localhost:3001/api/orders/insert', {
+            new_Order_ID: generatedOrderId,
+            new_order_date: formData.order_date,
+            new_Customer_ID: parseInt(formData.Customer_ID, 10),
+            new_Employee_ID: parseInt(formData.Employee_ID, 10),
+            new_Shipping_ID: parseInt(formData.Shipping_ID, 10)
+        }, {
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
+        })
+            .then(res => {
+                fetchAllOrders();
+                setMessage("Order created successfully!");
+                setTimeout(() => setMessage(""), 3000);
+                setFormData({
+                    order_date: '',
+                    Customer_ID: '',
+                    Employee_ID: '',
+                    Shipping_ID: ''
+                });
+            })
+            .catch(err => {
+                console.error("Insert failed:", err);
+                setError("Insert failed!");
+                setTimeout(() => setError(""), 4000);
+            });
+    };
+
     const columns = [
         {
             key: 'Order_ID',
@@ -94,54 +169,12 @@ export const OrderPage = ({ className, ...props }) => {
             name: 'Action',
             renderCell: ({ row }) => (
                 <div className="action-cell">
-                    <button className="action-button">•••</button>
+                    <button className="action-button" onClick={() => handleEditClick(row)}>•••</button>
                     <button onClick={() => handleDelete(row.Order_ID)} className="delete-button">Delete</button>
                 </div>
             )
         }
     ];
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
-    };
-
-    const handleAddOrder = () => {
-        const generatedOrderId = Math.floor(1000 + Math.random() * 9000);
-
-        axios.post('http://localhost:3001/api/orders/insert', {
-            new_Order_ID: generatedOrderId,
-            new_order_date: formData.order_date,
-            new_Customer_ID: parseInt(formData.Customer_ID, 10),
-            new_Employee_ID: parseInt(formData.Employee_ID, 10),
-            new_Shipping_ID: parseInt(formData.Shipping_ID, 10)
-        }, {
-            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
-        })
-            .then(res => {
-                fetchAllOrders();
-                setMessage("Order created successfully!");
-                setError("");
-                setTimeout(() => setMessage(""), 3000);
-                setFormData({
-                    order_date: '',
-                    Customer_ID: '',
-                    Employee_ID: '',
-                    Shipping_ID: ''
-                });
-            })
-            .catch(err => {
-                console.error("Insert failed:", err);
-                setError("Insert failed!");
-                setTimeout(() => setError(""), 4000);
-            });
-    };
-
-    const handleDelete = (id) => {
-        axios.delete(`http://localhost:3001/api/orders/${id}`, { headers: { Authorization: `Bearer ${token}` } })
-            .then(() => fetchAllOrders())
-            .catch(err => console.error("Delete failed:", err));
-    };
 
     return (
         <div className={"order-page " + className}>
@@ -171,6 +204,22 @@ export const OrderPage = ({ className, ...props }) => {
                     style={{ height: 500 }}
                 />
             </div>
+
+            {showModal && (
+                <div className="modal-overlay">
+                    <div className="modal">
+                        <h2>Edit Order #{editingOrder.Order_ID}</h2>
+                        <label>Date: <input type="date" name="order_date" value={editingOrder.order_date} onChange={handleModalInputChange} /></label>
+                        <label>Customer ID: <input type="number" name="Customer_ID" value={editingOrder.Customer_ID} onChange={handleModalInputChange} /></label>
+                        <label>Employee ID: <input type="number" name="Employee_ID" value={editingOrder.Employee_ID} onChange={handleModalInputChange} /></label>
+                        <label>Shipping ID: <input type="number" name="Shipping_ID" value={editingOrder.Shipping_ID} onChange={handleModalInputChange} /></label>
+                        <div className="modal-buttons">
+                            <button onClick={handleUpdate}>   Save   </button>
+                            <button onClick={() => setShowModal(false)}>   Cancel   </button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             <div className="footer">
                 <span>Contact Us: buyaozhaowomen@store.com</span>

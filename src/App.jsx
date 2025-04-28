@@ -20,13 +20,13 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function App() {
-    const [setUsers] = useState([]);
+    // const [setUsers] = useState([]);
 
-    useEffect(() => {
-        axios.get('http://localhost:3001/')
-            .then(res => setUsers(res.data))
-            .catch(err => console.error('API error:', err));
-    }, []);
+    // useEffect(() => {
+        //axios.get('http://localhost:3001/')
+           // .then(res => setUsers(res.data))
+          //  .catch(err => console.error('API error:', err));
+    // }, []);
 
     const token = localStorage.getItem("token");
     let role = null;

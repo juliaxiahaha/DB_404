@@ -28,12 +28,12 @@ export const ProductPage = ({ className, ...props }) => {
     const token = localStorage.getItem("token");
     let role = null;
     if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        role = decoded.role;
-      } catch (err) {
-        console.error("Failed to decode token", err);
-      }
+        try {
+            const decoded = jwtDecode(token);
+            role = decoded.role;
+        } catch (err) {
+            console.error("Failed to decode token", err);
+        }
     }
 
     const fetchProducts = () => {
