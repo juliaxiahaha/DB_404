@@ -2,6 +2,7 @@ import React from "react";
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
+import storeimg from "./assets/store-svgrepo-com.svg";
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -17,7 +18,9 @@ const Navbar = () => {
     }
     return (
         <div className="top-bar">
-            <div className="rectangle-4137"></div>
+            <div className="rectangle-4137">
+              <img src={storeimg} alt="Store Icon" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+            </div>
             <button
                 className="title"
                 onClick={() => navigate("/")}
