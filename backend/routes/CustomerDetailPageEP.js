@@ -1,45 +1,14 @@
+// src/routes/updateCustomer.js
 import express from 'express';
+import { authenticateToken, authorizeRoles } from './authentication.js';
 const router = express.Router();
+router.use(authenticateToken);
 
 const toNullable = v => v === undefined || v === '' ? null : v;
 
 export default function(db) {
-    // GET /api/customers/:id
-    router.get('/single/:id', (req, res) => {
-        const id = parseInt(req.params.id, 10);
-        if (isNaN(id)) {
-            return res.status(400).json({ error: 'Invalid customer ID' });
-        }
-
-        db.query('CALL GetCustomerByID(?)', [id], (err, results) => {
-            if (err) {
-                console.error('GetCustomerByID failed:', err);
-                return res.status(500).json({ error: 'Database error' });
-            }
-
-            res.json(results[0][0]); // first result set, first row
-        });
-    });
-
-    // GET /api/shoppingCarts/:customerId
-    router.get('/:customerId', (req, res) => {
-        const customerId = parseInt(req.params.customerId, 10);
-
-        if (isNaN(customerId)) {
-            return res.status(400).json({ error: 'Invalid Customer ID' });
-        }
-
-        db.query('CALL GetShoppingCartByCustomerID(?)', [customerId], (err, results) => {
-            if (err) {
-                console.error('GetShoppingCartByCustomerID failed:', err);
-                return res.status(500).json({ error: 'Database error' });
-            }
-
-            res.json(results[0]); // return result set
-        });
-    });
-
-    router.put('/update', (req, res) => {
+    // PUT /api/customers/update
+    router.put('/update',  (req, res) => {
         const {
             new_Customer_ID,
             new_name,

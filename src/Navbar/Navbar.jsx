@@ -2,7 +2,7 @@ import React from "react";
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
-import search from "./assets/ic-search0.svg";
+import storeimg from "./assets/store-svgrepo-com.svg";
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -18,7 +18,9 @@ const Navbar = () => {
     }
     return (
         <div className="top-bar">
-            <div className="rectangle-4137"></div>
+            <div className="rectangle-4137">
+              <img src={storeimg} alt="Store Icon" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+            </div>
             <button
                 className="title"
                 onClick={() => navigate("/")}
@@ -26,37 +28,47 @@ const Navbar = () => {
                 Store Management System
             </button>
             <div className="navigation">
-                <button className="tab" onClick={() => navigate("/discount")}>
-                    Discount
-                </button>
-                <button className="tab" onClick={() => navigate("/customer")}>Customer</button>
-                <button className="tab" onClick={() => navigate("/products")}>
-                    Products
-                </button>
+                {token && (
+                    <>
+                        <button className="tab" onClick={() => navigate("/discount")}>
+                            Discount
+                        </button>
+                        <button className="tab" onClick={() => navigate("/customer")}>Customer</button>
+                        <button className="tab" onClick={() => navigate("/products")}>
+                            Products
+                        </button>
 
-                {/* Orders -> Button */}
-                <button className="tab" onClick={() => navigate("/orders")}>
-                    Orders
-                </button>
+                        <button className="tab" onClick={() => navigate("/orders")}>
+                            Orders
+                        </button>
 
-                {/* Employees -> Button */}
-                {(role === "Developer" || role === "Manager") && (
-                    <button className="tab" onClick={() => navigate("/employees")}>
-                        Employees
-                    </button>
-                )}
+                        {(role === "Developer" || role === "Manager") && (
+                            <button className="tab" onClick={() => navigate("/employees")}>
+                                Employees
+                            </button>
+                        )}
 
-                {/* Supplier -> Button */}
-                {(role === "Developer" || role === "Manager") && (
-                    <button className="tab" onClick={() => navigate("/supplier")}>
-                        Supplier
-                    </button>
+                        {(role === "Developer" || role === "Manager") && (
+                            <button className="tab" onClick={() => navigate("/supplier")}>
+                                Supplier
+                            </button>
+                        )}
+                    </>
                 )}
                 <button className="tab" onClick={() => navigate("/login")}>Login</button>
-                <div className="textfield">
-                    <div className="text">Search in site</div>
-                    <img className="ic-search" src={search} alt="Search" />
-                </div>
+
+                {token && (
+                    <button
+                        className="logout-button"
+                        style={{ marginLeft: "auto", marginRight: "10px" }}
+                        onClick={() => {
+                            localStorage.removeItem("token");
+                            window.location.href = "/login"; // Redirect and reload
+                        }}
+                    >
+                        Logout
+                    </button>
+                )}
             </div>
         </div>
     );

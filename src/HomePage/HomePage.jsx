@@ -1,12 +1,10 @@
 import "./HomePage.css";
-import Navbar from "../Navbar/Navbar.jsx";
 import vector200 from './assets/vector-2000.svg';
-import vector2001 from './assets/vector-2001.svg';
 import vector2002 from './assets/vector-2002.svg';
 import vector2003 from './assets/vector-2003.svg';
-import frame0 from './assets/frame-4273188170.svg';
-import frame1 from './assets/frame-4273188171.svg';
-import frame2 from './assets/frame-4273188172.svg';
+import frame0 from "./assets/frame-4273188170.svg"
+import frame1 from "./assets/frame-4273188171.svg"
+import frame2 from "./assets/frame-4273188172.svg"
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -63,7 +61,9 @@ export const HomePage = ({ className, ...props }) => {
     return (
         <div className={"home-page " + className}>
             <div className="section">
-                <div className="avatar"></div>
+                <div className="avatar" style={{ fontSize: "36px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  👤
+                </div>
                 <div className="container">
                     <div className="title2">Store Owner </div>
                     <div className="selection">
@@ -85,41 +85,44 @@ export const HomePage = ({ className, ...props }) => {
 
             <div className="list">
                 <div className="container2">
-                    <div className="title3">Employee Information </div>
-                    <div className="description2">Manage and monitor employees </div>
-                    {canManageEmployees && (
-                        <div className="seconday" onClick={() => navigate("/employees")}>
-                            <div className="title4">Manage More Employees </div>
-                        </div>
-                    )}
+                    <div className="title3">Developer Team </div>
+
                 </div>
                 <div className="list2">
-                    <div className="row">
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">👩‍💼 </div>
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="subtitle">Alice Smith </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">🧑‍💼 </div>
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="subtitle">John Doe </div>
-                            </div>
-                        </div>
-                        <div className="item">
-                            <div className="frame">
-                                <div className="icon">👨‍💼 </div>
-                            </div>
-                            <div className="frame-427318906">
-                                <div className="subtitle">Emily Johnson </div>
-                            </div>
-                        </div>
+                  <div className="row">
+                    <div className="item">
+                      <div className="frame">
+                        <div className="icon">👩‍💼 </div>
+                      </div>
+                      <div className="frame-427318906">
+                        <div className="subtitle">Rachel Chen</div>
+                      </div>
                     </div>
+                    <div className="item">
+                      <div className="frame">
+                        <div className="icon">👩‍💼 </div>
+                      </div>
+                      <div className="frame-427318906">
+                        <div className="subtitle">Elaine Li</div>
+                      </div>
+                    </div>
+                    <div className="item">
+                      <div className="frame">
+                        <div className="icon">👨‍💼 </div>
+                      </div>
+                      <div className="frame-427318906">
+                        <div className="subtitle">Terry Mu</div>
+                      </div>
+                    </div>
+                    <div className="item">
+                      <div className="frame">
+                        <div className="icon">👩‍💼 </div>
+                      </div>
+                      <div className="frame-427318906">
+                        <div className="subtitle">Jingwen Xia</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <img className="vector-2002" src={vector2002} />
             </div>
@@ -202,56 +205,6 @@ export const HomePage = ({ className, ...props }) => {
                 </div>
             )}
 
-            <div className="reviews">
-                <div className="container3">
-                    <div className="title6">Customer Reviews </div>
-                    <div className="description3">Feedback from customers </div>
-
-                </div>
-                <div className="list4">
-                    <div className="row">
-                        <div className="card">
-                            <div className="user">
-                                <div className="avatar2">
-                                    <div className="avatar3"></div>
-                                    <div className="frame-4273189062">
-                                        <div className="title10">Customer A </div>
-                                    </div>
-                                </div>
-                                <img className="frame-427318817" src={frame0} />
-                            </div>
-                            <div className="title11">Great service and products. </div>
-                        </div>
-                        <div className="card">
-                            <div className="user">
-                                <div className="avatar2">
-                                    <div className="avatar3"></div>
-                                    <div className="frame-4273189062">
-                                        <div className="title10">Customer B </div>
-                                    </div>
-                                </div>
-                                <img className="frame-4273188172" src={frame1} />
-                            </div>
-                            <div className="title11">Fast shipping, good quality. </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="card">
-                            <div className="user">
-                                <div className="avatar2">
-                                    <div className="avatar3"></div>
-                                    <div className="frame-4273189062">
-                                        <div className="title10">Customer C </div>
-                                    </div>
-                                </div>
-                                <img className="frame-4273188173" src={frame2} />
-                            </div>
-                            <div className="title11">Excellent experience overall. </div>
-                        </div>
-                    </div>
-                </div>
-                <img className="vector-2004" src={vector2003} />
-            </div>
 
             <div className="section2">
                 <div className="container4">
@@ -262,4 +215,3 @@ export const HomePage = ({ className, ...props }) => {
         </div>
     );
 };
-

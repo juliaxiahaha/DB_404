@@ -1,6 +1,9 @@
 // src/routes/getCustomers.js
 import express from 'express';
+import { authenticateToken, authorizeRoles } from './authentication.js';
 const router = express.Router();
+
+router.use(authenticateToken);
 
 export default function(db) {
     // GET /api/customers

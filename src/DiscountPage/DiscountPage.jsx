@@ -1,34 +1,10 @@
 import { jwtDecode } from 'jwt-decode';
 import "./DiscountPage.css";
-import {
-    TableTopTypeIcon,
-    TableTopTypeSearch,
-    TableTopTypeDroplist,
-    TableCellsTypeCheckbox,
-    TableCellsTypeText,
-    TableCellsTypeTag,
-    TableCellsCurre,
-    TableCellsTypeAction,
-    TableCellsTypeSearch,
-} from "../TableParts"
 import 'react-data-grid/lib/styles.css';
 import { DataGrid } from 'react-data-grid';
 import counterIcon from './assets/ic-arrow-drop-down0.svg';
 import searchIcon from './assets/filter-svgrepo-com.svg';
 
-import background0 from './assets/background0.svg';
-import background1 from './assets/background1.svg';
-import baseBgDefault0 from './assets/base-bg-default0.svg';
-import baseBgSelect0 from './assets/base-bg-select0.svg';
-import counter0 from './assets/counter0.svg';
-import icArrowDropDown0 from './assets/ic-arrow-drop-down0.svg';
-import icSearch0 from './assets/ic-search0.svg';
-
-import icons8BackFilled0 from './assets/icons-8-back-filled0.svg';
-import icons8More0 from './assets/icons-8-more0.svg';
-import icons8Right0 from './assets/icons-8-right0.svg';
-import rectangle0 from './assets/rectangle0.svg';
-import rectangle1 from './assets/rectangle1.svg';
 
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -41,6 +17,8 @@ export const DiscountPage = ({ className, ...props }) => {
         start_date: "",
         end_date: ""
     });
+    const [isEditing, setIsEditing] = useState(false);
+    const [editingId, setEditingId] = useState(null);
 
     const [message, setMessage] = useState("");
 
@@ -109,38 +87,74 @@ export const DiscountPage = ({ className, ...props }) => {
     };
 
     const handleAddDiscount = () => {
-        axios.post("http://localhost:3001/discount/", formData)
+        axios.post("http://localhost:3001/discount/", formData, {
+            headers: { Authorization: `Bearer ${token}` }})
             .then(() => axios.get("http://localhost:3001/discount/discounts", { headers: { Authorization: `Bearer ${token}` } }))
             .then(res => {
                 setDiscounts(res.data);
                 setMessage("Discount added successfully!");
                 setTimeout(() => setMessage(""), 3000);
+                setFormData({
+                    discount_type: "",
+                    discount_value: "",
+                    start_date: "",
+                    end_date: ""
+                });
             })
             .catch(err => console.error("Insert failed:", err));
     };
 
     const handleDelete = (id) => {
-        axios.delete(`http://localhost:3001/discount/${id}`)
+        axios.delete(`http://localhost:3001/discount/${id}`, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
             .then(() => setDiscounts(discounts.filter(d => d.Discount_ID !== id)))
             .catch(err => console.error("Delete failed:", err));
     };
 
-    const handleUpdate = (discount) => {
-        const updatedType = prompt("Enter new discount type:", discount.discount_type);
-        const updatedValue = prompt("Enter new discount value:", discount.discount_value);
-        const updatedStartDate = prompt("Enter new start date (YYYY-MM-DD):", discount.start_date?.slice(0, 10));
-        const updatedEndDate = prompt("Enter new end date (YYYY-MM-DD):", discount.end_date?.slice(0, 10));
-        if (updatedType && updatedValue && updatedStartDate && updatedEndDate) {
-            axios.put(`http://localhost:3001/discount/${discount.Discount_ID}`, {
-                discount_type: updatedType,
-                discount_value: updatedValue,
-                start_date: updatedStartDate,
-                end_date: updatedEndDate
+    const startEdit = (discount) => {
+        setFormData({
+            discount_type: discount.discount_type || "",
+            discount_value: discount.discount_value || "",
+            start_date: discount.start_date ? discount.start_date.slice(0, 10) : "",
+            end_date: discount.end_date ? discount.end_date.slice(0, 10) : ""
+        });
+        setIsEditing(true);
+        setEditingId(discount.Discount_ID);
+        setMessage("");
+    };
+
+    const handleDiscountUpdate = () => {
+        axios.put(`http://localhost:3001/discount/${editingId}`, formData, {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+            .then(() => axios.get("http://localhost:3001/discount/discounts", { headers: { Authorization: `Bearer ${token}` } }))
+            .then(res => {
+                setDiscounts(res.data);
+                setMessage("Discount updated successfully!");
+                setTimeout(() => setMessage(""), 3000);
+                setFormData({
+                    discount_type: "",
+                    discount_value: "",
+                    start_date: "",
+                    end_date: ""
+                });
+                setIsEditing(false);
+                setEditingId(null);
             })
-                .then(() => axios.get("http://localhost:3001/discount/discounts", { headers: { Authorization: `Bearer ${token}` } }))
-                .then(res => setDiscounts(res.data))
-                .catch(err => console.error("Update failed:", err));
-        }
+            .catch(err => console.error("Update failed:", err));
+    };
+
+    const handleCancelEdit = () => {
+        setFormData({
+            discount_type: "",
+            discount_value: "",
+            start_date: "",
+            end_date: ""
+        });
+        setIsEditing(false);
+        setEditingId(null);
+        setMessage("");
     };
 
 
@@ -250,7 +264,7 @@ export const DiscountPage = ({ className, ...props }) => {
             renderCell: ({ row }) => (
                 canModifyDiscounts ? (
                     <div style={{ display: 'flex', gap: '8px' }}>
-                        <button onClick={() => handleUpdate(row)}>Edit</button>
+                        <button onClick={() => startEdit(row)}>Edit</button>
                         <button onClick={() => handleDelete(row.Discount_ID)}>Delete</button>
                     </div>
                 ) : (
@@ -334,8 +348,17 @@ export const DiscountPage = ({ className, ...props }) => {
                         </div>
                     </div>
                     <div className="button">
-                        <button className="seconday title4" type="button">Cancel</button>
-                        <button className="primary title5" type="button" onClick={handleAddDiscount}>Add Discount</button>
+                        {isEditing ? (
+                            <>
+                                <button className="seconday title4" type="button" onClick={handleCancelEdit}>Cancel</button>
+                                <button className="primary title5" type="button" onClick={handleDiscountUpdate}>Update</button>
+                            </>
+                        ) : (
+                            <>
+                                <button className="seconday title4" type="button">Cancel</button>
+                                <button className="primary title5" type="button" onClick={handleAddDiscount}>Add Discount</button>
+                            </>
+                        )}
                     </div>
                 </div>
             )}
